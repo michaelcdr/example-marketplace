@@ -44,10 +44,11 @@
                         <form class="form-inline my-2 my-lg-0">
                             <input class="form-control mr-sm-2" type="search" 
                                 placeholder="O que você está procurando?" aria-label="Search">
-                            <button class="btn btn-outline-light my-2 my-sm-0 mr-2" type="submit">Pesquisar</button>
+                            <button class="btn btn-outline-light my-2 my-sm-0 mr-2" 
+                                type="submit">Pesquisar
+                            </button>
                             <button type="button" class="btn btn-outline-light my-2 my-sm-0">
                                 Carrinho <span class="badge badge-light">9</span>
-                                
                             </button>
                         </form>
                     </div>
@@ -55,44 +56,82 @@
             </nav>
         </header>
 
-    <div class="container-fluid">
-        <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
-            <div class="lh-100">
-                <h6 class="mb-0 text-white lh-100">Cadastro de produto</h6>
-                <small>Produto > Cadastrar</small>
+        <div class="container">
+            <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
+                <div class="lh-100">
+                    <h6 class="mb-0 text-white lh-100">Cadastro de produto</h6>
+                    <small>Produto > Cadastrar</small>
+                </div>
             </div>
-        </div>
 
-        <div class="card mt-3">
-            <div class="card-body">
-                <h5>Informe os dados do produto e clique em salvar.</h6>
-                <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="titulo-produto">Título:</label>
-                            <input type="text" name="titulo-produto" id="titulo-produto"
-                            class="form-control" placeholder="" aria-describedby="helpId">
-                            <small id="helpId" class="text-muted">Título do produto</small>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5>Informe os dados do produto e clique em salvar.</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="titulo-produto">Título:</label>
+                                <input type="text" name="titulo-produto" id="titulo-produto"
+                                class="form-control" placeholder="" aria-describedby="helpId">
+                                <small id="helpId" class="text-muted">Título do produto</small>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        
-                        <div class="form-group">
-                            <label for="preco-produto">Preço:</label>
-                            <input type="number" name="preco-produto" id="preco-produto"
-                            class="form-control" placeholder="" aria-describedby="helpId">
-                            <small id="helpId" class="text-muted">Preço do produto</small>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="condicao-produto">Condição:</label>
+                                <select name="condicao-produto" id="condicao-produto"
+                                    class="form-control" placeholder="" aria-describedby="helpId">
+                                    <option value="">Selecione...</option>
+                                    <option value="avista">À vista</option>
+                                    <option value="aprazo">À prazo</option>
+                                </select>
+                                <small id="help-condicao-produto" class="text-muted">Condição monetária do produto</small>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <button type="button" name="btn-salvar" id="btn-salvar" 
-                        class="btn btn-dark btn-block">Salvar produto</button>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="preco-avista-produto">Preço à vista:</label>
+                                <input type="number" name="preco-avista-produto" id="preco-avista-produto"
+                                class="form-control" placeholder="" aria-describedby="helpId">
+                                <small id="helpId" class="text-muted">Preço à vista do produto</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="preco-produto">Preço à prazo:</label>
+                                <input type="number" name="preco-produto" id="preco-produto"
+                                class="form-control" placeholder="" aria-describedby="helpId">
+                                <small id="helpId" class="text-muted">Preço à prazo do produto</small>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="descritivo-produto">Descritivo do produto:</label>
+                                <textarea type="number" name="descritivo-produto" 
+                                    id="descritivo-produto" class="form-control" placeholder="" 
+                                    aria-describedby="helpId"></textarea>
+                                <small id="helpId" class="text-muted">
+                                    Descrição com as caracteristicas do produto</small>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="">Imagem do produto:</label>
+                              <input type="file" class="form-control-file" name="Imagem" id="Imagem"
+                                 placeholder="" aria-describedby="fileHelpId">
+                              <small id="fileHelpId" class="form-text text-muted">
+                                  Selecione uma ou mais imagens para seu produto
+                              </small>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="button" name="btn-salvar" id="btn-salvar" 
+                            class="btn btn-dark btn-block">Salvar produto</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
     

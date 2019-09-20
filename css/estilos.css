@@ -37,14 +37,33 @@ body{
     margin: 0px;
     padding: 15px 0px;
 }
+.linhas-list > li{
+
+}
 .linhas-list > li .card-linha-title{
+    padding-top: 15px;
     text-align: center;
 }
+
 .linhas-list .card-linha{
+    
     border-radius:150px;
     width: 150px;
     margin: 15px;
     height: 150px;
     background-color: #fff;
-    box-shadow: 2px 2px 10px #ccc;
+    border: 2px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .4s all;
+    cursor: pointer;
+}
+.linhas-list .card-linha:hover{
+    box-shadow: 2px 2px 10px var(--primary-color);
+    transition: .4s all;
+    transform: scale(1.2);
+}
+.linhas-list .card-linha img{
+    width: 100px;
 }
