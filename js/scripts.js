@@ -1,7 +1,12 @@
 class CarouselHome{
     constructor(selector){
         console.log('carrosel iniciado.');
-        $(selector).slick();
+        $(selector).slick({
+            fade:true,
+            autoplay:true,
+            arrows:true,
+            dots:true
+        });
     }
 }
 
