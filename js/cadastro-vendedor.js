@@ -7,6 +7,11 @@ class CadastroVendedor{
 
     iniciarEventos(){
         let _self = this;
+
+        _self.mascararCep();
+        _self.mascararCnpj();
+        _self.mascararCpf();
+        _self.mascararDataNascimento();
         //console.log(_self);
         //console.log(_self.tipoPessoaEl);
 
@@ -24,6 +29,19 @@ class CadastroVendedor{
         _self.btnSubmit.submit(() => {
             
         });
+    }
+
+    mascararCep(){
+        $('#cep').mask('00000-000');
+    }
+    mascararCnpj(){
+        $('#cnpj').mask('00.000.000/0000-00', {reverse: true});
+    }
+    mascararCpf(){
+        $('#cpf').mask('000.000.000-00', {reverse: true});
+    }
+    mascararDataNascimento(){
+        //$('#dataNascimento').mask('00/00/0000');
     }
 }
 

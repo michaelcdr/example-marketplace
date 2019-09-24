@@ -15,9 +15,17 @@ body{
     
     background-color: #F5F0EC;
 }
+main{
+    min-height: 768px;
+}
 /*helpers*/
 .hidden{
     display: none;
+}
+.container-login{
+    max-width:330px;
+    margin-left: auto;
+    margin-right: auto;
 }
 /**/
 .social-media-footer {
@@ -99,14 +107,14 @@ body{
 .card-price{
     color:var(--primary-color);
 }
-.card{
+.card-oferta{
     -webkit-transition: -webkit-box-shadow var(--ts-time) ease-out;
     transition: -webkit-box-shadow var(--ts-time) ease-out;
     -o-transition: box-shadow var(--ts-time) ease-out;
     transition: box-shadow var(--ts-time) ease-out;
     transition: box-shadow var(--ts-time) ease-out,-webkit-box-shadow var(--ts-time) ease-out;
 }
-.card:hover{
+.card-oferta:hover{
     
     -webkit-transition: -webkit-box-shadow var(--ts-time) ease-out;
     transition: -webkit-box-shadow var(--ts-time) ease-out;
@@ -180,4 +188,14 @@ footer{
 }
 .social-media-footer img{
     height: 25px;
+}
+
+.fade{
+    opacity: 0;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}
+.fade.in{
+    opacity: 1;
 }
