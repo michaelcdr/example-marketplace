@@ -19,11 +19,14 @@
         <link rel="stylesheet" href="css/estilos.css">
     </head>
     <body>
-        <!-- cabeçalho e navegação -->
-        <header>
+       <!-- cabeçalho de navegação para area administrativa -->
+       <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">LojaWhatever</a>
+                    <a class="navbar-brand" title="Voltar para o site." href="index.html">
+                        <span class="logo-strong">L</span>oja<span class="logo-strong">W</span>hatever 
+                        <small>(área administrativa)</small>
+                    </a>
                     <button class="navbar-toggler" type="button" 
                             data-toggle="collapse" data-target="#navbarSupportedContent" 
                             aria-controls="navbarSupportedContent" aria-expanded="false" 
@@ -34,34 +37,25 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">
-                                    Home <span class="sr-only">(current)</span>
+                                <a class="nav-link" href="lista-vendedor.html">
+                                    Vendedores <span class="sr-only"></span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Ofertas do dia</a>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="lista-produto.html">
+                                    Produtos <span class="sr-only"></span>
+                                </a>
                             </li>
                         </ul>
                         <form class="form-inline">
-                            <div class="input-group mr-3">
-                                <input type="text" class="form-control" placeholder="Pesquisar produto" 
-                                    aria-label="Pesquisar produto" aria-describedby="button-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-light" type="button" id="button-addon2">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-outline-light my-2 my-sm-0" 
-                                title="Acessar seu carrinho" 
-                                data-toggle="tooltip" data-placement="body"  data-container="body" >
-                                <i class="fa fa-cart-plus"></i>  
-                                    <span class="badge badge-light">0</span>
-                            </button>
-                            <a href="" title="Sair do sistema" data-toggle="tooltip" data-placement="body" 
-                                data-container="body" class="btn btn-outline-light ml-2 my-sm-0">
-                                <i class="fa fa-sign-out"></i>  
-                            </a>
+                            <span class="login-nav text-light ml-3">
+                                <i class="fa fa-user"></i> Olá, Michael clique em 
+                                <a href="login.html" class="a-primary" title="Sair no sistema" ]
+                                    data-container="body"
+                                    data-toggle="tooltip" data-placement="body">Sair
+                                </a> 
+                                <br /> para fazer seu logout.
+                            </span>
                         </form>
                     </div>
                 </div>

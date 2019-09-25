@@ -14,23 +14,24 @@ body{
     font-family: 'Roboto', sans-serif;
     background-color: #F5F0EC;
 }
-footer a,
-nav a {
+
+footer .lista-contatos a,
+nav.navbar a {
     color:var(--second-color);
     text-decoration: none;
 }
-footer a:visited,
-nav a:visited{
+footer .lista-contatos a:visited,
+nav.navbar a:visited {
     color:var(--second-color);
     text-decoration: none;
 }
-footer a:hover,
-nav a:hover{
+footer .lista-contatos a:hover,
+nav.navbar a:hover{
     color:var(--second-color);
     text-decoration: none;
 }
-footer a:active,
-nav a:active{
+footer .lista-contatos a:active,
+nav.navbar a:active{
     color:var(--second-color);
     text-decoration: none;
 }
@@ -40,13 +41,12 @@ nav a:active{
 }
 .cols-centered td{
     vertical-align: middle;
-
 }
 a.a-primary:link,
 a.a-primary:visited,
 a.a-primary:hover,
 a.a-primary:active{
-    color:var(--primary-color);
+    color:var(--primary-color) !important;
     text-decoration: none;
 }
 
@@ -192,9 +192,7 @@ main{
     margin: 0px;
     padding: 15px 0px;
 }
-.linhas-list > li{
-    /* display: inline-block; */
-}
+
 .linhas-list > li .card-linha-title{
     padding-top: 15px;
     text-align: center;
@@ -260,7 +258,6 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 .slider-nav-produto .slick-next{
     right:0px;

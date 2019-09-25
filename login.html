@@ -30,18 +30,22 @@
         <main>
            <div class="container-login">
                 <div class="col-md-12">
-                    <form class="form-signin mt-5">
+                    <form class="form-signin mt-5" id="form-login">
                         <div class="card p-3">
                             <h1 class="h4 mb-3 font-weight-normal text-center ">
                                 Olá! Para continuar, digite o seu e-mail e senha
                             </h1>
-                            <label for="inputEmail" class="sr-only">E-mail</label>
-                            <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" required="" autofocus="">
+                            <label for="email" class="sr-only">E-mail</label>
+                            <input type="email" id="email" class="form-control" 
+                                placeholder="E-mail" required="" autofocus="">
                             
-                            <label for="inputPassword" class="sr-only">Password</label>
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="">
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" id="password" class="form-control" 
+                                placeholder="Senha" required="">
                         
-                            <button class="btn btn-lg btn-block mt-3 btn-outline-dark" type="submit">Entrar</button>
+                            <button class="btn btn-lg btn-block mt-3 btn-outline-dark"
+                                 type="submit">Entrar
+                                </button>
                         </div>
                     </form>
                 </div>
@@ -64,5 +68,27 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
         crossorigin="anonymous"></script>
+
+    <script>
+        $(function(){
+            $('form#form-login').submit(function(){
+
+                if (loginTaValido())
+                    document.location = "/lista-produto.html";
+
+                return false;
+            })
+        })
+
+        function loginTaValido(){
+            let email = $("#email").val();
+            let password = $("#password").val();
+
+            if (password != "" && password !=""){
+                return true;
+            }
+            return false
+        }
+    </script>
   </body>
 </html>

@@ -1,8 +1,6 @@
 class PesquisaController{
     constructor(){
         this.animateSections();
-
-        
     }
 
     animateSections(){

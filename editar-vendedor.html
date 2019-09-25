@@ -48,9 +48,6 @@
                             </li>
                         </ul>
                         <form class="form-inline">
-                          
-                            
-                            
                             <span class="login-nav text-light ml-3">
                                 <i class="fa fa-user"></i> Olá, Michael clique em 
                                 <a href="login.html" class="a-primary" title="Sair no sistema" ]
@@ -90,7 +87,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="nome">Nome:</label>
-                                        <input type="text" name="nome" id="nome"
+                                        <input type="text" name="nome" id="nome" value="Vendedor 1"
                                             class="form-control" placeholder="" 
                                             aria-describedby="help-nome">
                                         <small id="help-nome" class="text-muted">Seu nome</small>
@@ -100,7 +97,7 @@
                                     <div class="form-group">
                                         <label for="sobrenome">Sobrenome:</label>
                                         <input type="text" name="sobrenome" id="sobrenome"
-                                            class="form-control" placeholder="" 
+                                            class="form-control" placeholder="" value="Sobre nome do vendedor 1"
                                             aria-describedby="help-sobrenome">
                                         <small id="help-sobrenome" class="text-muted">Seu sobrenome</small>
                                     </div>
@@ -276,8 +273,9 @@
                         </div>
 
                         <div class="col-md-12">
+                            <a class="btn btn-warning"><i class="fa fa-chevron-left"></i></a>
                             <button type="button" name="btn-salvar" id="btn-salvar" disabled="disabled"
-                            class="btn btn-dark btn-block">Cadastrar vendedor</button>
+                            class="btn btn-dark ">Salvar alterações</button>
                         </div>
                     </div>
                 </div>
@@ -300,5 +298,10 @@
 
         <script src="libs/jquery.mask/jquery.mask.min.js"></script>
         <script src="js/cadastro-vendedor.js"></script>
+        <script>
+            $(function(){
+                $('input[type=radio]').first().trigger('click')
+            })
+        </script>
   </body>
 </html>

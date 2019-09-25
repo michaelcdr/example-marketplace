@@ -38,9 +38,7 @@
                                     Home <span class="sr-only">(current)</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Ofertas do dia</a>
-                            </li>
+                            
                         </ul>
                         <form class="form-inline" id="form-pesquisa" action="pesquisa.html" method="GET">
                             <div class="input-group mr-3">
@@ -52,12 +50,12 @@
                                     </button>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-outline-light my-2 my-sm-0" 
+                            <a href="carrinho.html" class="btn btn-outline-light my-2 my-sm-0" 
                                 title="Acessar seu carrinho" 
                                 data-toggle="tooltip" data-placement="body"  data-container="body" >
                                 <i class="fa fa-cart-plus"></i>  
                                     <span class="badge badge-light">0</span>
-                            </button>
+                            </a>
                             
                             <span class="login-nav text-light ml-3">
                                 <i class="fa fa-user"></i> Olá, Faça seu 
@@ -135,10 +133,10 @@
                                         <div class="card h-100 bg-light p-2">
                                             <h4>Resumo do pedido</h4>
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-8">
                                                     Subtotal (1 produtos)
                                                 </div>
-                                                <div class="col-lg-6 text-right">
+                                                <div class="col-lg-4 text-right">
                                                     R$ 3.835,92
                                                 </div>
                                             </div>
@@ -162,16 +160,21 @@
                                             <div class="row">
                                                 <div class="col-md-12">Em até 1x s/ juros</div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <a class="btn btn-block btn-success" href="carrinho-checkout.html">
+                                                        <i class="fa fa-check"></i> Finalizar pedido
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-                
-                
-                
             </div>
         </main>
         
@@ -183,7 +186,7 @@
                         <address>
                             Rua whatever, 376, Bairro Cruzeiro, Caxias do Sul, RS
                         </address>
-                        <ul class="list-unstyled">
+                        <ul class="list-unstyled lista-contatos">
                             <li>
                                 <span>
                                     <i class="fa fa-phone"></i> 
@@ -199,7 +202,8 @@
                             <li>
                                 <span class="email">
                                     <i class="fa fa-envelope"></i> 
-                                    <a href="mailto:contato@lojawhatever.com.br">contato@lojawhatever.com.br</a>
+                                    <a href="mailto:contato@lojawhatever.com.br">
+                                        contato@lojawhatever.com.br</a>
                                 </span>
                             </li>
                         </ul>

@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <label for="titulo-produto">Título:</label>
                                 <input type="text" name="titulo-produto" id="titulo-produto"
-                                    class="form-control" placeholder="" aria-describedby="helpId">
+                                    class="form-control" placeholder="" value="Nome teste de produto" aria-describedby="helpId">
                                 <small id="helpId" class="text-muted">Título do produto</small>
                             </div>
                         </div>
@@ -94,8 +94,8 @@
                                 <select name="condicao" id="condicao"
                                     class="form-control" placeholder="" aria-describedby="help-condicao">
                                     <option value="">Selecione...</option>
-                                    <option value="avista">À vista</option>
-                                    <option value="aprazo">À prazo</option>
+                                    <option value="avista" >À vista</option>
+                                    <option value="aprazo" selected="selected">À prazo</option>
                                 </select>
                                 <small id="help-condicao" class="text-muted">Condição monetária do produto</small>
                             </div>
@@ -104,7 +104,7 @@
                             <div class="form-group">
                                 <label for="preco-avista-produto">Preço à vista:</label>
                                 <input type="number" name="preco-avista-produto" id="preco-avista-produto"
-                                class="form-control" placeholder="" aria-describedby="helpId">
+                                class="form-control" placeholder="" value="2000" aria-describedby="helpId">
                                 <small id="helpId" class="text-muted">Preço à vista do produto</small>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                     <option value="">Selecione...</option>
                                     <option value="1">1X</option>
                                     <option value="2">2X</option>
-                                    <option value="3">3X</option>
+                                    <option value="3" selected="selected">3X</option>
                                     <option value="4">4X</option>
                                 </select>
 
@@ -154,8 +154,10 @@
                             </div>
                         </div>
                         <div class="col-md-12">
+                            <a class="btn btn-warning" href="lista-produto.html">
+                                <i class="fa fa-chevron-left"></i> </a>
                             <button type="button" name="btn-salvar" id="btn-salvar" 
-                            class="btn btn-dark btn-block">Salvar produto</button>
+                            class="btn btn-dark ">Salvar produto</button>
                         </div>
                     </div>
                 </div>
