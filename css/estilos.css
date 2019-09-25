@@ -242,3 +242,38 @@ footer{
 .fade.in{
     opacity: 1;
 }
+
+.slider-nav-produto{
+    width:100%;
+    margin: 0px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.slider-nav-produto .slick-next{
+    right:0px;
+}
+.slider-nav-produto .slick-next,
+.slider-nav-produto .slick-prev{
+    top:0px;
+    z-index: 9999;
+    flex:1;
+}
+.slider-nav-produto .slick-slide{
+    padding: 10px;
+    border-radius: 5px;
+    border:1px solid #cccccc;
+    margin: 10px 5px;
+    cursor: pointer;
+}
+.slider-nav-produto .slick-current{
+    color: #343a40;
+    border-color: #343a40;
+    border:1px solid #343a40;
+}
+
+.preco .preco-avista{
+    color:var(--primary-color);
+}
