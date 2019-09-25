@@ -35,11 +35,21 @@ nav a:active{
     text-decoration: none;
 }
 
+.cols-centered th{
+    text-align: center;
+}
+.cols-centered td{
+    vertical-align: middle;
 
-a.a-primary{
+}
+a.a-primary:link,
+a.a-primary:visited,
+a.a-primary:hover,
+a.a-primary:active{
     color:var(--primary-color);
     text-decoration: none;
 }
+
 .login-nav i{
     font-size: 1.1rem;
 }
