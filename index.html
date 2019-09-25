@@ -42,9 +42,9 @@
                                 <a class="nav-link" href="#">Ofertas do dia</a>
                             </li> -->
                         </ul>
-                        <form class="form-inline">
+                        <form class="form-inline" id="form-pesquisa" action="pesquisa.html" method="GET">
                             <div class="input-group mr-3">
-                                <input type="text" class="form-control" placeholder="Pesquisar produto" 
+                                <input type="text" class="form-control" id="pesquisa" placeholder="Pesquisar produto" 
                                     aria-label="Pesquisar produto" aria-describedby="button-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-light" type="button" id="button-addon2">
@@ -93,8 +93,24 @@
                 <section id="ofertas-container">
                     <h3 class="text-center">Ofertas em destaque</h3>
                     <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <div class="card card-oferta fade h-100">
+                                <div class="p-3">
+                                    <img src="/img/produto3.jpg" class="card-img-top" alt="...">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">
+                                        Guitarra Ibanez RG 7420Z | HH | 7 Cordas | Weathered Black (WK)
+                                    </h5>
+                                    <p class="card-price h3 text-center">
+                                        R$ 3.835,92
+                                    </p>
+                                    <a href="detalhes-produto.html" class="btn btn-block btn-outline-dark">Comprar</a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ">
-                            <div class="card card-oferta mb-3 fade">
+                            <div class="card card-oferta mb-3 fade h-100">
                                 <div class="p-3">
                                     <img src="/img/produto1.jpg" class="card-img-top" alt="...">
                                 </div>
@@ -111,7 +127,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <div class="card card-oferta fade">
+                            <div class="card card-oferta fade h-100">
                                 <div class="p-3">
                                     <img src="/img/produto2.jpg" class="card-img-top" alt="...">
                                 </div>
@@ -129,7 +145,7 @@
                     </div>
                 </section>
                 <section id="linhas" class="fade ">
-                    <h3 class="text-center">Navegue pelas nossas linhas de produtos</h3>
+                    <h3 class="text-center mt-2">Navegue pelas nossas linhas de produtos</h3>
                     <div class="row">
                         <div class="col-lg-12">
                             <ul class="linhas-list">

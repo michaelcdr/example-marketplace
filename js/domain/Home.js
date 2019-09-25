@@ -1,6 +1,8 @@
 class Home{
     constructor(){
         this.animateSections();
+
+        console.log($("#pesquisa"))
     }
 
     animateSections(){

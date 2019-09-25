@@ -14,19 +14,23 @@ body{
     font-family: 'Roboto', sans-serif;
     background-color: #F5F0EC;
 }
-a {
+footer a,
+nav a {
     color:var(--second-color);
     text-decoration: none;
 }
-a:visited{
+footer a:visited,
+nav a:visited{
     color:var(--second-color);
     text-decoration: none;
 }
-a:hover{
+footer a:hover,
+nav a:hover{
     color:var(--second-color);
     text-decoration: none;
 }
-a:active{
+footer a:active,
+nav a:active{
     color:var(--second-color);
     text-decoration: none;
 }
