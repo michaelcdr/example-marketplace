@@ -12,13 +12,45 @@ F5F0EC */
 
 body{
     font-family: 'Roboto', sans-serif;
-    
     background-color: #F5F0EC;
+}
+a {
+    color:var(--second-color);
+    text-decoration: none;
+}
+a:visited{
+    color:var(--second-color);
+    text-decoration: none;
+}
+a:hover{
+    color:var(--second-color);
+    text-decoration: none;
+}
+a:active{
+    color:var(--second-color);
+    text-decoration: none;
+}
+
+
+a.a-primary{
+    color:var(--primary-color);
+    text-decoration: none;
+}
+.login-nav i{
+    font-size: 1.1rem;
+}
+.login-nav{
+    text-align: left;
+    font-size: 0.7rem;
 }
 main{
     min-height: 768px;
 }
 /*helpers*/
+.logo-strong{
+    color:var(--primary-color);
+    font-weight: 400;
+}
 .hidden{
     display: none;
 }
@@ -94,6 +126,11 @@ main{
     transition: all .4s;
 }
 /* personalizações para o carrossel*/
+.slick-dots li.slick-active button:before
+{
+    color:var(--primary-color);
+    opacity:1;
+}
 .slick-dots li button:before{
     font-size: 20px;
 }
@@ -107,26 +144,28 @@ main{
 .card-price{
     color:var(--primary-color);
 }
-.card-oferta{
+.card-oferta {
     -webkit-transition: -webkit-box-shadow var(--ts-time) ease-out;
     transition: -webkit-box-shadow var(--ts-time) ease-out;
     -o-transition: box-shadow var(--ts-time) ease-out;
     transition: box-shadow var(--ts-time) ease-out;
     transition: box-shadow var(--ts-time) ease-out,-webkit-box-shadow var(--ts-time) ease-out;
 }
-.card-oferta:hover{
-    
+.card-oferta:hover {
     -webkit-transition: -webkit-box-shadow var(--ts-time) ease-out;
     transition: -webkit-box-shadow var(--ts-time) ease-out;
     -o-transition: box-shadow var(--ts-time) ease-out;
     transition: box-shadow var(--ts-time) ease-out;
     transition: box-shadow var(--ts-time) ease-out,-webkit-box-shadow var(--ts-time) ease-out;
+
     -webkit-box-shadow: 0 7px 16px 0 rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.1);
     box-shadow: 0 7px 16px 0 rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.1);
-    
 }
+
 /*linhas*/
 .linhas-list {
+    border-radius: .25rem;
+    border: 1px solid rgba(0,0,0,.125);
     list-style: none;
     display: flex;
     flex-direction: row;
