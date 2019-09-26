@@ -14,7 +14,14 @@ body{
     font-family: 'Roboto', sans-serif;
     background-color: #F5F0EC;
 }
-
+a:not(.btn-outline-dark),
+a:link:not(.btn-outline-dark),
+a:visited:not(.btn-outline-dark),
+a:hover:not(.btn-outline-dark),
+a:active:not(.btn-outline-dark){
+    color:var(--second-color);
+    text-decoration: none;
+}
 footer .lista-contatos a,
 nav.navbar a {
     color:var(--second-color);
@@ -36,12 +43,7 @@ nav.navbar a:active{
     text-decoration: none;
 }
 
-.cols-centered th{
-    text-align: center;
-}
-.cols-centered td{
-    vertical-align: middle;
-}
+
 a.a-primary:link,
 a.a-primary:visited,
 a.a-primary:hover,
@@ -50,30 +52,8 @@ a.a-primary:active{
     text-decoration: none;
 }
 
-.login-nav i{
-    font-size: 1.1rem;
-}
-.login-nav{
-    text-align: left;
-    font-size: 0.7rem;
-}
-main{
-    min-height: 768px;
-}
-/*helpers*/
-.logo-strong{
-    color:var(--primary-color);
-    font-weight: 400;
-}
-.hidden{
-    display: none;
-}
-.container-login{
-    max-width:330px;
-    margin-left: auto;
-    margin-right: auto;
-}
-/**/
+/*rodapé com medias sociais e configurações de icones */
+
 .social-media-footer {
     list-style: none;
     display: flex;
@@ -139,6 +119,48 @@ main{
     color: #F3A212;
     transition: all .4s;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+.cols-centered th{
+    text-align: center;
+}
+.cols-centered td{
+    vertical-align: middle;
+}
+.login-nav i{
+    font-size: 1.1rem;
+}
+.login-nav{
+    text-align: left;
+    font-size: 0.7rem;
+}
+main{
+    min-height: 768px;
+}
+/*helpers*/
+.logo-strong{
+    color:var(--primary-color);
+    font-weight: 400;
+}
+.hidden{
+    display: none;
+}
+.container-login{
+    max-width:330px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* personalizações para o carrossel*/
 .slick-dots li.slick-active button:before
 {

@@ -1,0 +1,89 @@
+[33mcommit fe105dc997b65ee46b9f844c6cc694c6890c0e50[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Wed Sep 25 20:59:16 2019 -0300
+
+    varias coisas
+
+[33mcommit 75ce94c866e3fc7e3a901a9fbb0316d87156a3bf[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Wed Sep 25 02:08:42 2019 -0300
+
+    carrinho
+
+[33mcommit 511a122949e5aa92c95da4c7bf56662809e3682e[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Wed Sep 25 01:28:11 2019 -0300
+
+    detalhes do produto com carrossel de imagens
+
+[33mcommit b47fbfd669dd1363886ead9c888425cb7b0817f8[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Wed Sep 25 00:10:47 2019 -0300
+
+    detalhes do produto
+
+[33mcommit ccb8a597e01639cb256be6ffe17007373eeb8b7a[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Tue Sep 24 22:25:40 2019 -0300
+
+    css modificado, js separados em classes, pagina de login , pagina de pesquisa
+
+[33mcommit e9ddf06209490d3e54693cd2a33fee166f49bd51[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Tue Sep 24 01:27:25 2019 -0300
+
+    pagina de lista de produtos e vendedores
+
+[33mcommit 94f0e646fa3d33d319399dcdaa9e4322d8bdd9af[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Tue Sep 24 01:25:22 2019 -0300
+
+    pagina de lista de produtos e vendedores
+
+[33mcommit 0834398c6c3206708c4dc7b0c00b9cacc173deac[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Mon Sep 23 23:29:23 2019 -0300
+
+    cadastro de produto
+
+[33mcommit 175dcbebba2f3110501a8156c961c501f48621cf[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Fri Sep 20 19:32:22 2019 -0300
+
+    categorias na home
+
+[33mcommit 130fe5d4a9e7281bc77c8f928a1068c26558446a[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Fri Sep 20 18:28:09 2019 -0300
+
+    linha de produtos iniciada
+
+[33mcommit 876cf9019ce17852cbf4f84882757edccef69718[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Fri Sep 20 16:38:00 2019 -0300
+
+    carosel adjusts...
+
+[33mcommit 07ef6fd6c28f98806429def521410f496e64dace[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Fri Sep 20 16:25:21 2019 -0300
+
+    carrossel inicado
+
+[33mcommit c8e998d794abb37efd8ecb293bb95688ef07bcc8[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Fri Sep 20 15:44:52 2019 -0300
+
+    navbar modified
+
+[33mcommit 2281dc9d4147fe393b1ae352754e2c52d00882bc[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Fri Sep 20 15:39:42 2019 -0300
+
+    inicio
+
+[33mcommit ddad9dee07e395afc7458f3c7c8f9c115510fbdb[m
+Author: Michael <michaelcdr@hotmail.com>
+Date:   Fri Sep 20 15:35:28 2019 -0300
+
+    inicio
