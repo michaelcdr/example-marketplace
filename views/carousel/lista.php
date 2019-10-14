@@ -1,0 +1,18 @@
+<?php
+    require_once './controllers/CarouselController.php';
+    $homeController = new CarouselController($factory);
+    $caroselItens = $homeController->getCaroselItens();
+?>   
+
+<section id="secao-carrossel">
+    <div id="carrossel-home" class="slick-slider">
+        <?php foreach ($caroselItens as $carousel): ?>
+            <div class="">
+                <img src="/img/carrossel/<?php echo $carousel["FileName"] ?>" 
+                    class="d-block w-100" alt="<?php echo $carousel["FileName"] ?>" 
+                    title="<?php echo $carousel["FileName"] ?>" 
+                    >
+            </div>
+        <?php endforeach?>
+    </div>
+</section>
