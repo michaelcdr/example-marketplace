@@ -1,7 +1,3 @@
-<?php 
-    //echo $_SERVER['REQUEST_URI'] . '<br />';
-    
-?>
 <!doctype html>
 <html lang="en">
     <head>

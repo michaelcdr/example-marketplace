@@ -1,7 +1,5 @@
-<?php 
-    //echo $_SERVER['REQUEST_URI'] . '<br />';
-    require './infra/Facade.php';
-?>
+
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -20,7 +18,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- <link rel="stylesheet" href="libs/slick/slick.css">
         <link rel="stylesheet" href="libs/slick/slick-theme.css"> -->
-        <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="./../css/estilos.css">
     </head>
     <body>
         <?php require_once './views/partials/nav-admin.php' ?>

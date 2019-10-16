@@ -10,15 +10,15 @@
 
     <div class="card mt-3">
         <div class="card-body">
-            <form action="cadastrar-usuario-post.php" method="post" >
+            <form action="/admin/cadastrar-usuario-post" method="post" >
                 <h5>Informe os dados do usuario e clique em salvar.</h6>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="nome">Nome:</label>
-                            <input type="text" name="nome" id="nome"
+                            <label for="name">Nome:</label>
+                            <input type="text" name="name" id="name"
                                 class="form-control" placeholder="" aria-describedby="helpId">
-                            <small id="helpId" class="text-muted">Nome do usuário</small>
+                            <small id="help-name" class="text-muted">Nome do usuário</small>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -26,20 +26,20 @@
                             <label for="login">Login:</label>
                             <input type="text" name="login" id="login"
                                 class="form-control" placeholder="" aria-describedby="helpId">
-                            <small id="helpId" class="text-muted">Login do usuário</small>
+                            <small id="help-login" class="text-muted">Login do usuário</small>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="senha">Senha:</label>
-                            <input type="password" name="senha" id="senha"
+                            <label for="password">Senha:</label>
+                            <input type="password" name="password" id="password"
                                 class="form-control" placeholder="" aria-describedby="helpId">
-                            <small id="helpId" class="text-muted">Senha do usuário</small>
+                            <small id="help-password" class="text-muted">Senha do usuário</small>
                         </div>
                     </div>
                     
                     <div class="col-md-12">
-                        <a class="btn btn-warning" href="listar-usuario.php">
+                        <a class="btn btn-warning" href="lista-usuarios">
                             <i class="fa fa-chevron-left"></i>
                         </a>
                         <button type="submit" name="btn-salvar" id="btn-salvar" 

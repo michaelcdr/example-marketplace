@@ -2,7 +2,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" title="Voltar para o site." href="index.html">
+            <a class="navbar-brand" title="Voltar para o site." href="/">
                 <span class="logo-strong">L</span>oja<span class="logo-strong">W</span>hatever 
                 <small>(área administrativa)</small>
             </a>

@@ -1,13 +1,24 @@
 <?php
 
-    namespace infra\repository;
+    namespace infra\repositories;    
+    use infra\MySqlRepository;
+    use infra\interfaces\IUserRepository;
     
-    use infra\interfaces;
+    use PDO;
 
-    class UserRepository implements IUserRepository
+    class UserRepository 
+        extends MySqlRepository 
+        implements IUserRepository 
     {
-        public function add($user){
-
+        public function add($user)
+        {
+            echo '<pre>';
+            var_dump($user);
+            echo '</pre>';
+            $query = "INSERT INTO Users (Login, Password, Name) values " . 
+            "('". $user->getLogin() . "','" . $user->getPassword()."','".$user->getName()."') ";
+            
+            $this->conn->exec($query);
         }
 
         public function remove($user){
@@ -25,8 +36,14 @@
         public function getByLogin($login){
 
         }
-        public function getAll( $page, $skip,$take){
 
+        public function getAll($page, $skip,$take)
+        {
+            $query = "SELECT UserId, Login, Name FROM Users";
+            $resultado = $this->conn->query($query);
+            $lista = $resultado->fetchAll();
+            return $lista;
+        
         }
     }
 

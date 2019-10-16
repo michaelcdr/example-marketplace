@@ -1,13 +1,7 @@
 <?php
-    
     namespace controllers;
     use infra;
     use infra\repositories;
-    
-    //require_once './infra/MySqlRepositoryFactory.php';
-    //require_once './infra/repositories-mysql/ProductOnOfferRepository.php';
-    //require_once './infra/repositories-mysql/CarouselRepository.php';
-    
 
     class HomeController implements IBaseController
     {

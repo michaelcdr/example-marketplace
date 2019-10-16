@@ -1,19 +1,31 @@
 <?php
     namespace app;
     use controllers\HomeController;
+    use controllers\UserAdminController;
     
     require_once 'autoload.php';
-    require './infra/Facade.php';
+    require_once './infra/Facade.php';
 
     $uri =  $_SERVER["REQUEST_URI"];
     
     switch($uri){
         case "/":
-            //echo "homeeeee<br/>";
-            //var_dump($factory);
             $homeController = new HomeController($factory);
             $homeController->proccessRequest();
-            
+            break;
+        
+        case "/admin/cadastrar-usuario-post":
+            $userController = new UserAdminController($factory);
+            $userController->proccessCreateRequest();
+            break;
+
+        case "/admin/cadastrar-usuario":        
+            require "views/admin/cadastrar-usuario.php";
+            break;
+
+        case "/admin/lista-usuarios":
+            $userController = new UserAdminController($factory);
+            $userController->proccessRequest();
             break;
 
         case "/pesquisa":

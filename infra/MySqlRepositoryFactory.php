@@ -4,6 +4,7 @@
     use infra\repositories;
     use infra\repositories\ProductOnOfferRepository;
     use infra\repositories\CarouselRepository;
+    use infra\repositories\UserRepository;
     use infra\RepositoryFactory;
     use PDO;
 

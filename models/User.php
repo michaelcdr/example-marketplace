@@ -1,25 +1,31 @@
 <?php
+    namespace models;
 
     class User {
 
-        public function __construct($login,$password,$nome){
+        public function __construct($login,$password,$name){
             $this->login = $login;
             $this->password = $password;
-            $this->nome = $nome;
+            $this->name = $name;
         }
-
-
+        
         private $login;
         private $password;
-        private $nome;
+        private $name;
 
         public function getLogin(){
             return $this->login;
         }
 
-        public function getNome(){
-            return $this->nome;
+        public function getPassword(){
+            return $this->password;
         }
+
+        public function getName(){
+            return $this->name;
+        }
+
+        
     }
 
 ?>
