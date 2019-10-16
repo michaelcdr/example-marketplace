@@ -1,5 +1,5 @@
 <?php
-
+    //namespace infra\repository;
     require_once './infra/interfaces/ICategoryRepository.php';
     require_once './infra/MySqlRepository.php';
     

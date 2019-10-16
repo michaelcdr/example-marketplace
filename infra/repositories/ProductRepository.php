@@ -1,4 +1,5 @@
 <?php
+    //namespace infra\repository;
 
     class ProductRepository implements IProductRepository
     {

@@ -1,6 +1,6 @@
 <?php 
     //echo $_SERVER['REQUEST_URI'] . '<br />';
-    require './infra/Facade.php';
+    
 ?>
 <!doctype html>
 <html lang="en">

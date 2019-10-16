@@ -1,5 +1,6 @@
 <?php
-
+    namespace infra;
+    
     abstract class RepositoryFactory {
 
         protected abstract function getConnection();

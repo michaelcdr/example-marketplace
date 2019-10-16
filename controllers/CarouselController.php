@@ -1,4 +1,7 @@
 <?php
+    
+    namespace controllers;
+
     require_once './infra/repositories-mysql/CarouselRepository.php';
     require_once './infra/MySqlRepositoryFactory.php';
 

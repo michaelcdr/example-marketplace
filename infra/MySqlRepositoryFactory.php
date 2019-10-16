@@ -1,4 +1,11 @@
 <?php 
+    
+    namespace infra;
+    use infra\repositories;
+    use infra\repositories\ProductOnOfferRepository;
+    use infra\repositories\CarouselRepository;
+    use infra\RepositoryFactory;
+    use PDO;
 
     class MySqlRepositoryFactory extends RepositoryFactory {
 
@@ -41,6 +48,7 @@
 
         public function getProductOnOfferRepository() 
         {
+            //echo "chegou em getProductOnOfferRepository<br/>";
             return new ProductOnOfferRepository($this->getConnection());
         }
 

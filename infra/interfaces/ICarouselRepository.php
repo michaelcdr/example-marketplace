@@ -1,10 +1,8 @@
 <?php
+    namespace infra\interfaces;
 
     interface ICarouselRepository 
     {
-        // public function add($user);
-        // public function remove($user);
         public function getAll();
-        //public function add();
     }
 ?>

@@ -1,9 +1,3 @@
-<?php
-    require_once './controllers/CarouselController.php';
-    $homeController = new CarouselController($factory);
-    $caroselItens = $homeController->getCaroselItens();
-?>   
-
 <section id="secao-carrossel">
     <div id="carrossel-home" class="slick-slider">
         <?php foreach ($caroselItens as $carousel): ?>

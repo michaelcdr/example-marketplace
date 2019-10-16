@@ -1,9 +1,12 @@
 <?php
-
-    require_once './infra/interfaces/ICarouselRepository.php';
-    require_once './infra/MySqlRepository.php';
-
-    class CarouselRepository extends MySqlRepository implements ICarouselRepository
+    namespace infra\repositories;
+    use infra\MySqlRepository;
+    use infra\interfaces\ICarouselRepository;
+    use PDO;
+    
+    class CarouselRepository 
+        extends MySqlRepository 
+        implements ICarouselRepository
     {
         public function getAll()
         {

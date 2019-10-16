@@ -1,5 +1,7 @@
 <?php
 
+    namespace infra\interfaces;
+
     interface IProductOnOfferRepository
     {
         public function getAll();

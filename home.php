@@ -1,11 +1,6 @@
 <?php
     $titlePage = "Loja Whatever - Sua loja de instrumentos músicais e acessórios";
-    require_once './views/partials/header.php' ;
-    require_once './controllers/HomeController.php';
-    $homeController = new HomeController($factory);
-    $ofertas = $homeController->getProductsOnOffer();
-
-    //setlocale(LC_MONETARY, 'pt_BR');
+    require_once './views/partials/header.php';
 ?>   
 
 <main>
@@ -41,7 +36,7 @@
             </div>
         </section>
 
-        <?php require_once './views/category/lista.php' ?>
+        <?php //require_once './views/category/lista.php' ?>
     </div>
 </main>
 

@@ -1,10 +1,15 @@
 <?php
+    namespace infra\repositories;
+    
+    use infra\MySqlRepository;
+    use infra\interfaces\IProductOnOfferRepository;
+    //require_once './infra/interfaces/IProductOnOfferRepository.php';
+    //require_once './infra/MySqlRepository.php';
+    //require_once './models/ProductOffer.php';
 
-    require_once './infra/interfaces/IProductOnOfferRepository.php';
-    require_once './infra/MySqlRepository.php';
-    require_once './models/ProductOffer.php';
-
-    class ProductOnOfferRepository extends MySqlRepository implements IProductOnOfferRepository
+    class ProductOnOfferRepository 
+        extends MySqlRepository 
+        implements IProductOnOfferRepository
     { 
         public function getAll()
         {
