@@ -29,10 +29,6 @@
                     $this->username, 
                     $this->password
                 );
-                // echo '<pre>';
-                // print_r($this->conn);
-                // echo '</pre>';
-                //echo "pdo connection ok<br/>";
             }
             catch (PDOException $exception)
             {

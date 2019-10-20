@@ -10,13 +10,14 @@
 
     <div class="card mt-3">
         <div class="card-body">
-            <form action="/admin/cadastrar-usuario-post" method="post" >
+            <form action="/admin/cadastrar-usuario-post" method="post" id="formUsuario" >
                 <h5>Informe os dados do usuario e clique em salvar.</h6>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="name">Nome:</label>
                             <input type="text" name="name" id="name"
+                                data-required="true" 
                                 class="form-control" placeholder="" aria-describedby="helpId">
                             <small id="help-name" class="text-muted">Nome do usuário</small>
                         </div>
@@ -25,6 +26,7 @@
                         <div class="form-group">
                             <label for="login">Login:</label>
                             <input type="text" name="login" id="login"
+                                data-required="true" 
                                 class="form-control" placeholder="" aria-describedby="helpId">
                             <small id="help-login" class="text-muted">Login do usuário</small>
                         </div>
@@ -32,7 +34,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="password">Senha:</label>
-                            <input type="password" name="password" id="password"
+                            <input type="password" name="password" id="password" 
+                                data-required="true" 
                                 class="form-control" placeholder="" aria-describedby="helpId">
                             <small id="help-password" class="text-muted">Senha do usuário</small>
                         </div>
@@ -52,4 +55,6 @@
     </div>
 </div>
 
+<?php require_once './views/partials/scripts-admin.php' ?>
+<script src="/js/CadastroUsuario.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>

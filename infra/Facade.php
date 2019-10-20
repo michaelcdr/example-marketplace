@@ -1,5 +1,6 @@
 <?php
     namespace infra;
+    $basePath = __DIR__;
     //echo 'entrou no facade <br />';
     //include_once('dao/UsuarioDao.php');
     //include_once('dao/DaoFactory.php');
@@ -9,6 +10,5 @@
     //use infra\RepositoryFactory;
     //use infra\MySqlRepositoryFactory;
     $factory = new MySqlRepositoryFactory();
-
     //require_once 'autoload.php';
 ?>

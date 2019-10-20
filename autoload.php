@@ -1,4 +1,5 @@
 <?php
+
     //echo 'Cheguei no autoload.<br />';
     function load($namespace)
     {

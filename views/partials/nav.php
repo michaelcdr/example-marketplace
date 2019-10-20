@@ -39,7 +39,7 @@
                 
                 <span class="login-nav text-light ml-3">
                     <i class="fa fa-user"></i> Olá, Faça seu 
-                    <a href="login.html" class="a-primary" 
+                    <a href="/login" class="a-primary" 
                         data-container="body" title="Entrar no sistema" 
                         data-toggle="tooltip" data-placement="body">Login</a> 
                     <br /> ou 

@@ -100,4 +100,6 @@
         </div>
     </div>
 </div>
+
+<?php require_once './views/partials/scripts-admin.php' ?>
 <?php require_once './views/partials/footer-admin.php' ?>

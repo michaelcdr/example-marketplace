@@ -2,8 +2,11 @@
     namespace app;
     use controllers\HomeController;
     use controllers\UserAdminController;
-    
-    require_once 'autoload.php';
+use controllers\UserController;
+
+
+
+require_once 'autoload.php';
     require_once './infra/Facade.php';
 
     $uri =  $_SERVER["REQUEST_URI"];
@@ -16,11 +19,13 @@
         
         case "/admin/cadastrar-usuario-post":
             $userController = new UserAdminController($factory);
-            $userController->proccessCreateRequest();
+            $userController->proccessCreatePostRequest();
             break;
 
-        case "/admin/cadastrar-usuario":        
-            require "views/admin/cadastrar-usuario.php";
+        case "/admin/cadastrar-usuario":  
+            $userController = new UserAdminController($factory);
+            $userController->proccessCreateRequest(null);      
+            
             break;
 
         case "/admin/lista-usuarios":
@@ -30,6 +35,11 @@
 
         case "/pesquisa":
             require "pesquisa.php";
+            break;
+
+        case "/login":
+            $userController = new UserController($factory);
+            $userController->proccessLoginRequest();
             break;
 
         default:
