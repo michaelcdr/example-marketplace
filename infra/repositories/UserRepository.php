@@ -25,12 +25,12 @@
             $stmt->bindParam(':id', $id);
 
             // execute the query
-            if($stmt->execute()){
+            if ($stmt->execute())
                 return true;
-            }    
         }
 
-        public function altera($user){
+        public function altera($user)
+        {
 
         }
 

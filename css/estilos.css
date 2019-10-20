@@ -120,7 +120,11 @@ a.a-primary:active{
     transition: all .4s;
 }
 
-
+.card-img-top{
+    max-height: 200px;
+    max-width: 200px; 
+    width:unset;
+}
 
 
 

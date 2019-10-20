@@ -11,6 +11,7 @@
         {
             // $this->_repoOfertas = $factory->getProductOnOfferRepository();
             // $this->_repoCarousel = $factory->getCarouselRepository();
+            
         }
 
         // public function getProductsOnOffer()

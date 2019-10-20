@@ -1,17 +1,17 @@
 <?php
-    namespace app;
     use controllers\HomeController;
     use controllers\UserAdminController;
-use controllers\UserController;
+    use controllers\UserController;
+    use controllers\SeedController;
+    
 
-
-
-require_once 'autoload.php';
+    require_once 'autoload.php';
     require_once './infra/Facade.php';
 
     $uri =  $_SERVER["REQUEST_URI"];
     
-    switch($uri){
+    switch($uri)
+    {
         case "/":
             $homeController = new HomeController($factory);
             $homeController->proccessRequest();
@@ -35,6 +35,21 @@ require_once 'autoload.php';
 
         case "/pesquisa":
             require "pesquisa.php";
+            break;
+
+        case "/seed":
+            $seed = new SeedController($factory);
+            $seed->proccessRequest();
+            break;
+
+        case "/createdb": 
+            $seed = new SeedController($factory);
+            $seed->proccessCreateDbRequest();
+            break;
+
+        case "/destroydb":
+            $seed = new SeedController($factory);
+            $seed->proccessDestroyRequest();
             break;
 
         case "/login":

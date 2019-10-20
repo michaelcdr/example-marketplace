@@ -1,8 +1,9 @@
+<?php if (count($caroselItens) > 0){ ?>
 <section id="secao-carrossel">
     <div id="carrossel-home" class="slick-slider">
-        <?php foreach ($caroselItens as $carousel): ?>
+        <?php  foreach ($caroselItens as $carousel): ?>
             <div class="">
-                <img src="/img/carrossel/<?php echo $carousel["FileName"] ?>" 
+                <img src="/img/carousel/<?php echo $carousel["FileName"] ?>" 
                     class="d-block w-100" alt="<?php echo $carousel["FileName"] ?>" 
                     title="<?php echo $carousel["FileName"] ?>" 
                     >
@@ -10,3 +11,4 @@
         <?php endforeach?>
     </div>
 </section>
+<?php }?>

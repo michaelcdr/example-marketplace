@@ -1,9 +1,12 @@
-class Home{
-    constructor(){
+class Home
+{
+    constructor()
+    {
         this.animateSections();
     }
 
-    animateSections(){
+    animateSections()
+    {
         //dando uma animada na bagaça...
         setTimeout(() => {
             $('.card').addClass('in');

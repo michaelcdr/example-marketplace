@@ -24,7 +24,7 @@
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/">
                         <span class="logo-strong">L</span>oja<span class="logo-strong">W</span>hatever</a>
                 </div>
             </nav>

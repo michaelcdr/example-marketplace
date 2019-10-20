@@ -5,15 +5,16 @@
     use infra\repositories\ProductOnOfferRepository;
     use infra\repositories\CarouselRepository;
     use infra\repositories\UserRepository;
+    use infra\repositories\SeedRepository;
     use infra\RepositoryFactory;
     use PDO;
 
     class MySqlRepositoryFactory extends RepositoryFactory {
 
         private $host = "localhost";
-        private $db_name = "ProjetoUCS";
+        private $db_name = "projetoucs";
         private $port = "3306";
-        private $username = "root";
+        private $username = "michael";
         private $password = "giacom";
         public $conn;
     
@@ -23,16 +24,18 @@
             $this->conn = null;
             try
             {
+                
                 $this->conn = new PDO("mysql:host=" . $this->host . 
                     ";port=" . $this->port . 
                     ";dbname=" . $this->db_name, 
                     $this->username, 
                     $this->password
                 );
+                //echo 'conexao feita com pdo';
             }
             catch (PDOException $exception)
             {
-                //echo "Não foi possivel conectar-se ao banco de dados, erro ocorrido: " .
+                //echo "erro ao tentar conectar com pdo: " .
                 $exception->getMessage();
             }
             return $this->conn;
@@ -62,6 +65,11 @@
         public function getCategoryRepository()
         {
             return new CategoryRepository($this->getConnection());
+        }
+
+        public function getSeedRepository()
+        {
+            return new SeedRepository($this->getConnection());
         }
     }
 

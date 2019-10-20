@@ -8,5 +8,6 @@
         public abstract function getUserRepository();
         public abstract function getProductOnOfferRepository();
         public abstract function getProductRepository();
+        public abstract function getSeedRepository();
     }
 ?>
