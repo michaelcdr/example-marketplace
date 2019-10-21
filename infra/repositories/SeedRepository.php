@@ -127,6 +127,7 @@
         function createTableUsers()
         {
             $query =  "create table Users(
+                UserId  int NOT NULL PRIMARY KEY AUTO_INCREMENT,
                 Login varchar(100) not null unique,
                 Password varchar(255) not null,
                 Name varchar(255) not null

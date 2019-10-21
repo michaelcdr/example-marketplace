@@ -14,7 +14,7 @@
 
         public function proccessRequest() : void
         {
-            echo "fdasfd";
+            
             $this->_repoSeed->seed();
         }
 

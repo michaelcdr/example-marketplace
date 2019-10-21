@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- <link rel="stylesheet" href="libs/slick/slick.css">
         <link rel="stylesheet" href="libs/slick/slick-theme.css"> -->
+        <link rel="stylesheet" href="/libs/sweetAlert2/sweetalert2.min.css" >
         <link rel="stylesheet" href="./../css/estilos.css">
     </head>
     <body>

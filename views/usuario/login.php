@@ -33,20 +33,19 @@
         <main>
            <div class="container-login">
                 <div class="col-md-12">
-                    <form class="form-signin mt-5" id="form-login" 
-                        method="post" action="/logar">
+                    <form class="form-signin mt-5" id="form-login"  method="post" action="/login-post">
                         <div class="card p-3">
                             <h1 class="h4 mb-3 font-weight-normal text-center ">
                                 Olá! Para continuar, digite o seu login e senha
                             </h1>
                             <label for="login" class="sr-only">Login</label>
-                            <input type="login" id="login" class="form-control" 
-                                placeholder="E-mail" required="" 
+                            <input type="login" id="login" name="login" class="form-control" 
+                                placeholder="Informe seu login" required="" 
                                 autofocus="">
                             
                             <label for="password" class="sr-only">Password</label>
-                            <input type="password" id="password" class="form-control" 
-                                placeholder="Senha" required="">
+                            <input type="password" id="password" name="password" class="form-control" 
+                                placeholder="Informe sua senha" required="">
                         
                             <button class="btn btn-lg btn-block mt-3 btn-outline-dark"
                                  type="submit">Entrar
@@ -70,13 +69,13 @@
 
         <script>
             $(function(){
-                $('form#form-login').submit(function(){
+                // $('form#form-login').submit(function(){
 
-                    if (loginTaValido())
-                        document.location = "/logar";
-
-                    return false;
-                });
+                //     if (loginTaValido()){
+                //         return true;
+                //     } else
+                //         return false;
+                // });
             });
 
             function loginTaValido(){

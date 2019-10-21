@@ -24,8 +24,14 @@ class CadastroUsuario{
             if (isValid){
                 
                 $.post('/admin/cadastrar-usuario-post',model,function(data){
-                    if(data.success){
+                    if (data.success){
                         alert(data.msg)
+                        Swal.fire({
+                            type: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            footer: '<a href>Why do I have this issue?</a>'
+                        });
                     }
                 })
             }

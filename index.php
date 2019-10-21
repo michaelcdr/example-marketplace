@@ -57,6 +57,11 @@
             $userController->proccessLoginRequest();
             break;
 
+        case "/login-post":
+            $userController = new UserController($factory);
+            $userController->proccessLoginPostRequest();
+            break;
+
         default:
             echo "nada encontrado para <strong>".$uri."</strong>";
             break;

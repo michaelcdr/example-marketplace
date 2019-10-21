@@ -44,7 +44,19 @@
 
         public function getByLogin($login)
         {
-
+            $usuario = null;
+            $query = "SELECT UserId, Login, Name FROM Users " . 
+            "WHERE login = ? LIMIT 1 OFFSET 0";
+             
+            $stmt = $this->conn->prepare( $query );
+            $stmt->bindParam(1, $login);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($row) 
+                $usuario = new Usuario($row['id'],$row['login'], $row['senha'], $row['nome']);
+            
+            return $usuario;
         }
 
         public function getAll($page, $skip,$take)
