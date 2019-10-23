@@ -2,18 +2,18 @@ window.carouselHome = new Carousel("#carrossel-home");
 window.home = new Home();
 
 
-window.alertSuccess(dataObj){
+window.alertSuccess = function(dataObj){
     Swal.fire({
         type: 'success',
-        title: data.title,
-        text: data.text
+        title: dataObj.title,
+        text: dataObj.text
     });
 }
 
-window.alertError(dataObj){
+window.alertError = function(dataObj){
     Swal.fire({
         title: 'Ops, algo deu errado',
         type: 'error',
-        text: data.text
+        text: dataObj.text
     });
 }

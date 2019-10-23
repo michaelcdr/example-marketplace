@@ -3,16 +3,24 @@
     use controllers\UserAdminController;
     use controllers\UserController;
     use controllers\SeedController;
-    
+    use services\SessionService;
 
     require_once 'autoload.php';
     require_once './infra/Facade.php';
 
     $uri =  $_SERVER["REQUEST_URI"];
-    
+    $sessionService = new SessionService();
+
+
+    if ($sessionService->isSessionStarted() === FALSE ) {
+        session_start();
+        
+    } 
+
     switch($uri)
     {
         case "/":
+            //echo "nome:" . $_SESSION["userName"] . ", id:". $_SESSION["userId"];
             $homeController = new HomeController($factory);
             $homeController->proccessRequest();
             break;
@@ -52,9 +60,20 @@
             $seed->proccessDestroyRequest();
             break;
 
-        case "/login":
+        case "/logout":
             $userController = new UserController($factory);
-            $userController->proccessLoginRequest();
+            $userController->proccessLogoutRequest();
+            break;
+
+        case "/login":
+            if ($sessionService->isAuthorized() === true)
+                header("Location: /admin/lista-usuarios"); 
+            else
+            {
+                echo $sessionService->isAuthorized();
+                $userController = new UserController($factory);
+                $userController->proccessLoginRequest();
+            }
             break;
 
         case "/login-post":

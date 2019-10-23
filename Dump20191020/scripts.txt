@@ -6,9 +6,6 @@ create table Users(
 	Password varchar(255) not null,
 	Name varchar(255) not null
 );
-alter table usuario 
-add constraint pk_usuario
-primary key(id);
 
 /*produtos*/
 

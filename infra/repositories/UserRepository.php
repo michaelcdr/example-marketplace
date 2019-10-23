@@ -3,7 +3,7 @@
     namespace infra\repositories;    
     use infra\MySqlRepository;
     use infra\interfaces\IUserRepository;
-    
+    use models\User;
     use PDO;
 
     class UserRepository 
@@ -45,7 +45,7 @@
         public function getByLogin($login)
         {
             $usuario = null;
-            $query = "SELECT UserId, Login, Name FROM Users " . 
+            $query = "SELECT UserId, Login, Name, Password FROM Users " . 
             "WHERE login = ? LIMIT 1 OFFSET 0";
              
             $stmt = $this->conn->prepare( $query );
@@ -54,7 +54,7 @@
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if ($row) 
-                $usuario = new Usuario($row['id'],$row['login'], $row['senha'], $row['nome']);
+                $usuario = new User($row['UserId'], $row['Login'], $row['Password'], $row['Name']);
             
             return $usuario;
         }

@@ -1,7 +1,5 @@
 <?php 
      require_once './views/partials/header-admin.php';
-    
-    
 ?>
 
 <div class="container">
