@@ -3,6 +3,9 @@
     use infra;
     use infra\repositories;
     use models\User;
+    use models\JsonSuccess;
+    use models\JsonError;
+
     class UserController implements IBaseController
     {
         private $_repoUser;
@@ -33,7 +36,7 @@
 
         public function proccessLoginPostRequest() 
         {
-            session_start();
+            //session_start();
             //obtendo dados login...
             $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_STRING);
             $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING);
@@ -52,8 +55,10 @@
                 }
             } 
             
-            if ($loginEfetuado === true){
-                echo "login invalido....";
+            if ($loginEfetuado === false){
+                $jsonError = new JsonError("Login ou senha inválidos.");
+                header('Content-type:application/json;charset=utf-8');
+                echo json_encode($jsonError);
             }
         }
     }

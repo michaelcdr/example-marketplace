@@ -7,16 +7,17 @@
 
     require_once 'autoload.php';
     require_once './infra/Facade.php';
-
+    
     $uri =  $_SERVER["REQUEST_URI"];
     $sessionService = new SessionService();
 
 
-    if ($sessionService->isSessionStarted() === FALSE ) {
-        session_start();
+    // if ($sessionService->isSessionStarted() === FALSE ) {
+    //     echo "sessao nao startada";
+    //     session_start();
         
-    } 
-
+    // } 
+    
     switch($uri)
     {
         case "/":

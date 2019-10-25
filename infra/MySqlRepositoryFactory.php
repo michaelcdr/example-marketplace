@@ -12,9 +12,9 @@
     class MySqlRepositoryFactory extends RepositoryFactory {
 
         private $host = "localhost";
-        private $db_name = "projetoucs";
+        private $db_name = "ProjetoUcs";
         private $port = "3306";
-        private $username = "michael";
+        private $username = "root";
         private $password = "giacom";
         public $conn;
     

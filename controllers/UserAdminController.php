@@ -39,7 +39,7 @@
             $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_STRING);
             $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING);
             $name = filter_input(INPUT_POST,'name',FILTER_SANITIZE_STRING);
-            $user = new User($login,$password,$name);
+            $user = new User(null,$login,$password,$name);
             
             //validando modelo se valido retornamos um JSON.
             $userValidator = new UserValidator($user);
@@ -50,8 +50,8 @@
                 $retorno = new JsonSuccess("Usuário cadastrado com sucesso");
                 header('Content-type:application/json;charset=utf-8');
                 echo json_encode($retorno);
-            } 
-            else {
+                
+            } else {
                 $jsonError = new JsonError("Não foi possivel cadastrar o usuário");
                 $jsonError->erros = $userValidator;
                 $this->proccessCreateRequest($userValidator);
