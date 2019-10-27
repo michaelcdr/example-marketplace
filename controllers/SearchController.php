@@ -2,7 +2,7 @@
     
     namespace controllers;
 
-    class PesquisaController implements IBaseController
+    class SearchController implements IBaseController
     {
         // private $_repoOfertas;
         // private $_repoCarousel;
@@ -26,7 +26,7 @@
         
         public function proccessRequest() : void
         {
-            require "teste-pesquisa.php";
+            require "views/home/pesquisa.php";
         }
     }
 ?>

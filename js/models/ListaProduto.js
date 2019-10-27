@@ -1,16 +1,13 @@
-class CadastroProduto{
+class ListaProduto{
     constructor(){
         this.iniciarEventos();
     }
 
     iniciarEventos(){
-        
-
         setTimeout(() => {
             $('.card').addClass('in')
-
         },300)
     }
 }
 
-window.cadastroProduto = new CadastroProduto();
+window.listaProduto = new ListaProduto();

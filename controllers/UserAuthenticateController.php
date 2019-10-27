@@ -2,11 +2,10 @@
     namespace controllers;
     use infra;
     use infra\repositories;
-    use models\User;
     use models\JsonSuccess;
     use models\JsonError;
 
-    class UserController implements IBaseController
+    class UserAuthenticateController implements IBaseController
     {
         private $_repoUser;
 
@@ -14,32 +13,8 @@
         {
             $this->_repoUser = $factory->getUserRepository();
         }
-        
-        public function proccessLoginRequest() : void
-        {
-            if(!isset($_SESSION["userId"])){
-                echo 'deslogado';
-            } else{
-                echo 'logado';
-            }
-            require "views/usuario/login.php";
-        }
 
         public function proccessRequest() : void
-        {
-            
-        }
-        
-        // public function proccessLogoutRequest() 
-        // {
-        //     if (isset($_SESSION["userId"])) {
-        //         session_destroy();
-        //         header("location: /");
-        //         exit;
-        //     } 
-        // }
-
-        public function proccessLoginPostRequest() 
         {
             $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_STRING);
             $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING);

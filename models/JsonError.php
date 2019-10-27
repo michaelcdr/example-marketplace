@@ -18,7 +18,7 @@ class JsonError extends JsonAjax
 
     public function __construct($msg){
         $this->msg = $msg;
-        $this->success = true;
+        $this->success = false;
     }
 
     /**

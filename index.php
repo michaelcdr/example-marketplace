@@ -5,85 +5,31 @@
     use controllers\SeedController;
     use services\SessionService;
 
-    require_once 'autoload.php';
-    require_once './infra/Facade.php';
-    
-    $uri =  $_SERVER["REQUEST_URI"];
+    require_once './configs/autoload.php';
+    require_once './configs/Facade.php';
+    //iniciando sessao
     $sessionService = new SessionService();
+    $sessionService->start();
 
+    $caminho =  "/";
+    if (isset($_SERVER["PATH_INFO"]))
+        $caminho =  $_SERVER["PATH_INFO"];
+    $rotas = require __DIR__ . './configs/router.php';
 
-    // if ($sessionService->isSessionStarted() === FALSE ) {
-    //     echo "sessao nao startada";
-    //     session_start();
-        
-    // } 
+    // echo '<pre>';
+    // var_dump($_SERVER);
+    // echo '</pre>';
+    // echo $caminho;
+    // exit();
+    if (!array_key_exists($caminho, $rotas)){
+        http_response_code(404);
+        exit();
+    }
     
-    switch($uri)
-    {
-        case "/":
-            //echo "nome:" . $_SESSION["userName"] . ", id:". $_SESSION["userId"];
-            $homeController = new HomeController($factory);
-            $homeController->proccessRequest();
-            break;
-        
-        case "/admin/cadastrar-usuario-post":
-            $userController = new UserAdminController($factory);
-            $userController->proccessCreatePostRequest();
-            break;
 
-        case "/admin/cadastrar-usuario":  
-            $userController = new UserAdminController($factory);
-            $userController->proccessCreateRequest(null);      
-            
-            break;
+    //fazendo um de para de rota e controller alvo
+    $controllerAlvo = $rotas[$caminho];
+    $controlador = new $controllerAlvo($factory);
+    $controlador->proccessRequest();
 
-        case "/admin/lista-usuarios":
-            $userController = new UserAdminController($factory);
-            $userController->proccessRequest();
-            break;
-
-        case "/pesquisa":
-            require "pesquisa.php";
-            break;
-
-        case "/seed":
-            $seed = new SeedController($factory);
-            $seed->proccessRequest();
-            break;
-
-        case "/createdb": 
-            $seed = new SeedController($factory);
-            $seed->proccessCreateDbRequest();
-            break;
-
-        case "/destroydb":
-            $seed = new SeedController($factory);
-            $seed->proccessDestroyRequest();
-            break;
-
-        case "/logout":
-            $userController = new UserController($factory);
-            $userController->proccessLogoutRequest();
-            break;
-
-        case "/login":
-            if ($sessionService->isAuthorized() === true)
-                header("Location: /admin/lista-usuarios"); 
-            else
-            {
-                echo $sessionService->isAuthorized();
-                $userController = new UserController($factory);
-                $userController->proccessLoginRequest();
-            }
-            break;
-
-        case "/login-post":
-            $userController = new UserController($factory);
-            $userController->proccessLoginPostRequest();
-            break;
-
-        default:
-            echo "nada encontrado para <strong>".$uri."</strong>";
-            break;
-    }  
 ?>

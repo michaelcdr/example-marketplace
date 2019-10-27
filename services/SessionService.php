@@ -4,7 +4,11 @@
     
     class SessionService
     {
-    
+        public function start()
+        {
+            session_start();
+        }
+
         public function isSessionStarted()
         {
             if ( php_sapi_name() !== 'cli' ) {
@@ -20,9 +24,9 @@
         public function isAuthorized() : bool
         {
             if (isset($_SESSION["userId"])){
-                return true;
+                return TRUE;
             } else {                
-                return false;
+                return FALSE;
             }
         }
     }

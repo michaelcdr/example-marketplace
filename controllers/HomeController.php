@@ -3,6 +3,7 @@
     use infra;
     use infra\repositories;
     use PDO;
+    
     class HomeController implements IBaseController
     {
         private $_repoOfertas;
@@ -33,7 +34,7 @@
             //echo "request index";
             $ofertas = $this->getProductsOnOffer();
             $caroselItens = $this->getCaroselItens();
-            require "home.php";
+            require "views/home/home.php";
         }
     }
 ?>

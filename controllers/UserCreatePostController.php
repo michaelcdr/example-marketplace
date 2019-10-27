@@ -7,7 +7,7 @@
     use models\JsonError;
     use models\User;
 
-    class UserAdminController implements IBaseController
+    class UserCreatePostController implements IBaseController
     {
         private $_repoUser;
 
@@ -17,42 +17,6 @@
         }
         
         public function proccessRequest() : void
-        {
-            $users = $this->_repoUser->getAll(1, null);
-            require "views/admin/lista-usuario.php";
-        }
-        
-        public function proccessListRequest():void
-        {
-            // $page = $_GET["page"];
-            // $pesquisa = $_GET["pesquisa"];
-            $users = $this->_repoUser->getAll(0, null);
-            require "views/admin/lista-usuarios-table.php";
-        }
-
-        public function proccessCreateRequest() : void
-        {
-            require "views/admin/cadastrar-usuario.php";
-        }
-        
-        public function proccessDeleteRequest()
-        {
-            try
-            {
-                $this->_repoUser->remove($_POST["id"]);
-                $retorno = new JsonSuccess("Usuário removido com sucesso.");
-                header('Content-type:application/json;charset=utf-8');
-                echo json_encode($retorno);
-            }  
-            catch (Exception $e) 
-            {
-                $retorno = new JsonError("Não foi possivel cadastrar o usuário");   
-                header('Content-type:application/json;charset=utf-8');
-                echo json_encode($retorno);
-            }
-        }
-
-        public function proccessCreatePostRequest() 
         {
             // echo "mostrando dados do post<br />";
             // echo "login: " . $_POST["login"] . "<br />";

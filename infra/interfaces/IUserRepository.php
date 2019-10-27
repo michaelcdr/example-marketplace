@@ -10,7 +10,7 @@
         public function altera($user);
         public function getById($id);
         public function getByLogin($login);
-        public function getAll( $page, $skip,$take);
+        public function getAll($page,$search);
     }
 
 ?>

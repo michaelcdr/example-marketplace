@@ -17,7 +17,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Pesquise pelo titulo da categoria" 
+                            <input type="text" class="form-control" id="search-users" placeholder="Pesquise pelo titulo da categoria" 
                                 aria-label="Pesquise pelo titulo da categoria" aria-describedby="btn-pesquisar">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="btn-pesquisar">
@@ -35,51 +35,13 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-bordered table-hovered table-striped">
-                        <thead>
-                            <tr>
-                                <th width="10%"></th>
-                                <th>Login</th>
-                                <th>Nome</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php  if (count($users) == 0) : ?>
-                                <tr>
-                                    <td colspan="3">Nenhum registro cadastrado.</td>
-                                </tr>
-                            <?php else  :?>
-                                <?php foreach ($users as $user): ?>
-                                    <tr>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button class='btn btn-sm btn-outline-danger' 
-                                                    data-id="<?php echo $user["UserId"] ?>">
-                                                    <i class="fa fa-remove"></i>
-                                                </button>
-                                                <a class='btn btn-sm btn-outline-dark' 
-                                                    href="/admin/editar-usuario/<?php echo $user["UserId"] ?>">
-                                                    <i class="fa fa-edit" ></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <?php echo $user["Login"] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $user["Name"] ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach?>
-                            <?php endif ?>
-                        </tbody>
-                    </table>
+                    <?php include './views/admin/users/lista-usuarios-table.php' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <p>
-                        <a class="btn btn-dark btn-sm" href="/cadastrar-usuario">
+                        <a class="btn btn-dark btn-sm" href="/admin/cadastrar-usuario">
                             <i class="fa fa-plus"></i> Cadastrar usuário
                         </a>
                     </p>
@@ -106,4 +68,5 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
+<script src="/js/models/ListaUsuarios.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>

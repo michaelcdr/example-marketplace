@@ -9,19 +9,13 @@ class LoginUsuario
 
     initEvents(){
         let _self = this;
-        _self._formEl.submit(function(){
-            
-            // if (_self.validate()){
-            //     
-            // } 
-            let objValidate = _self.validate();
-            console.log('validate: ' + objValidate.isValid);
+        _self._formEl.submit(() => {
+            _self.login();
             return false;
         });
     }
 
     validate(){
-        let _self = this;
         let isValid = true;
         $('input[required]').each((index,el) => {
             if ($(el).val() === ''){
@@ -29,25 +23,40 @@ class LoginUsuario
                 isValid = false;
             }
         });
-        return { isValid };
+        return isValid;
     }
 
-    getModelData(){
+    getModelData()
+    {
         let _self = this;
         return {
-            login : _self._loginEl.val(),
-            password: _self._passwordEl.val()
+            isValid : _self.validate(),
+            model : {
+                login : _self._loginEl.val(),
+                password: _self._passwordEl.val()
+            }
         };
     }
 
-    login(){
-        $.post('/login-post', this.getModelData(), function(data){
-            if (data.Sucesso){
-               
-            } else{
-                alertError({text: data.msg });
-            }
-        });
+    login()
+    {
+        let _self = this;
+        let objModel = _self.getModelData();
+        let btn =_self._formEl.find('button');
+        if (objModel.isValid){
+            btn.button('loading');
+            $.post('/autenticar', objModel.model, function(data){
+                if (data.success){
+                    document.location = "/";
+                } else {
+                    alertError({ text: data.msg });
+                    btn.button('reset');
+                }
+            }).fail(() => {
+                alertServerError();
+                btn.button('reset');
+            });
+        }
         return false;
     }
 }

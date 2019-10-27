@@ -17,8 +17,20 @@
                         Home <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                <?php  if(isset($_SESSION["userId"])): ?>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">
+                            Minhas compras
+                        </a>
+                    </li>
+                <?php endif;?>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/vender">
+                        Vender
+                    </a>
+                </li>
             </ul>
-            <form class="form-inline" id="form-pesquisa" action="pesquisa.php" method="GET">
+            <form class="form-inline" id="form-pesquisa" action="/pesquisa" method="GET">
                 <div class="input-group mr-3">
                     <input type="text" class="form-control" id="pesquisa" 
                         placeholder="Pesquisar produto" 

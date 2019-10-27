@@ -48,7 +48,8 @@
                             <input type="password" id="password" name="password" class="form-control" 
                                 placeholder="Informe sua senha" required="">
                         
-                            <button class="btn btn-lg btn-block mt-3 btn-outline-dark"
+                            <button class="btn btn-lg btn-block mt-3 btn-outline-dark" 
+                                data-loading-text="Processando, aguarde <i class='fa fa-circle-o-notch fa-spin'></i>"
                                  type="submit">Entrar
                             </button>
                         </div>
@@ -66,6 +67,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
             crossorigin="anonymous"></script>
         <script src="/libs/sweetAlert2/sweetalert2.min.js"></script>
+        <script src="/js/bs4-extensions.js"></script>
         <script src="/js/sweetAlertHelper.js"></script>
         <script src="/js/models/LoginUsuario.js"></script>
         

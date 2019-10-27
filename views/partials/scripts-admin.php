@@ -3,3 +3,4 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
 crossorigin="anonymous"></script>
 <script src="/libs/sweetAlert2/sweetalert2.min.js" ></script>
+<script src="/js/sweetAlertHelper.js"></script>

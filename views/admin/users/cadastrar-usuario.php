@@ -56,5 +56,5 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
-<script src="/js/CadastroUsuario.js"></script>
+<script src="/js/models/CadastroUsuario.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>

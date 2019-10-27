@@ -36,15 +36,17 @@
                 </ul>
                 <div class="form-inline">
                     <span class="login-nav text-light ml-3">
-                        <i class="fa fa-user"></i> Olá, 
-                        <a href="/admin/detalhes/<?php echo $_SESSION["userId"]?>" class="a-primary" >
-                            <?php echo $_SESSION["userName"] ?>
-                        </a> clique em 
-                        <a href="/logout" class="a-primary" title="Sair no sistema" 
-                            data-container="body"
-                            data-toggle="tooltip" data-placement="body">Sair
-                        </a> 
-                        <br /> para fazer seu logout.
+                        <?php if(isset($_SESSION["userId"])) :?>
+                            <i class="fa fa-user"></i> Olá, 
+                            <a href="/admin/detalhes/<?php echo $_SESSION["userId"]?>" class="a-primary" >
+                                <?php echo $_SESSION["userName"] ?>
+                            </a> clique em 
+                            <a href="/logout" class="a-primary" title="Sair no sistema" 
+                                data-container="body"
+                                data-toggle="tooltip" data-placement="body">Sair
+                            </a> 
+                            <br /> para fazer seu logout.
+                        <?php endif;?>
                     </span>
                 </div>
             </div>

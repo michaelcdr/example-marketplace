@@ -82,6 +82,7 @@
         <script src="libs/slick/slick.min.js"></script>
         <script src="js/models/Home.js"></script>
         <script src="js/models/Carrossel.js"></script>
+        <script src="js/sweetAlertHelper.js"></script>
         <script src="js/scripts.js"></script>
     </body>
 </html>
