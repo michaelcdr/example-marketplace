@@ -26,7 +26,7 @@
                             <p class="card-price h3 text-center">
                                 R$ <?php echo $oferta["Price"] ?>
                             </p>
-                            <a href="Product.php?id=<?php echo $oferta["ProductId"] ?>" 
+                            <a href="/detalhes-produto?id=<?php echo $oferta["ProductId"] ?>" 
                                 class="btn btn-block btn-outline-dark"> Ver detalhes
                             </a>
                         </div>

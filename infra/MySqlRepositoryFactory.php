@@ -3,9 +3,11 @@
     namespace infra;
     use infra\repositories;
     use infra\repositories\ProductOnOfferRepository;
+    use infra\repositories\ProductRepository;
     use infra\repositories\CarouselRepository;
     use infra\repositories\UserRepository;
     use infra\repositories\SeedRepository;
+    use infra\repositories\CartRepository;
     use infra\RepositoryFactory;
     use PDO;
 
@@ -54,6 +56,7 @@
 
         public function getProductRepository() 
         {
+            
             return new ProductRepository($this->getConnection());
         }
 
@@ -70,6 +73,10 @@
         public function getSeedRepository()
         {
             return new SeedRepository($this->getConnection());
+        }
+        public function getCartRepository()
+        {
+            return new CartRepository($this->getConnection());
         }
     }
 

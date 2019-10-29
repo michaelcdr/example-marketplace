@@ -17,22 +17,22 @@
         {
             //inserindo produtos...
             $this->conn->exec(
-                "insert into products(title,description,price,createdat,createdby)values(
+                "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
                     'GUITARRA FENDER STANDARD TELECASTER MEXICANA BLACK - 014-5102-506',
                     'A Fender traz a Standard Telecaster para guitarristas que apreciam estilo e versatilidade por um super valor!',
-                    5690,now(),'michael');"
+                    5690,now(),'michael',1,10,'001');"
             );
             $this->conn->exec(
-                "insert into products(title,description,price,createdat,createdby)values(
+                "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
                     'GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST (2012) - ACOMPANHA HARD CASE',
                     'A lendária guitarra Stratocaster em sua versão mais tradicional!',
-                    7990,now(),'michael');"
+                    7990,now(),'michael',1,10,'002');"
             );
             $this->conn->exec(
-                "insert into products(title,description,price,createdat,createdby)values(
+                "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
                     'GUITARRA JACKSON DINKY JS11 GLOSS BLACK - 291 0110 503',
                     'Uma guitarra de alta qualidade e excelente preço da lendária marca Jackson!',
-                    1790,now(),'michael');"
+                    1790,now(),'michael',1,10,'003');"
             );
             
             //inserindo imagens de produtos...
@@ -70,21 +70,7 @@
                 , 'jackson-dincky-JS11GLOSSBLACK2910110503.jpg');"
             );
 
-            //transformando produtos em ofertas
-            $this->conn->exec(
-                "insert into productsonoffer(productid,price)      values 
-                ((select ProductId from products where title like '%GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST (2012) - ACOMPANHA HARD CASE%' limit 1 ), 1000);"
-            );
-            $this->conn->exec(
-                "insert into productsonoffer(productid,price)
-                values 
-                ((select ProductId from products where title like '%GUITARRA FENDER STANDARD TELECASTER MEXICANA BLACK - 014-5102-506%' limit 1 ), 1000);"
-            );
-            $this->conn->exec(
-                "insert into productsonoffer(productid,price)
-                values 
-                ((select ProductId from products where title like '%GUITARRA JACKSON DINKY JS11 GLOSS BLACK - 291 0110 503%' limit 1) ,1000);"
-            );
+           
 
             // carrossel
             $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-1.jpg',1)");
@@ -97,16 +83,15 @@
         {
             $this->createTableUsers();  
             $this->createTableProducts();
-            $this->createTableProductOffers();
             $this->createTableProductImages();
             $this->createTableCategories();
             $this->createTableCarouselImages();
+            $this->createTableCart();
         }
 
         function destroyDatabase()
         {   
-            $query = "drop table ProductsOnOffer";
-            $this->conn->exec($query);
+            
             
             $query = "drop table ProductsImages";
             $this->conn->exec($query);
@@ -122,6 +107,8 @@
             
             $query = "drop table Users";
             $this->conn->exec($query);
+
+            $this->conn->exec("drop table Carts");
         }
 
         function createTableUsers()
@@ -143,21 +130,14 @@
                 Description varchar(255),
                 Price decimal(10,2),
                 CreatedAt datetime,
-                CreatedBy varchar(255)
+                CreatedBy varchar(255),
+                Offer bit(1) not null,
+                Stock int(11) not null,
+                Sku varchar(45) not null
             );";
             $this->conn->exec($query);
         }
 
-        function createTableProductOffers()
-        {
-            $query = "CREATE TABLE ProductsOnOffer (
-                ProductsOnOfferId int PRIMARY KEY AUTO_INCREMENT,
-                ProductId int NOT NULL,   
-                Price decimal(10,2), 
-                FOREIGN KEY(ProductId) REFERENCES Products(ProductId)
-            );";
-            $this->conn->exec($query);
-        }
 
         function createTableProductImages()
         {
@@ -189,6 +169,19 @@
                 PRIMARY KEY (CarouselImageId)
             );";
             $this->conn->exec($query);
+        }
+
+        function createTableCart()
+        {
+            $this->conn->exec(
+                "CREATE TABLE Carts (
+                    CartId varchar(255) NOT NULL  PRIMARY KEY,
+                    ProductId int not null,    
+                    Qtd int not null,
+                    CreatedAt datetime not null,
+                    FOREIGN KEY(ProductId) REFERENCES Products(ProductId)
+                );"
+            );
         }
     }
 

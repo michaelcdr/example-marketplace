@@ -9,5 +9,6 @@
         public abstract function getProductOnOfferRepository();
         public abstract function getProductRepository();
         public abstract function getSeedRepository();
+        public abstract function getCartRepository();
     }
 ?>

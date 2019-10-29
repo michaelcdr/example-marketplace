@@ -1,10 +1,11 @@
 <?php
-
+    namespace infra\interfaces;
+    
     interface IProductRepository 
     {
         // public function add($user);
         // public function remove($user);
-        public function getAll( $page, $skip, $take);
-        public function add($nome,$description,$price,$createdBy);
+        public function getAll( $page, $skip);
+        public function add($product);
     }
 ?>

@@ -7,7 +7,8 @@
     use controllers\UserAuthenticateController;
     use controllers\SearchController;
     use controllers\SeedController;
-
+    use controllers\DetailsProductController;
+    
     use controllers\UserCreateController;
     use controllers\UserEditController;
     use controllers\UserEditPostController;
@@ -15,7 +16,8 @@
     use controllers\UserDeleteController;
     use controllers\UserListController;
     use controllers\UserPartiaListController;
-
+    use controllers\AddToCartController;
+    
     $routes = [
         "/" => HomeController::class,
         "/createdb" => CreateDbController::class, 
@@ -25,6 +27,8 @@
         "/autenticar" => UserAuthenticateController::class,
         "/pesquisa" => SearchController::class,
         "/seed" => SeedController::class,
+        "/detalhes-produto" => DetailsProductController::class,
+        "/adicionar-carrinho" => AddToCartController::class,
         "/admin/editar-usuario" => UserEditController::class,
         "/admin/editar-usuario-post" => UserEditPostController::class,
 

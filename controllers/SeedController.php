@@ -16,16 +16,5 @@
         {
             $this->_repoSeed->seed();
         }
-
-        // public function proccessDestroyRequest() : void
-        // {
-        //     $this->_repoSeed->destroyDatabase();
-        // }
-
-        // public function proccessCreateDbRequest() : void
-        // {
-        //     $this->_repoSeed->createDb();
-        // }
-        
     }
 ?>
