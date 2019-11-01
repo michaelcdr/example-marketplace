@@ -74,6 +74,7 @@
         {
             return new SeedRepository($this->getConnection());
         }
+        
         public function getCartRepository()
         {
             return new CartRepository($this->getConnection());

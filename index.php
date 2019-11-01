@@ -1,8 +1,4 @@
 <?php
-    use controllers\HomeController;
-    use controllers\UserAdminController;
-    use controllers\UserController;
-    use controllers\SeedController;
     use services\SessionService;
 
     require_once './configs/autoload.php';

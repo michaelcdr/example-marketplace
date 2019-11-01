@@ -1,6 +1,7 @@
 <?php
     namespace models;
 
+    
     class Product
     {
         private $ProductId;
@@ -15,11 +16,7 @@
         private $Seller;
         private $Images;
 
-        public function __get($title)
-        {
-            return $this->$Title;            
-        }
-        
+      
         public function __construct($id, $title, $price, $description, $createdAt, $createdBy,$offer,$stock,$sku)
         {
             $this->ProductId = $id;
