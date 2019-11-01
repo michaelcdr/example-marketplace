@@ -175,7 +175,8 @@
         {
             $this->conn->exec(
                 "CREATE TABLE Carts (
-                    CartId varchar(255) NOT NULL  PRIMARY KEY,
+                    CartId int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                    CartGroup nvarchar(255) not null,
                     ProductId int not null,    
                     Qtd int not null,
                     CreatedAt datetime not null,
