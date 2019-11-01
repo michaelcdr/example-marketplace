@@ -1,6 +1,8 @@
 <?php
     namespace infra\repositories;
-    use infra\MySqlRepository;
+
+use Exception;
+use infra\MySqlRepository;
     use infra\interfaces;
     use infra\interfaces\ISeedRepository;
 
@@ -15,6 +17,9 @@
 
         public function seed()
         {
+            $this->destroyDatabase();
+            $this->createDb();
+
             //inserindo produtos...
             $this->conn->exec(
                 "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
@@ -89,29 +94,24 @@
             $this->createTableCart();
         }
 
-        function destroyDatabase()
+        public function destroyDatabase()
         {   
-            
-            
-            $query = "drop table ProductsImages";
-            $this->conn->exec($query);
-            
-            $query = "drop table Products";
-            $this->conn->exec($query);
-            
-            $query = "drop table CarouselImages";
-            $this->conn->exec($query);
-            
-            $query = "drop table Categories";
-            $this->conn->exec($query);
-            
-            $query = "drop table Users";
-            $this->conn->exec($query);
-
-            $this->conn->exec("drop table Carts");
+            try{
+                $this->conn->exec("drop table if exists ProductsImages");
+                $this->conn->exec("drop table if exists Carts");
+                $this->conn->exec("drop table if exists Products");
+                $this->conn->exec("drop table if exists CarouselImages");
+                $this->conn->exec("drop table if exists Categories");
+                $this->conn->exec("drop table if exists Users");
+            }
+            catch(Exception $ex)
+            {
+                echo "fdasdfas";
+                var_dump($ex);
+            }
         }
 
-        function createTableUsers()
+        public function createTableUsers()
         {
             $query =  "create table Users(
                 UserId  int NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -122,7 +122,7 @@
             $this->conn->exec($query);
         }
 
-        function createTableProducts()
+        public function createTableProducts()
         {
             $query = "CREATE TABLE Products (
                 ProductId int NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -139,7 +139,7 @@
         }
 
 
-        function createTableProductImages()
+        public function createTableProductImages()
         {
             $query = "CREATE TABLE ProductsImages (
                 ProductImageId int PRIMARY KEY AUTO_INCREMENT, 
@@ -150,7 +150,7 @@
             $this->conn->exec($query);
         }
 
-        function createTableCategories()
+        public function createTableCategories()
         {
             $query = "CREATE TABLE Categories (
                 CategoryId int NOT NULL AUTO_INCREMENT,
@@ -160,7 +160,7 @@
             $this->conn->exec($query);
         }
 
-        function createTableCarouselImages()
+        public function createTableCarouselImages()
         {      
             $query = "CREATE TABLE CarouselImages (
                 CarouselImageId int NOT NULL AUTO_INCREMENT,
@@ -171,12 +171,17 @@
             $this->conn->exec($query);
         }
 
-        function createTableCart()
+        public function createTableCart()
         {
             $this->conn->exec(
                 "CREATE TABLE Carts (
+<<<<<<< HEAD
                     CartId int NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     CartGroup nvarchar(255) not null,
+=======
+                    CartId INT NOT NULL  PRIMARY KEY AUTO_INCREMENT,
+                    CartGroup varchar(255) NOT NULL,
+>>>>>>> d62e48c023f42a953f7807689990f57ea88e27fb
                     ProductId int not null,    
                     Qtd int not null,
                     CreatedAt datetime not null,

@@ -1,9 +1,6 @@
 <?php
     namespace controllers;
-    use infra;
-    use infra\repositories;
-    use PDO;
-
+    
     class CreateDbController implements IBaseController
     {
         private $_repoSeed;

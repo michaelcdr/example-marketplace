@@ -17,7 +17,8 @@
     use controllers\UserListController;
     use controllers\UserPartiaListController;
     use controllers\AddToCartController;
-    
+    use controllers\CartController;
+
     $routes = [
         "/" => HomeController::class,
         "/createdb" => CreateDbController::class, 
@@ -28,6 +29,7 @@
         "/pesquisa" => SearchController::class,
         "/seed" => SeedController::class,
         "/detalhes-produto" => DetailsProductController::class,
+        "/carrinho"=>CartController::class,
         "/adicionar-carrinho" => AddToCartController::class,
         "/admin/editar-usuario" => UserEditController::class,
         "/admin/editar-usuario-post" => UserEditPostController::class,

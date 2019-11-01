@@ -58,7 +58,7 @@
                                     <small class="parcela">em 1x no cartão</small>
                                 </div>
                                 <a class="btn btn-success btn-block" href="/adicionar-carrinho?id=<?php echo $product->getId(); ?>">
-                                    <i class="fa fa-shopping-cart"></i> Comprar 
+                                    <i class="fa fa-shopping-cart"></i> Adicionar no carrinho
                                 </a>
                             </div>
                         </div>
