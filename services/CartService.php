@@ -22,15 +22,35 @@
             $product = $this->_repoProd->getById($productId);
             if (isset($_SESSION["cart"]))
             {
+                //ja existe um carrinho na sessao...
                 $cartViewModel = $_SESSION["cart"];
-                $cartViewModel->addProduct($product);
                 
+                //obtendo imagem principal...
+                $firstImage = null;
+                if (!is_null($product->getImages()) && count($product->getImages()) > 0)
+                    $firstImage = $product->getImages()[0]["FileName"];
+
+                //adicionando produto no objeto de carrinho
+                $cartViewModel->addProduct(
+                    new ProductCart(
+                        null,
+                        $cartViewModel->getCartGroup(),
+                        $product->getId(),
+                        $product->getTitle(),
+                        $product->getPrice(),
+                        1,
+                        $firstImage,
+                        $product->getPrice()
+                    )
+                );
+                //atualizando na sessao
+                $_SESSION["cart"] = $cartViewModel;
                 return $cartViewModel;
             } 
             else 
             {
                 //carrinho nao existe, criando
-                $cartId = md5(uniqid(rand(), true));
+                $cartGroup = md5(uniqid(rand(), true));
                 $products = array();
                 $firstImage = null;
                 if (!is_null($product->getImages()) && count($product->getImages()) > 0)
@@ -38,7 +58,7 @@
                     
                 $products[] = new ProductCart(
                     null,
-                    $cartId,
+                    $cartGroup,
                     $product->getId(),
                     $product->getTitle(),
                     $product->getPrice(),
@@ -47,6 +67,7 @@
                     $product->getPrice()
                 );
                 $cartViewModel = new CartViewModel(
+                    $cartGroup,
                     $products,
                     $product->getPrice()
                 );

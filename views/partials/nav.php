@@ -1,3 +1,10 @@
+<?php 
+    $qtdItensCarrinho = 0;
+    if(isset($_SESSION["cart"])){
+        $qtdItensCarrinho = count($_SESSION["cart"]->getProducts());
+        
+    }
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="/">
@@ -41,12 +48,14 @@
                         </button>
                     </div>
                 </div>
-                <a href="carrinho.html" class="btn btn-outline-light my-2 my-sm-0" 
+                <a href="/carrinho" class="btn btn-outline-light my-2 my-sm-0" 
                     title="Acessar seu carrinho" 
                     data-toggle="tooltip" data-placement="body"  
                     data-container="body" >
                     <i class="fa fa-cart-plus"></i>  
-                    <span class="badge badge-light">1</span>
+                    <span class="badge badge-light">
+                        <?php echo $qtdItensCarrinho; ?>
+                    </span>
                 </a>
                 
                 <span class="login-nav text-light ml-3">

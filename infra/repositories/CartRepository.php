@@ -8,29 +8,8 @@
 
     class CartRepository extends MySqlRepository implements ICartRepository 
     {
-<<<<<<< HEAD
-        public function addProduct($productId,$cart)
-        {
-            //echo "<br>addProduct";
-            $qtd = $this->getQtdProduct($productId,$cart);
-            //echo "qtd: " . $qtd;
-            if ($qtd == 0)
-            {
-                echo "<br>inserindo";
-                echo "<br>productId:". $productId ;
-                echo "<br>CartGroup:". $cart ;
-                $stmt = $this->conn->prepare(
-                    "INSERT INTO Carts (ProductId, CartGroup, Qtd, CreatedAt)  values (:ProductId, :CartGroup, :Qtd, now())"
-                );
-                $stmt->bindValue(':ProductId', $productId);
-                $stmt->bindValue(':CartGroup', $cart);
-                $stmt->bindValue(':Qtd', 1);
-                $stmt->execute();
-                
-=======
         public function addProduct($productId, $cartGroup)
         {
-            //echo "<br>addProduct";
             $qtd = $this->getQtdProduct($productId, $cartGroup);
             echo "<br>qtd: " . $qtd;
             echo "<br>productId:". $productId ;
@@ -52,7 +31,6 @@
                 $stmt->bindValue(':CartGroup', $cartGroup);
                 $stmt->bindValue(':Qtd', 1);
                 $stmt->execute();
->>>>>>> d62e48c023f42a953f7807689990f57ea88e27fb
             } 
             else 
             { 
@@ -60,27 +38,16 @@
                 $qtd += 1;
                 $stmt = $this->conn->prepare(
                     "UPDATE Carts SET
-<<<<<<< HEAD
-                    Qtd = :Qtd where ProductId = :ProductId and CartGroup = :CartGroup"
-                );
-                $stmt->bindValue(':ProductId', $productId);
-                $stmt->bindValue(':CartGroup', $cart);
-=======
                     Qtd = :Qtd where ProductId = :ProductId and cartGroup = :CartGroup"
                 );
                 $stmt->bindValue(':ProductId', $productId);
                 $stmt->bindValue(':CartGroup', $cartGroup);
->>>>>>> d62e48c023f42a953f7807689990f57ea88e27fb
                 $stmt->bindValue(':Qtd', $qtd);
                 $stmt->execute();
             }
         }
 
-<<<<<<< HEAD
-        public function getQtdProduct($productId, $cart)
-=======
         public function getQtdProduct($productId, $cartGroup)
->>>>>>> d62e48c023f42a953f7807689990f57ea88e27fb
         {
             echo "getQtdProduct<br/>";
             echo "productId:". $productId . "<br/>";
@@ -89,11 +56,7 @@
                 "select qtd from Carts where CartGroup = :CartGroup and ProductId = :ProductId;"
             );
             $stmt->bindValue(':ProductId', $productId);
-<<<<<<< HEAD
-            $stmt->bindValue(':CartGroup', $cart);
-=======
             $stmt->bindValue(':CartGroup', $cartGroup);
->>>>>>> d62e48c023f42a953f7807689990f57ea88e27fb
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             

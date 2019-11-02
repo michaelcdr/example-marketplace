@@ -5,10 +5,10 @@ class CartViewModel
 {
     private $total;
     private $products;
-    
-    public function __construct($products, $total)
+    private $cartGroup;
+    public function __construct($cartGroup,$products, $total)
     {
-      
+        $this->cartGroup = $cartGroup;
         $this->total = $total;
         $this->products = $products;
     }
@@ -29,18 +29,33 @@ class CartViewModel
         return $this->products;
     }
 
-    public function addProduct($product){
-        echo "chego";
-        
-        if (!is_null($this->getProducts())){
-            foreach ($this->getProducts() as $productItem){
-                var_dump($product->getId());
-                if ($product->getId() ==  $productItem->getProductId()){
-                    $productItem->incrementQtd(); 
-                }
-            }
-        } else
-            array_push($this->getProducts(),$product);
+    public function getCartGroup()
+    {
+        return $this->cartGroup;
+    }
 
+    public function removeProduct($productId)
+    {
+        
+    }
+    
+    public function addProduct($product)
+    {
+        if (!is_null($this->getProducts()))
+        {
+            //ja tem produtos...
+            $existe = false;
+            foreach ($this->getProducts() as $productItem)
+            {
+                if ($product->getProductId() ==  $productItem->getProductId())
+                {
+                    $productItem->incrementQtd(); 
+                    $existe = true;
+                } 
+            }
+
+            if (!$existe)
+                $this->products[] = $product;
+        }
     }
 }

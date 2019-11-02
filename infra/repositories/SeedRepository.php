@@ -175,13 +175,8 @@ use infra\MySqlRepository;
         {
             $this->conn->exec(
                 "CREATE TABLE Carts (
-<<<<<<< HEAD
-                    CartId int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                    CartGroup nvarchar(255) not null,
-=======
                     CartId INT NOT NULL  PRIMARY KEY AUTO_INCREMENT,
                     CartGroup varchar(255) NOT NULL,
->>>>>>> d62e48c023f42a953f7807689990f57ea88e27fb
                     ProductId int not null,    
                     Qtd int not null,
                     CreatedAt datetime not null,

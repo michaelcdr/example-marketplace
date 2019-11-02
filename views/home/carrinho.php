@@ -38,7 +38,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach($cartViewModel->getProducts() as $product ):?>
+                                            <?php 
+                                                foreach($cartViewModel->getProducts() as $productArray ) 
+                                                {
+                                            ?>
                                                 <tr>
                                                     <td>
                                                         <button class="btn-danger btn btn-sm">
@@ -46,23 +49,26 @@
                                                         </button>
                                                     </td>
                                                     <td class="center">
-                                                        <img src="<?php echo $product->getImage(); ?>" 
+                                                        <img src="<?php echo $productArray->getImage(); ?>" 
                                                             width="70px" 
-                                                            alt="<?php echo $product->getTitle(); ?>" />
+                                                            alt="<?php echo $productArray->getImage(); ?>" />
                                                     </td>
                                                     <td class="center">
-                                                        <?php echo $product->getTitle(); ?>
+                                                        <?php echo $productArray->getTitle(); ?>
                                                     </td>
                                                     <td>
                                                         <input type="number" 
-                                                            value="<?php echo $product->getQtd(); ?>" 
+                                                            value="<?php echo $productArray->getQtd(); ?>" 
                                                             class="form-control">
                                                     </td>
                                                     <td class="text-center">
-                                                        R$ <?php echo  $product->getSubTotal(); ?>
+                                                        R$ <?php echo  $productArray->getSubTotal(); ?>
                                                     </td>
                                                 </tr>
-                                                <?php endforeach;?>   
+                                            <?php
+
+                                                }
+                                            ?>   
                                                 
                                         </tbody>
                                     </table>

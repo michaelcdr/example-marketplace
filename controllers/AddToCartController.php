@@ -13,9 +13,6 @@
         public function proccessRequest() : void
         {
             $cartViewModel = $this->_cartService->addProduct($_GET["id"]);
-            // echo "<pre>";
-            // var_dump($cartViewModel->getTotal());
-            // echo "</pre>";
             header("location: /carrinho");
         }
     }
