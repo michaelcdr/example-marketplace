@@ -21,14 +21,16 @@
                     <tr>
                         <td>
                             <button class="btn-danger btn btn-sm btn-delete" 
-                                title="Remover item do carrinho" data-id="<?php echo $productArray->getProductId(); ?>">
+                                title="Remover item do carrinho" 
+                                data-id="<?php echo $productArray->getProductId(); ?>">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
                         <td class="center">
+                            <a href="/detalhes-produto?id=<?php echo $productArray->getProductId(); ?>">
                             <img src="<?php echo $productArray->getImage(); ?>" 
                                 width="70px" 
-                                alt="<?php echo $productArray->getImage(); ?>" />
+                                alt="<?php echo $productArray->getImage(); ?>" /></a>
                         </td>
                         <td class="center">
                             <?php echo $productArray->getTitle(); ?>
@@ -36,7 +38,7 @@
                         <td>
                             <input type="number" 
                                 value="<?php echo $productArray->getQtd(); ?>" 
-                                class="form-control">
+                                class="form-control qtd-product">
                         </td>
                         <td class="text-center">
                             R$ <?php echo  $productArray->getSubTotal(); ?>
@@ -61,7 +63,7 @@
                     Subtotal (<?php echo $cartViewModel->getQtdProducts();?> produtos)
                 </div>
                 <div class="col-lg-4 text-right">
-                    R$ 3.835,92
+                    R$ <?php echo $cartViewModel->getSubTotal(); ?>
                 </div>
             </div>
             <div class="row">
@@ -69,7 +71,7 @@
                     Frete
                 </div>
                 <div class="col-lg-6 text-right">
-                    R$ 100,00
+                    R$ <?php echo $cartViewModel->getFreteValor(); ?>
                 </div>
             </div>
             <hr/>    
@@ -78,7 +80,7 @@
                     Total
                 </div>
                 <div class="col-lg-6 text-right">
-                    R$ 3.935,92
+                    R$ <?php echo $cartViewModel->getSubTotalComCondicoes(); ?>
                 </div>
             </div>
             <div class="row">

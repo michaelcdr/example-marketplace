@@ -47,14 +47,18 @@
             return $this->Price;
         }
 
-        public function getQtd(){
+        public function getQtd()
+        {
             return $this->Qtd;
         }
-        public function incrementQtd(){
+
+        public function incrementQtd()
+        {
             $this->Qtd = $this->Qtd + 1;
         }
-        public function getImage(){
 
+        public function getImage()
+        {
             return $this->helper->getPathImgProduct() . $this->Image;
         }
 
@@ -63,7 +67,7 @@
          */ 
         public function getSubTotal()
         {
-                return $this->subTotal;
+            return $this->subTotal * $this->Qtd;
         }
     }
 ?>

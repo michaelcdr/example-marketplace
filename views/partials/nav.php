@@ -1,8 +1,9 @@
 <?php 
     $qtdItensCarrinho = 0;
     if(isset($_SESSION["cart"])){
-        $qtdItensCarrinho = count($_SESSION["cart"]->getProducts());
-        
+        foreach($_SESSION["cart"]->getProducts() as $productItem){
+            $qtdItensCarrinho += $productItem->getQtd();
+        }
     }
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -54,7 +55,7 @@
                     data-container="body" >
                     <i class="fa fa-cart-plus"></i>  
                     <span class="badge badge-light">
-                        <?php echo $qtdItensCarrinho; ?>
+                        <?php echo $_SESSION["cart"]->getTotalProdutos(); ?>
                     </span>
                 </a>
                 

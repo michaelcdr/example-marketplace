@@ -22,6 +22,45 @@
             return $this->total;
         }
 
+        public function getSubTotal(){
+
+            $valor = 0;
+            if (!is_null($this->getProducts())){
+                foreach($this->getProducts() as $productItem){
+                    $valor += $productItem->getQtd() * $productItem->getPrice();
+                }
+            }
+            return $valor;
+        }
+
+        public function getSubTotalComCondicoes(){
+
+            $valor = 0;
+            if (!is_null($this->getProducts())){
+                foreach($this->getProducts() as $productItem){
+                    $valor += $productItem->getQtd() * $productItem->getPrice();
+                }
+            }
+            return $valor;
+        }
+
+        public function getFreteValor(){
+
+            $valor = 100;
+            return $valor;
+        }
+
+        public function getTotalProdutos()
+        {
+            $qtdItensCarrinho = 0;
+            if (!is_null($this->getProducts())){
+                foreach($this->getProducts() as $productItem){
+                    $qtdItensCarrinho += $productItem->getQtd();
+                }
+            }
+            return $qtdItensCarrinho;
+        }
+
         /**
          * Get the value of products
          */ 
@@ -59,13 +98,6 @@
                     //var_dump($itens);
                     $this->products = $itens;
                 }
-
-                // echo '<br>';
-                // echo $posicao;
-                // echo '<br>';
-                // echo count($this->getProducts());
-                // var_dump($this->getProducts());
-                // exit();
             }
         }
         
@@ -77,7 +109,7 @@
                 $existe = false;
                 foreach ($this->getProducts() as $productItem)
                 {
-                    if ($product->getProductId() ==  $productItem->getProductId())
+                    if ($product->getProductId() == $productItem->getProductId())
                     {
                         $productItem->incrementQtd(); 
                         $existe = true;

@@ -1,8 +1,5 @@
 <?php
     namespace controllers;
-    use infra;
-    use infra\repositories;
-    use PDO;
     
     class DetailsProductController implements IBaseController
     {
