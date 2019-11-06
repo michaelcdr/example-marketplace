@@ -16,6 +16,19 @@
             $this->_repoProd = $factory->getProductRepository();
         }
 
+        public function removeProduct($productId)
+        {
+            //echo "RemoveFromCartController productId: " . $productId ;
+            $cartViewModel = null;     
+            if (isset($_SESSION["cart"]))
+            {
+                $cartViewModel = $_SESSION["cart"];
+                $cartViewModel->removeProduct($productId);
+                $cartViewModel = $_SESSION["cart"];
+            }
+            return $cartViewModel;
+        }
+
         public function addProduct($productId)
         {
             //obtendo produto selecionado
@@ -86,23 +99,6 @@
             else 
             {
                 return null;
-                // $cartId = md5(uniqid(rand(), true));
-                // $products = $this->_repoProd->getById($id)
-                // $_SESSION["cart"] = $cartId;
-                // new CartViewModel(
-                //     $this->_repoCart->getProducts($_SESSION["cart"]),
-                //     $this->_repoCart->getFinalPrice($_SESSION["cart"])
-                // )
-                // $products[] = new ProductCart(
-                //     $product["CartId"],
-                //     $product["CartGroup"],
-                //     $product["ProductId"],
-                //     $product["Title"],
-                //     $product["Price"],
-                //     $product["Qtd"],
-                //     $product["Image"],
-                //     $product["SubTotal"]
-                // );
             }
         }
     }

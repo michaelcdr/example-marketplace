@@ -2,6 +2,7 @@
     use services\SessionService;
     require_once './configs/autoload.php';
     require_once './configs/Facade.php';
+
     //iniciando sessao
     $sessionService = new SessionService();
     $sessionService->start();
@@ -9,6 +10,7 @@
     $caminho =  "/";
     if (isset($_SERVER["PATH_INFO"]))
         $caminho =  $_SERVER["PATH_INFO"];
+        
     $rotas = require __DIR__ . './configs/router.php';
 
     if (!array_key_exists($caminho, $rotas)){

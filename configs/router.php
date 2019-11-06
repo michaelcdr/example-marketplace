@@ -18,6 +18,8 @@
     use controllers\UserPartiaListController;
     use controllers\AddToCartController;
     use controllers\CartController;
+    use controllers\RemoveFromCartController;
+    use controllers\CartListController;
 
     $routes = [
         "/" => HomeController::class,
@@ -30,10 +32,11 @@
         "/seed" => SeedController::class,
         "/detalhes-produto" => DetailsProductController::class,
         "/carrinho"=>CartController::class,
+        "/listar-itens-carrinho"=>CartListController::class,
         "/adicionar-carrinho" => AddToCartController::class,
+        "/remover-item-carrinho" => RemoveFromCartController::class,        
         "/admin/editar-usuario" => UserEditController::class,
         "/admin/editar-usuario-post" => UserEditPostController::class,
-
         "/admin/cadastrar-usuario" => UserCreateController::class,
         "/admin/cadastrar-usuario-post" => UserCreatePostController::class,
         "/admin/deletar-usuario" => UserDeleteController::class,
