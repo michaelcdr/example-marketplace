@@ -33,8 +33,8 @@
             return $valor;
         }
 
-        public function getSubTotalComCondicoes(){
-
+        public function getSubTotalComCondicoes()
+        {
             $valor = 0;
             if (!is_null($this->getProducts())){
                 foreach($this->getProducts() as $productItem){
@@ -44,8 +44,8 @@
             return $valor;
         }
 
-        public function getFreteValor(){
-
+        public function getFreteValor()
+        {
             $valor = 100;
             return $valor;
         }
@@ -59,6 +59,11 @@
                 }
             }
             return $qtdItensCarrinho;
+        }
+
+        public function getTotalFinal()
+        {
+            return $this->getFreteValor() + $this->getSubTotalComCondicoes();
         }
 
         /**

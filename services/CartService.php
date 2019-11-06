@@ -16,6 +16,17 @@
             $this->_repoProd = $factory->getProductRepository();
         }
 
+        public function updateQtdProduct($productId,$qtd)
+        {
+            $cartViewModel = null;
+            if (isset($_SESSION["cart"]))
+            {
+                $cartViewModel = $_SESSION["cart"];
+                $cartViewModel->removeProduct($productId);
+                $cartViewModel = $_SESSION["cart"];
+            }
+        }
+
         public function removeProduct($productId)
         {
             //echo "RemoveFromCartController productId: " . $productId ;

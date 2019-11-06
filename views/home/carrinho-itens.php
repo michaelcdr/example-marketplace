@@ -80,7 +80,7 @@
                     Total
                 </div>
                 <div class="col-lg-6 text-right">
-                    R$ <?php echo $cartViewModel->getSubTotalComCondicoes(); ?>
+                    R$ <?php echo $cartViewModel->getTotalFinal(); ?>
                 </div>
             </div>
             <div class="row">

@@ -4,6 +4,7 @@ class Carrinho
     {
         this._routeDelete = "/remover-item-carrinho";
         this._routeList = "/listar-itens-carrinho";
+        this._routeUpdateQtd = "/atualizar-quantidade-produto";
         this._carrinhoContainerEl = $("#carrinhos-itens");
         this.initEvents();
     } 
@@ -44,6 +45,15 @@ class Carrinho
     {
         let _self = this;
         $.post(_self._routeList, function(data){
+            _self._carrinhoContainerEl.html(data);
+            _self.initEvents();
+        });
+    }
+
+    updateQtd(productId, qtd){
+        let _self = this;
+        let request = { productId :productId, qtd:qtd };
+        $.post(_self._routeUpdateQtd, request, function(data){
             _self._carrinhoContainerEl.html(data);
             _self.initEvents();
         });

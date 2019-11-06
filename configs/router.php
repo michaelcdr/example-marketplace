@@ -20,7 +20,8 @@
     use controllers\CartController;
     use controllers\RemoveFromCartController;
     use controllers\CartListController;
-
+    use controllers\CartAtualizarQtdProdutoController;
+    
     $routes = [
         "/" => HomeController::class,
         "/createdb" => CreateDbController::class, 
@@ -33,6 +34,7 @@
         "/detalhes-produto" => DetailsProductController::class,
         "/carrinho"=>CartController::class,
         "/listar-itens-carrinho"=>CartListController::class,
+        "/atualizar-quantidade-produto"=>CartAtualizarQtdProdutoController::class,
         "/adicionar-carrinho" => AddToCartController::class,
         "/remover-item-carrinho" => RemoveFromCartController::class,        
         "/admin/editar-usuario" => UserEditController::class,
