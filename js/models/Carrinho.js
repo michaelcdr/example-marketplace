@@ -17,7 +17,15 @@ class Carrinho
             let btnEl = $(this);
             _self.delete(btnEl);
         });
+
+        $('.qtd-product').unbind('change');
+        $('.qtd-product').change(function(){
+            //console.log($(this).val());
+            let productId = $(this).data('productId');
+            _self.updateQtd(productId, $(this).val(), $(this))
+        });
     }
+    
     
     delete(btnEl)
     {
@@ -25,9 +33,12 @@ class Carrinho
         let callback = function(){       
             let params = { productId : btnEl.data('id') };
             $.post(_self._routeDelete, params, function(data){
-                console.log(data)
+                
                 if (data.success){
-                    _self.toList();
+                    _self.toList().then(() => {
+                        _self.updateQtdNavOnlyDOM();
+                        alertSuccess({ text:data.msg });
+                    });
                 } else {
                     alertError({ text: data.text , msg: data.msg });
                 }
@@ -43,19 +54,52 @@ class Carrinho
 
     toList()
     {
+        
         let _self = this;
-        $.post(_self._routeList, function(data){
-            _self._carrinhoContainerEl.html(data);
-            _self.initEvents();
-        });
+        return new Promise(function(resolve,reject){
+            $.post(_self._routeList, function(data){
+                _self._carrinhoContainerEl.html(data);
+                _self.initEvents();
+                resolve();
+            });
+        })
     }
 
-    updateQtd(productId, qtd){
+    updateQtdNavOnlyDOM(){
+        let qtd = 0;
+
+        $("#carrinhos-itens tbody tr").each(function(){
+            qtd += parseInt($(this).find('.qtd-product').val());
+        });
+
+        
+        $("#form-pesquisa .badge").html(qtd);
+        return qtd
+    }
+
+    updateQtd(productId, qtd, el){
         let _self = this;
         let request = { productId :productId, qtd:qtd };
+        el.prop('disabled', true);
         $.post(_self._routeUpdateQtd, request, function(data){
-            _self._carrinhoContainerEl.html(data);
-            _self.initEvents();
+            if (!data.success){
+                //deixando a quantida maxima suportada...
+                alertError({
+                    text:data.msg,
+                    toast: true,
+                    position: 'top-start',
+                    showConfirmButton: false,                 
+                    timer: 4000
+                });
+            } else {
+                
+                alertSuccess({ text:data.msg });
+                
+                
+            }
+            el.prop('disabled', false);
+        }).fail(function(){
+            alertServerError();
         });
     }
 }

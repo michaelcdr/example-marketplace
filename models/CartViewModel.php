@@ -22,7 +22,20 @@
             return $this->total;
         }
 
-        public function getSubTotal(){
+        public function updateQtdProduct($productId,$qtd)
+        {
+          
+            if (!is_null($this->getProducts())){
+                foreach($this->getProducts() as $productItem){
+                    if ($productItem->getProductId() === $productId){
+                        $productItem->setQtd($qtd);
+                    }
+                }
+            }
+        }
+
+        public function getSubTotal()
+        {
 
             $valor = 0;
             if (!is_null($this->getProducts())){

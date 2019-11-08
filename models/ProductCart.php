@@ -14,6 +14,7 @@
         private $Image;
         private $helper;
         private $subTotal;
+        
         public function __construct($cartId, $cartGroup, $productId, $title, $price, $qtd, $image,$subTotal)
         {
             $this->CartId = $cartId;
@@ -50,6 +51,11 @@
         public function getQtd()
         {
             return $this->Qtd;
+        }
+
+        public function setQtd($qtd)
+        {
+            $this->Qtd = $qtd;
         }
 
         public function incrementQtd()

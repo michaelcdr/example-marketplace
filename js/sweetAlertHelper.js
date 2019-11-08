@@ -1,23 +1,32 @@
 
 
 window.alertSuccess = function(dataObj){
-    Swal.fire({
-        type: 'success',
-        title: dataObj.title,
-        text: dataObj.text
-    });
+    let opts ={
+        type:"success",
+        toast: true,
+        position: 'top-start',
+        timer: 3000,
+        showConfirmButton: false
+    }
+    $.extend(opts, dataObj);
+    Swal.fire(opts);
 }
 
 window.alertError = function(dataObj){
-    Swal.fire({
+    let opts = {
         title: 'Ops, algo deu errado',
         type: 'error',
-        text: dataObj.text
-    });
+        position: 'top-start',
+        showConfirmButton: false
+    };
+    $.extend(opts, dataObj);
+    
+    Swal.fire(opts);
 }
 
 window.alertServerError = function(){
     Swal.fire({
+        toast: true,
         title: 'Ops, algo deu errado',
         text: 'Ocorreu um erro interno em nossos servidores, tente novamente mais tarde.',
         type: 'error'
@@ -39,3 +48,5 @@ window.alertConfirm = function(title, text, callback){
         }
     });
 }
+  
+ 

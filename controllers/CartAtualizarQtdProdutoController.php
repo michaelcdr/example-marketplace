@@ -2,7 +2,8 @@
     namespace controllers;
     use models\JsonSuccess;
     use models\JsonError;
-
+    use services\CartService;
+    
     class CartAtualizarQtdProdutoController implements IBaseController
     {
         private $_cartService;
@@ -20,17 +21,20 @@
             try
             {
                 $response = $this->_cartService->updateQtdProduct($productId, $qtd);
-                if ($response->success){
+                if ($response->getSuccess()){
                     $retorno = new JsonSuccess("Quantidade atualizada com sucesso.");
                 } else {
-                    $retorno = new JsonError($response->getError());
+                    $retorno = new JsonError($response->getMsg());
                 }
+                $retorno->qtd = $response->getStock();
             }  
             catch (Exception $e) 
             {
+
                 $retorno = new JsonError("Não foi possivel atualizar a quantidade.");   
             }
             header('Content-type:application/json;charset=utf-8');
+
             echo json_encode($retorno);
         }
     }

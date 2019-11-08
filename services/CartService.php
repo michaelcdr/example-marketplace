@@ -1,6 +1,8 @@
 <?php
+
     namespace services;
 
+    use models\responses\UpdateQtdProductResponse;
     use models\CartViewModel;
     use models\ProductCart;
 
@@ -22,8 +24,22 @@
             if (isset($_SESSION["cart"]))
             {
                 $cartViewModel = $_SESSION["cart"];
-                $cartViewModel->removeProduct($productId);
-                $cartViewModel = $_SESSION["cart"];
+
+                //verificando estoque...
+                $stock = $this->_repoProd->getCurrentStock($productId);
+                if ($stock >= $qtd){
+                    //tem estoque uhul !!!
+                    $cartViewModel->updateQtdProduct($productId,$qtd);
+                    $cartViewModel = $_SESSION["cart"];
+                    return new UpdateQtdProductResponse(true, "Estoque atualizado com sucesso.",$stock - $qtd);
+                } else {
+                    //xi deu ruim, não tem estoque...
+                    return new UpdateQtdProductResponse(
+                        false,
+                        "Ops desculpe, o estoque atual é de ".$stock.", e não é suificiente para a quantidade solicitada.",
+                        $stock
+                    );
+                }
             }
         }
 

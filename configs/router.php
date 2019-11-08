@@ -43,8 +43,8 @@
         "/admin/cadastrar-usuario-post" => UserCreatePostController::class,
         "/admin/deletar-usuario" => UserDeleteController::class,
         "/admin/lista-usuarios" => UserListController::class,
-        "/admin/lista-usuarios-table" => UserPartiaListController::class
-
+        "/admin/lista-usuarios-table" => UserPartiaListController::class,
+        "/admin/produto/lista" => controllers\admin\product\ProductListController::class
     ];
 
     return $routes;

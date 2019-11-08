@@ -36,7 +36,9 @@
                             <?php echo $productArray->getTitle(); ?>
                         </td>
                         <td>
-                            <input type="number" 
+                          
+
+                            <input type="text" min="1" data-product-id="<?php echo $productArray->getProductId(); ?>"
                                 value="<?php echo $productArray->getQtd(); ?>" 
                                 class="form-control qtd-product">
                         </td>
@@ -45,7 +47,6 @@
                         </td>
                     </tr>
                 <?php
-
                     }
                 ?>   
                     

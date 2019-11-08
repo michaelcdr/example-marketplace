@@ -19,6 +19,8 @@
     }
     
     //fazendo um "de para" de rota e controller alvo
+
+    //echo $caminho;
     $controllerAlvo = $rotas[$caminho];
     $controlador = new $controllerAlvo($factory);
     $controlador->proccessRequest();

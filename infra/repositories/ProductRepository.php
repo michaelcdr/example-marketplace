@@ -16,6 +16,7 @@
             );
             $stmt->execute();
             return $stmt->fetchAll();
+            return $stmt->fetchAll(PDO::FETCH_CLASS, 'Product');
         }
 
         function add($product)
@@ -31,7 +32,69 @@
             $stmt->bindValue(":stock",$product->getStock());
             $stmt->bindValue(":sku",$product->getSku());
 
-            return $stmt->fetchAll();
+            $stmt->execute();
+        }
+
+        
+
+        public function remove($id)
+        {
+            //removendo imagens do produto;
+            $query = "delete from productsimages where productid = :id;";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            //removendo produtos...
+            $query = "delete from Products where ProductId = :id";            
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id);
+            
+            return true;
+        }
+
+        public function altera($product)
+        {
+           
+            $stmt = $this->conn->prepare(
+                "UPDATE Products set 
+                title = :title,
+                description = :description,
+                createdBy  = :createdBy,
+                offer = :offer,
+                stock = :stock,
+                sku = :sku
+                where ProductId = :productId"
+            );
+            
+            $stmt->bindValue(":title",$product->getTitle());
+            $stmt->bindValue(":description",$product->getDescription());
+            $stmt->bindValue(":createdBy",$product->getCreatedBy());
+            $stmt->bindValue(":offer",$product->getOffer());
+            $stmt->bindValue(":stock",$product->getStock());
+            $stmt->bindValue(":sku",$product->getSku());
+            $stmt->execute();
+        }
+
+
+
+
+
+        /* Retorna o estoque de um produto */
+        public function getCurrentStock($productId)
+        {
+            $stmt = $this->conn->prepare(
+                "SELECT Stock FROM Products
+                WHERE ProductId = :ProductId"
+            );
+            $stmt->bindValue(":ProductId",$productId);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stock = 0;
+            if ($row){
+                $stock = $row['Stock'];
+            }
+            return $stock;
         }
 
         function getById($id)

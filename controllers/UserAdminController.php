@@ -54,11 +54,6 @@
 
         public function proccessCreatePostRequest() 
         {
-            // echo "mostrando dados do post<br />";
-            // echo "login: " . $_POST["login"] . "<br />";
-            // echo "senha: " . $_POST["senha"] . "<br />";
-            // echo "nome: " . $_POST["nome"]. "<br />";
-            
             //removendo possiveis tags e scripts...
             $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_STRING);
             $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING);
