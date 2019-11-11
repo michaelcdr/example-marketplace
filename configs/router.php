@@ -21,7 +21,10 @@
     use controllers\RemoveFromCartController;
     use controllers\CartListController;
     use controllers\CartAtualizarQtdProdutoController;
-    
+    use controllers\ProductListController;
+    use controllers\ProductCreateController;
+    use controllers\ProductCreatePostController;
+
     $routes = [
         "/" => HomeController::class,
         "/createdb" => CreateDbController::class, 
@@ -36,15 +39,19 @@
         "/listar-itens-carrinho"=>CartListController::class,
         "/atualizar-quantidade-produto"=>CartAtualizarQtdProdutoController::class,
         "/adicionar-carrinho" => AddToCartController::class,
-        "/remover-item-carrinho" => RemoveFromCartController::class,        
+        "/remover-item-carrinho" => RemoveFromCartController::class,       
+
         "/admin/editar-usuario" => UserEditController::class,
         "/admin/editar-usuario-post" => UserEditPostController::class,
         "/admin/cadastrar-usuario" => UserCreateController::class,
         "/admin/cadastrar-usuario-post" => UserCreatePostController::class,
         "/admin/deletar-usuario" => UserDeleteController::class,
-        "/admin/lista-usuarios" => UserListController::class,
+        "/admin/lista-usuarios" => UserListController::class,        
         "/admin/lista-usuarios-table" => UserPartiaListController::class,
-        "/admin/produto/lista" => controllers\admin\product\ProductListController::class
+
+        "/admin/produtos" => ProductListController::class,
+        "/admin/produtos/cadastrar" => ProductCreateController::class,
+        "/admin/produtos/cadastrar-post" => ProductCreatePostController::class
     ];
 
     return $routes;

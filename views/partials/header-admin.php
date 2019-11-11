@@ -19,7 +19,7 @@
         <!-- <link rel="stylesheet" href="libs/slick/slick.css">
         <link rel="stylesheet" href="libs/slick/slick-theme.css"> -->
         <link rel="stylesheet" href="/libs/sweetAlert2/sweetalert2.min.css" >
-        <link rel="stylesheet" href="./../css/estilos.css">
+        <link rel="stylesheet" href="/css/estilos.css">
     </head>
     <body>
         <?php require_once './views/partials/nav-admin.php' ?>

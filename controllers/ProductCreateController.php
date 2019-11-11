@@ -15,7 +15,7 @@
         
         public function proccessRequest() : void
         {
-            require "views/admin/users/cadastrar-usuario.php";
+            require $_SERVER['DOCUMENT_ROOT'] . '\\views\\admin\\product\\cadastro-produto.php';
         }
     }
 ?>

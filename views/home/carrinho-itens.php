@@ -14,10 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php 
-                    foreach($cartViewModel->getProducts() as $productArray ) 
-                    {
-                ?>
+                <?php foreach($cartViewModel->getProducts() as $productArray ) : ?>
                     <tr>
                         <td>
                             <button class="btn-danger btn btn-sm btn-delete" 
@@ -36,19 +33,16 @@
                             <?php echo $productArray->getTitle(); ?>
                         </td>
                         <td>
-                          
-
                             <input type="text" min="1" data-product-id="<?php echo $productArray->getProductId(); ?>"
                                 value="<?php echo $productArray->getQtd(); ?>" 
                                 class="form-control qtd-product">
                         </td>
-                        <td class="text-center">
+                        <td class="text-center product-price" 
+                            data-product-id="<?php echo $productArray->getProductId(); ?>">
                             R$ <?php echo  $productArray->getSubTotal(); ?>
                         </td>
                     </tr>
-                <?php
-                    }
-                ?>   
+                <?php endforeach ?>   
                     
             </tbody>
         </table>
@@ -63,7 +57,7 @@
                 <div class="col-lg-8">
                     Subtotal (<?php echo $cartViewModel->getQtdProducts();?> produtos)
                 </div>
-                <div class="col-lg-4 text-right">
+                <div id="cart-sub-total" class="col-lg-4 text-right" >
                     R$ <?php echo $cartViewModel->getSubTotal(); ?>
                 </div>
             </div>

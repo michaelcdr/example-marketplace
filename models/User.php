@@ -36,19 +36,7 @@
 
 
         public function passwordIsValid(string $senhaPura) : bool
-        {
-            // echo 'senhaPura: ' . $senhaPura .', largurastring:' . strlen($senhaPura). '<br />';
-
-            // echo  ($this->getPassword() === '$argon2i$v=19$m=65536,t=4,p=1$RXNsMjJPRkJUeG41aXZUVw$h22bjCngKPie/FrJheiGgFmF/YSh5sqSRzC/ZS0MdCc');
-            // echo  '<br />';
-            // echo $this->getPassword();
-            // echo  '<br />';
-            // echo '$argon2i$v=19$m=65536,t=4,p=1$RXNsMjJPRkJUeG41aXZUVw$h22bjCngKPie/FrJheiGgFmF/YSh5sqSRzC/ZS0MdCc';
-            // echo  '<br />';
-            //echo 'senha 2: ' .  $this->getPassword() .'<br />';
-            //echo 'verificacao retorno: '  . password_verify($senhaPura, $this->getPassword()) .'<br />';
-            
-            
+        {   
             return password_verify($senhaPura,  $this->getPassword());
         }
 

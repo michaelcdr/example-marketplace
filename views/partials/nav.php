@@ -55,12 +55,18 @@
                     data-container="body" >
                     <i class="fa fa-cart-plus"></i>  
                     <span class="badge badge-light">
-                        <?php echo $_SESSION["cart"]->getTotalProdutos(); ?>
+                        <?php 
+                            if (isset($_SESSION["cart"])){
+                                echo $_SESSION["cart"]->getTotalProdutos();
+                            } else {
+                                echo "0";
+                            } 
+                        ?>
                     </span>
                 </a>
                 
                 <span class="login-nav text-light ml-3">
-                    <?php  if(isset($_SESSION["userId"])): ?>
+                    <?php  if (isset($_SESSION["userId"])): ?>
                         <i class="fa fa-user"></i> Olá, 
                         <a href="/admin/detalhes/<?php echo $_SESSION["userId"]?>" class="a-primary" >
                             <?php echo $_SESSION["userName"] ?>
@@ -70,8 +76,8 @@
                             data-toggle="tooltip" data-placement="body">Sair
                         </a> 
                         <br /> para fazer seu logout.
-                    <?php  else: ?>
 
+                    <?php else: ?>
                         <i class="fa fa-user"></i> Olá , Faça seu 
                         <a href="/login" class="a-primary" 
                             data-container="body" title="Entrar no sistema" 

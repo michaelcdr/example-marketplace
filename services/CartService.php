@@ -1,5 +1,4 @@
 <?php
-
     namespace services;
 
     use models\responses\UpdateQtdProductResponse;
@@ -8,7 +7,6 @@
 
     class CartService 
     {
-       
         private $_repoCart;
         private $_repoProd;
 
@@ -31,13 +29,23 @@
                     //tem estoque uhul !!!
                     $cartViewModel->updateQtdProduct($productId,$qtd);
                     $cartViewModel = $_SESSION["cart"];
-                    return new UpdateQtdProductResponse(true, "Estoque atualizado com sucesso.",$stock - $qtd);
+                    return new UpdateQtdProductResponse(
+                        true, 
+                        "Estoque atualizado com sucesso.",
+                        $stock - $qtd,
+                        $cartViewModel->getQtdFromProduct($productId),
+                        $cartViewModel->getProductTotalValue($productId),
+                        $cartViewModel->getSubTotal()
+                    );
                 } else {
                     //xi deu ruim, não tem estoque...
                     return new UpdateQtdProductResponse(
                         false,
                         "Ops desculpe, o estoque atual é de ".$stock.", e não é suificiente para a quantidade solicitada.",
-                        $stock
+                        $stock,
+                        $cartViewModel->getQtdFromProduct($productId),
+                        $cartViewModel->getProductTotalValue($productId),
+                        $cartViewModel->getSubTotal()
                     );
                 }
             }
@@ -125,6 +133,7 @@
             }  
             else 
             {
+                
                 return null;
             }
         }

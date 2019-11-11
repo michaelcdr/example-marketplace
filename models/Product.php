@@ -14,8 +14,9 @@
         private $Offer;
         private $Seller;
         private $Images;
+        private $imageDefault;
+        private $errors;
 
-      
         public function __construct($id, $title, $price, $description, $createdAt, $createdBy,$offer,$stock,$sku)
         {
             $this->ProductId = $id;
@@ -28,49 +29,101 @@
             $this->Offer = $offer;
             $this->Sku = $sku;
             $this->Stock = $stock;
-            
+            $this->errors = array();
         }
 
-        public function getId(){
+        public function getId()
+        {
             return $this->ProductId;
         }
 
-        public function getSeller(){
+        public function getSeller()
+        {
             return $this->Seller;
         }
 
-        public function getDescription(){
+        public function getDescription()
+        {
             return $this->Description;
         }
 
-        public function getTitle(){
+        public function getCreatedBy()
+        {
+            return $this->CreatedBy;
+        }
+
+        public function getTitle()
+        {
             return $this->Title;
         }
         
-        public function getPrice(){
+        public function getPrice()
+        {
             return $this->Price;
         }
 
-        public function getStock(){
+        public function getStock()
+        {
             return $this->Stock;
         }
 
-        public function getOffer(){
+        public function getOffer()
+        {
             return $this->Offer;
         }
 
-        public function getSku(){
+        public function getSku()
+        {
             return $this->Sku;
         }
 
-        public function setImages($images){
-
+        public function setImages($images)
+        {
             $this->Images = $images;
         }
 
-        public function getImages(){
-
+        public function getImages()
+        {
             return $this->Images;
+        }
+
+        public function setDefaultImage($img)
+        {
+            $this->imageDefault = $img;
+        }
+
+        public function getDefaultImage()
+        {
+            return $this->imageDefault;
+        }
+
+        public function getErrors()
+        {
+            return $this->errors;
+        }
+
+        public function isValid() : bool
+        {
+            
+            if (is_null($this->getTitle()) || $this->getTitle() === "")
+                $this->errors['title'] = 'Informe o titulo.';
+
+            if (is_null($this->getPrice()) )
+                $this->errors['price'] = 'Informe o preço.';
+
+            if (is_null($this->getStock()) )
+                $this->errors['stock'] = 'Informe o estoque.';
+            
+            if (is_null($this->getOffer()))
+                $this->errors['offer'] = 'Informe se é oferta ou não.';
+
+            if (is_null($this->getSku()))
+                $this->errors['sku'] = 'Informe o sku.';
+
+            if (is_null($this->getDescription()) || $this->getDescription() === "")
+                $this->errors['description'] = 'Informe o descritivo.';
+
+            return count($this->errors) === 0;
         }
     }
 ?>

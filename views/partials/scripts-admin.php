@@ -4,3 +4,4 @@
     crossorigin="anonymous"></script>
 <script src="/libs/sweetAlert2/sweetalert2.min.js" ></script>
 <script src="/js/sweetAlertHelper.js"></script>
+<script src="/js/bs4-extensions.js"></script>

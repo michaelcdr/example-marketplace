@@ -1,6 +1,6 @@
 class CadastroUsuario{
-    constructor(){
-        
+    constructor()
+    {
         this.btnSubmit = $('button#btn-salvar');
         this.formEl = $("#formUsuario");
         this.initEvents();

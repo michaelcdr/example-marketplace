@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <p>
-                        <a class="btn btn-dark " href="cadastro-produto.html">
+                        <a class="btn btn-dark " href="/admin/produtos/cadastrar">
                             <i class="fa fa-plus"></i> Cadastrar produto
                         </a>
                     </p>
@@ -56,14 +56,14 @@
                 </div>
             </div>
             <p class="mt-3">
-                <a class="btn btn-dark " href="cadastro-produto.html">
+                <a class="btn btn-dark " href="/admin/produtos/cadastrar">
                     <i class="fa fa-plus"></i> Cadastrar produto
                 </a>
             </p>
         </div>
     </div>
 </div>
-<script src="js/lista-produto.js"></script>
+<script src="js/models/lista-produto.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>
 
     

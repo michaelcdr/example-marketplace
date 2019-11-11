@@ -26,11 +26,13 @@
                 } else {
                     $retorno = new JsonError($response->getMsg());
                 }
-                $retorno->qtd = $response->getStock();
+                $retorno->currentQtd = $response->getQtd();
+                $retorno->stock = $response->getStock();
+                $retorno->finalValue = $response->getFinalValue();
+                $retorno->subTotal = $response->getSubTotal();
             }  
             catch (Exception $e) 
             {
-
                 $retorno = new JsonError("Não foi possivel atualizar a quantidade.");   
             }
             header('Content-type:application/json;charset=utf-8');

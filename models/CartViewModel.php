@@ -14,24 +14,38 @@
             $this->products = $products;
         }
 
-        /**
-         * Get the value of total
-         */ 
         public function getTotal()
         {
             return $this->total;
         }
 
-        public function updateQtdProduct($productId,$qtd)
+        public function getProductTotalValue($productId)
         {
-          
-            if (!is_null($this->getProducts())){
-                foreach($this->getProducts() as $productItem){
+            $product = $this->getProduct($productId);
+            return $product->calcValue();
+        }
+
+        public function getProduct($productId)
+        {
+            $product = null;
+            if (!is_null($this->getProducts()))
+            {
+                foreach($this->getProducts() as $productItem)
+                {
                     if ($productItem->getProductId() === $productId){
-                        $productItem->setQtd($qtd);
+                        $product= $productItem;
+                        break;
                     }
                 }
             }
+            return $product;
+        }
+
+        public function updateQtdProduct($productId,$qtd)
+        {
+            $product = $this->getProduct($productId);
+            if (!is_null($product))
+                $product->setQtd($qtd);
         }
 
         public function getSubTotal()
@@ -61,6 +75,17 @@
         {
             $valor = 100;
             return $valor;
+        }
+
+        public function getQtdFromProduct($productId){
+            $qtd = 0;
+            if (!is_null($this->getProducts())){
+                foreach($this->getProducts() as $productItem){
+                    if ($productItem->getProductId() == $productId)
+                        $qtd = $productItem->getQtd();
+                }
+            }
+            return $qtd;
         }
 
         public function getTotalProdutos()

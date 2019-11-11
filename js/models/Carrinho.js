@@ -54,7 +54,6 @@ class Carrinho
 
     toList()
     {
-        
         let _self = this;
         return new Promise(function(resolve,reject){
             $.post(_self._routeList, function(data){
@@ -65,37 +64,40 @@ class Carrinho
         })
     }
 
-    updateQtdNavOnlyDOM(){
+    updateQtdNavOnlyDOM()
+    {
         let qtd = 0;
-
         $("#carrinhos-itens tbody tr").each(function(){
             qtd += parseInt($(this).find('.qtd-product').val());
         });
-
-        
         $("#form-pesquisa .badge").html(qtd);
         return qtd
     }
 
-    updateQtd(productId, qtd, el){
+    updateQtd(productId, qtd, el)
+    {
         let _self = this;
         let request = { productId :productId, qtd:qtd };
         el.prop('disabled', true);
         $.post(_self._routeUpdateQtd, request, function(data){
-            if (!data.success){
+            if (!data.success)
+            {
                 //deixando a quantida maxima suportada...
                 alertError({
                     text:data.msg,
                     toast: true,
                     position: 'top-start',
                     showConfirmButton: false,                 
-                    timer: 4000
+                    timer: 6000
                 });
-            } else {
-                
+                el.val(data.currentQtd);
+            } 
+            else 
+            {
+                $('#cart-sub-total').html(data.subTotal);
+                $(`.product-price[data-product-id="${productId}"]`).html(`R$ ${data.finalValue}`);
+                _self.updateQtdNavOnlyDOM();
                 alertSuccess({ text:data.msg });
-                
-                
             }
             el.prop('disabled', false);
         }).fail(function(){

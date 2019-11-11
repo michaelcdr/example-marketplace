@@ -57,7 +57,9 @@
         {
             $this->Qtd = $qtd;
         }
-
+        public function calcValue(){
+            return $this->Qtd * $this->Price;
+        }
         public function incrementQtd()
         {
             $this->Qtd = $this->Qtd + 1;
