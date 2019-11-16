@@ -75,7 +75,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <p>
-                                    <?php echo $product->getDescription(); ?>
+                                    <?php echo $product->getDescriptionFormatted(); ?>
                                 </p>
                             </div>
                         </div>

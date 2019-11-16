@@ -47,6 +47,11 @@
             return $this->Description;
         }
 
+        public function getDescriptionFormatted()
+        {
+            return str_replace("\n","<br>",$this->Description);
+        }
+
         public function getCreatedBy()
         {
             return $this->CreatedBy;

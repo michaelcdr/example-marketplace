@@ -4,7 +4,14 @@
     <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
         <div class="lh-100">
             <h6 class="mb-0 text-white lh-100">Cadastro de produto</h6>
-            <small>Produto > Cadastrar</small>
+            <ul class="nav-breadcrumb">
+                <li>
+                    <a href="/admin/produtos">Produto</a>
+                </li>
+                <li>
+                    <a href="/admin/produtos/cadastrar">Cadastrar</a>
+                </li>
+            </ul>
         </div>
     </div>
 

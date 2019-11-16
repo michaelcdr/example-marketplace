@@ -8,15 +8,14 @@
     {
         private $_repoOfertas;
         private $_repoCarousel;
-
+        private $_repoCategories;
         public function __construct($factory)
         {
-            // echo "controller home";
-            // echo '<pre>';
-            // var_dump($factory);
-            // echo '</pre>';
             $this->_repoOfertas = $factory->getProductOnOfferRepository();
             $this->_repoCarousel = $factory->getCarouselRepository();
+            $this->_repoCategories = $factory->getCategoryRepository();
+            
+            
         }
 
         public function getProductsOnOffer()
@@ -31,9 +30,9 @@
         
         public function proccessRequest() : void
         {
-            //echo "request index";
             $ofertas = $this->getProductsOnOffer();
             $caroselItens = $this->getCaroselItens();
+            $categories = $this->_repoCategories->getAll(0,null);
             require "views/home/home.php";
         }
     }

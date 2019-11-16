@@ -2,12 +2,12 @@
     $titlePage = "Loja Whatever - Sua loja de instrumentos músicais e acessórios";
     require_once './views/partials/header.php';
 ?>   
-
 <main>
     <!-- carrossel -->
     <?php require_once './views/carousel/lista.php' ?>
-
+    
     <div class="container">
+    <!-- ofertas -->
         <section id="ofertas-container">
             <h3 class="text-center">Ofertas em destaque</h3>
             <div class="row">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title text-center">
-                                <?php echo $oferta["Description"] ?>
+                                <?php echo $oferta["Title"] ?>
                             </h5>
                             <p class="card-price h3 text-center">
                                 R$ <?php echo $oferta["Price"] ?>
@@ -36,7 +36,7 @@
             </div>
         </section>
 
-        <?php //require_once './views/category/lista.php' ?>
+        <?php require_once './views/category/lista.php' ?>
     </div>
 </main>
 

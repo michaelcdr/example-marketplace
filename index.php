@@ -1,7 +1,7 @@
 <?php
     use services\SessionService;
     require_once './configs/autoload.php';
-    require_once './configs/Facade.php';
+    require_once './configs/facade.php';
 
     //iniciando sessao
     $sessionService = new SessionService();
@@ -18,9 +18,7 @@
         exit();
     }
     
-    //fazendo um "de para" de rota e controller alvo
-
-    //echo $caminho;
+    //fazendo um "de para" de rota para o Controller alvo...
     $controllerAlvo = $rotas[$caminho];
     $controlador = new $controllerAlvo($factory);
     $controlador->proccessRequest();

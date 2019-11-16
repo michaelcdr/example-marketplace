@@ -15,9 +15,9 @@
             $this->_pathHelper = new PathHelper();
         }
 
-        public function getAllPaginatedAdmin($pagina)
+        public function getAllPaginatedAdmin($pagina,$search)
         {
-            $stmtProdutosResult = $this->_repoProduct->getAll(0, null);
+            $stmtProdutosResult = $this->_repoProduct->getAll(0, $search);
             $products = $this->stmtToProduct($stmtProdutosResult);
             return $products;
         }
@@ -25,7 +25,6 @@
         public function getById($productId)
         {
             return $this->_repoProduct->getById($productId);
-
         }
 
         public function add($files, $product)

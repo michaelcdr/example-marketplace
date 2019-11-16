@@ -51,7 +51,7 @@
                     as Image on p.ProductId = Image.ProductId 
                     where 
                         p.title like :search or
-                        p.description like :search
+                        p.description like :search or
                         p.Sku like :search
                     group by productid 
                     order by p.title 
@@ -132,6 +132,7 @@
             $stmt->bindValue(":offer",$product->getOffer() == 'true' ? 1 : 0, PDO::PARAM_BOOL);
             $stmt->bindValue(":stock", $product->getStock());
             $stmt->bindValue(":sku", $product->getSku());
+            $stmt->bindValue(":productId", $product->getId());
             $stmt->execute();
         }
 

@@ -8,7 +8,9 @@
     use infra\repositories\UserRepository;
     use infra\repositories\SeedRepository;
     use infra\repositories\CartRepository;
+    use infra\repositories\CategoryRepository;
     use infra\RepositoryFactory;
+
     use PDO;
 
     class MySqlRepositoryFactory extends RepositoryFactory {

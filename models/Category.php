@@ -1,18 +1,31 @@
 <?php
+
+    namespace models;
+
     class Category
     {
-        private $CategoryId;
-        private $Title;        
-        private $Image;
+        private $_categoryId;
+        private $_title;        
+        private $_image;
         
-        public function __get($title)
+        public function getTitle()
         {
-            return $this->$Title;            
+            return  $this->_title;
         }
         
+        public function getId()
+        {
+            return  $this->_categoryId;
+        }
+        
+        public function getImage()
+        {
+            return  $this->_image;
+        }
+
         public function __construct(string $title)
         {
-            $this->Title = $title;
+            $this->_title = $title;
         }
     }
 ?>

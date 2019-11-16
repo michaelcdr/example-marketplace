@@ -4,7 +4,7 @@ class ListaProduto
     {
         this.initEvents();
         this._routeDelete = '/admin/produtos/deletar';
-        this._routeList = '/admin/produtos/lista-partial'
+        this._routeList = '/admin/produtos/lista-partial';
     }
 
     initEvents()
@@ -33,7 +33,8 @@ class ListaProduto
     {
         //exibindo msg amigavel ao usuario e quando ele confirmar volta para index
         let _self = this;
-        let callback = function(){       
+        let callback = function()
+        {       
             let params = { id : btnEl.data('id') };
             $.post(_self._routeDelete, params, function(data){
                 if (data.success){

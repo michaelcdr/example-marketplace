@@ -1,22 +1,30 @@
 <?php
-    //namespace infra\repository;
-    require_once './infra/interfaces/ICategoryRepository.php';
-    require_once './infra/MySqlRepository.php';
-    
+    namespace infra\repositories;    
+    use infra\MySqlRepository;
+    use infra\interfaces\ICategoryRepository;
+    use PDO;
+    use models\Category;
+
     class CategoryRepository extends MySqlRepository implements ICategoryRepository
     {
-        public function getAll()
+        public function getAll($page, $search)
         {
-            $query = "SELECT CategoryId, Title, Image FROM Categories";
-            $resultado = $this->conn->query($query);
-            $lista = $resultado->fetchAll();
+            $stmt = $this->conn->prepare("SELECT CategoryId, Title, Image FROM Categories");
+            $stmt->execute();
+            $lista = $stmt->fetchAll();
+            
             return $lista;
         }
 
-        public function add($title)
+        public function add($category)
         {
-            $query = "INSERT INTO Categories (Title) values ('". $title ."') ";
-            $this->conn->exec($query);
+            $stmt = $this->conn->prepare(
+                "INSERT INTO Categories (title, image) 
+                    values (:title, :image) "
+            );
+            $stmt->bindValue(":title",$category->getTitle());
+            $stmt->bindValue(":image",$category->getImage());
+            $stmt->execute();
         }
     }
 ?>

@@ -4,7 +4,14 @@
     <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
         <div class="lh-100">
             <h6 class="mb-0 text-white lh-100">Cadastro de produto</h6>
-            <small>Produto > Cadastrar</small>
+            <ul class="nav-breadcrumb">
+                <li>
+                    <a href="/admin/produtos">Produto</a>
+                </li>
+                <li>
+                    <a href="/admin/produtos/cadastrar">Cadastrar</a>
+                </li>
+            </ul>
         </div>
     </div>
 
@@ -13,6 +20,7 @@
             <h5>Informe os dados do produto e clique em salvar.</h6>
             <form action="/admin/produtos/editar-post" method="post" id="form-cadastro"
               enctype="multipart/form-data">
+                <input type="hidden" id="productId" name="productId" value="<?php echo $product->getId(); ?>">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -66,6 +74,7 @@
                         <div class="form-group">
                             <label for="description">Descritivo do produto:</label>
                             <textarea  name="description" data-required="true" 
+                                style="height:150px;"
                                 id="description" class="form-control" placeholder="" 
                                 aria-describedby="help-description"><?php echo $product->getDescription(); ?></textarea>
                             <small id="help-description" class="text-muted">
@@ -101,7 +110,7 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
-<script src="/js/models/CadastroProduto.js"></script>
+<script src="/js/models/ProductEdit.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>
     
     

@@ -1,6 +1,7 @@
-class CadastroProduto{
-    constructor(){
-        
+class ProductEdit
+{
+    constructor()
+    {
         this.btnSubmit = $('button#btn-salvar');
         this.formEl = $('#form-cadastro');
         this.iniciarEventos();
@@ -13,11 +14,9 @@ class CadastroProduto{
             let model = _self.getModel();
             if (validateResponse.isValid){   
                 //dados validos, iremos gravar...  
-                let action = '/admin/produtos/cadastrar-post';
-                if (model.userId && model.userId !== '')
-                    action = '/admin/produtos/editar-post';
-                
+                let action = '/admin/produtos/editar-post';
                 _self.btnSubmit.button('loading');
+
                 $.ajax({
                     type: 'POST',
                     url: action,
@@ -31,20 +30,24 @@ class CadastroProduto{
                         // $('#fupForm').css("opacity",".5");
                     },
                     success: function(data){ 
-                        console.log(data);
-                        Swal.fire({
-                            title: data.msg,                            
-                            showCancelButton: false,
-                            type:'success',
-                            confirmButtonText: 'Ok, voltar para lista.',
-                            showLoaderOnConfirm: true,                        
-                            allowOutsideClick: false
+                        if (data.success){
+                            Swal.fire({
+                                title: data.msg,                            
+                                showCancelButton: false,
+                                type:'success',
+                                confirmButtonText: 'Voltar para lista.',
+                                showLoaderOnConfirm: true,                        
+                                allowOutsideClick: false
 
-                        }).then((result) => {
-                            if (result.value) {
-                                document.location = "/admin/produtos";
-                            }
-                        });
+                            }).then((result) => {
+                                if (result.value) {
+                                    document.location = "/admin/produtos";
+                                }
+                            });
+                        } else {
+                            //se deu alguma zica na request mostraremos um alert amigavel...
+                            alert
+                        }
                     }
                 })
             }
@@ -68,6 +71,7 @@ class CadastroProduto{
     getModel(){
         let _self = this;
         return {
+            productId : _self.formEl.find('#productId').val(),
             title: _self.formEl.find('#title').val(),
             price: _self.formEl.find('#price').val(),
             sku: _self.formEl.find('#sku').val(),
@@ -79,4 +83,4 @@ class CadastroProduto{
     }
 }
 
-window.cadastroProduto = new CadastroProduto();
+window.productEdit = new ProductEdit();

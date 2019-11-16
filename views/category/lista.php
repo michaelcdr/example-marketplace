@@ -1,8 +1,4 @@
-<?php
-     require_once './controllers/CategoryController.php';
-     $categoriesController = new CategoryController($factory);
-     $categories = $categoriesController->getCategories();
-?>   
+ 
 <section id="linhas" class="fade ">
     <h3 class="text-center mt-2">Navegue pelas nossas linhas de produtos</h3>
     <div class="row">
