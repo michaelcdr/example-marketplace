@@ -84,11 +84,9 @@
             if (!is_null($page) && $page > 0)
                 $skipNumber = $skipNumber * $page;
 
-            $take = 5;
             if (!isset($page))
                 $page = 0;
 
-            //echo "pagina: " . $page . "pesquisa:  " . $search . ", skipNumber: " . $skipNumber . ",take=" . $take . ", pageSize: ".$pageSize."<br />" ; 
             if (is_null($search) ||  $search === "")
             {
                 //echo 'Lista sem pesquisa';
@@ -111,7 +109,7 @@
                      limit :pageSize OFFSET :skipNumber 
                     " 
                 );
-                $stmt->bindValue(":search", '%' . $search . '%');
+                
                 $stmt->bindValue(":search", '%' . $search . '%');
                 $stmt->bindValue(':pageSize', intval(trim($pageSize)), PDO::PARAM_INT);
                 $stmt->bindValue(':skipNumber', intval(trim($skipNumber)), PDO::PARAM_INT);

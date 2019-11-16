@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Pesquise pelo titulo do produto" 
+                            <input type="text" class="form-control" id="search-products" placeholder="Pesquise pelo titulo do produto" 
                                 aria-label="Pesquise pelo titulo do produto" aria-describedby="btn-pesquisar">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="btn-pesquisar">
@@ -34,7 +34,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" id="container-products">
                     <?php include './views/admin/product/lista-produtos-table.php' ?>
                 </div>
             </div>
@@ -63,7 +63,8 @@
         </div>
     </div>
 </div>
-<script src="js/models/lista-produto.js"></script>
+<?php require_once './views/partials/scripts-admin.php' ?>
+<script src="../js/models/ListaProduto.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>
 
     

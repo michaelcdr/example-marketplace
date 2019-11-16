@@ -24,6 +24,10 @@
     use controllers\ProductListController;
     use controllers\ProductCreateController;
     use controllers\ProductCreatePostController;
+    use controllers\ProductEditController;
+    use controllers\ProductEditPostController;
+    use controllers\ProductPartialListController;
+    use controllers\ProductDeleteController;
 
     $routes = [
         "/" => HomeController::class,
@@ -50,8 +54,12 @@
         "/admin/lista-usuarios-table" => UserPartiaListController::class,
 
         "/admin/produtos" => ProductListController::class,
+        "/admin/produtos/lista-partial" => ProductPartialListController::class,
         "/admin/produtos/cadastrar" => ProductCreateController::class,
-        "/admin/produtos/cadastrar-post" => ProductCreatePostController::class
+        "/admin/produtos/cadastrar-post" => ProductCreatePostController::class,
+        "/admin/produtos/editar" => ProductEditController::class,
+        "/admin/produtos/editar-post" => ProductEditPostController::class,
+        "/admin/produtos/deletar" => ProductDeleteController::class
     ];
 
     return $routes;

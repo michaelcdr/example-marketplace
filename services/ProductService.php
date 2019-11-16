@@ -22,9 +22,16 @@
             return $products;
         }
 
+        public function getById($productId)
+        {
+            return $this->_repoProduct->getById($productId);
+
+        }
+
         public function add($files, $product)
         {
              //uplodeando arquivos informados pelo usuario...
+             $imagesNames = array();
              if (isset($files))
              {                        
                 $totalFiles = count($files);
@@ -41,12 +48,21 @@
                         // echo '<br>extensao: ' . $fileType;
                         move_uploaded_file($files["tmp_name"][$i], $targetFilePath);
                         // echo "<br>***********************************";
+                        $imagesNames[] = $fileName;
                     }
                 }
             }
             
             //persistindo produto...
-            $this->_repoProduct->add($product);
+            $productId = $this->_repoProduct->add($product);
+
+            //persistindo imagens...
+            $this->_repoProduct->addImages($productId,$imagesNames);
+        }
+
+        public function update($files,$product)
+        {
+            $this->_repoProduct->update($product);
         }
 
         public function stmtToProduct($produtosResult)
@@ -71,5 +87,10 @@
             }
             
             return $products;
+        }
+
+        public function remove($productId)
+        {
+            $this->_repoProduct->remove($productId);
         }
     }

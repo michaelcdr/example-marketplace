@@ -9,24 +9,59 @@
         extends MySqlRepository  
         implements IProductRepository
     {
-        function getAll($page, $skip)
+        function getAll($page, $search)
         {
-            $stmt = $this->conn->prepare(
-                "SELECT p.ProductId, p.Title, p.Price, p.Description, p.CreatedAt, 
-                        p.CreatedBy, p.Offer, p.Stock, p.Sku, Image.filename as ImageFileName
-                        FROM Products p
-                left join (
-                    select pi.ProductId, pi.filename as filename
-                    from ProductsImages pi     
-                )
-                as Image on p.ProductId = Image.ProductId 
-                group by productid"
-            );
-            // $stmt = $this->conn->prepare(
-            //     "SELECT ProductId, Title, Price, Description, CreatedAt, CreatedBy, 
-            //     Offer, Stock, Sku  
-            //     FROM Products"
-            // );
+            $skipNumber = 0;
+            $pageSize = 5;
+            if (!is_null($page) && $page > 0)
+                $skipNumber = $skipNumber * $page;
+
+            if (!isset($page))
+                $page = 0;
+
+            $stmt = null;
+
+            
+            if (is_null($search) ||  $search === "")
+            {
+                $stmt = $this->conn->prepare(
+                    "SELECT p.ProductId, p.Title, p.Price, p.Description, p.CreatedAt, 
+                            p.CreatedBy, p.Offer, p.Stock, p.Sku, Image.filename as ImageFileName
+                            FROM Products p
+                    left join (
+                        select pi.ProductId, pi.filename as filename
+                        from ProductsImages pi     
+                    )
+                    as Image on p.ProductId = Image.ProductId 
+                    group by p.productid 
+                    order by p.title
+                    limit :pageSize OFFSET :skipNumber "
+                );
+            }
+            else 
+            {
+                $stmt = $this->conn->prepare(
+                    "SELECT p.ProductId, p.Title, p.Price, p.Description, p.CreatedAt, 
+                            p.CreatedBy, p.Offer, p.Stock, p.Sku, Image.filename as ImageFileName
+                            FROM Products p
+                    left join (
+                        select pi.ProductId, pi.filename as filename
+                        from ProductsImages pi     
+                    )
+                    as Image on p.ProductId = Image.ProductId 
+                    where 
+                        p.title like :search or
+                        p.description like :search
+                        p.Sku like :search
+                    group by productid 
+                    order by p.title 
+                    limit :pageSize OFFSET :skipNumber "
+                );
+                $stmt->bindValue(":search", '%' . $search . '%');
+            }
+
+            $stmt->bindValue(':pageSize', intval(trim($pageSize)), PDO::PARAM_INT);
+            $stmt->bindValue(':skipNumber', intval(trim($skipNumber)), PDO::PARAM_INT);
             $stmt->execute();
             $produtosResult = $stmt->fetchAll();
 
@@ -37,57 +72,66 @@
         {
             $stmt = $this->conn->prepare(
                 "INSERT INTO products(Title, Description, Price, CreatedAt, CreatedBy, Offer, Stock, Sku) 
-                values (:title, :desc, :price, :createdAt, :createdBy, :offer, :stock, :sku);"
+                values (:title, :desc, :price, now(), :createdBy, :offer, :stock,:sku);"
             );
             
-
             $stmt->bindValue(":title",$product->getTitle());
             $stmt->bindValue(":desc",$product->getDescription());
             $stmt->bindValue(":price",$product->getPrice());
-            $stmt->bindValue(":createdAt",date('Y/m/d H:i:s'));
             $stmt->bindValue(":createdBy",$product->getCreatedBy());
-            $stmt->bindValue(":offer",$product->getOffer());
+            $stmt->bindValue(":offer",$product->getOffer() == 'true' ? 1 : 0, PDO::PARAM_BOOL);
             $stmt->bindValue(":stock",$product->getStock());
             $stmt->bindValue(":sku",$product->getSku());
-            $teste = $stmt->execute();
+            $stmt->execute();
+            return $this->conn->lastInsertId();
+        }
+
+        public function addImages($productId, $imagesNames)
+        {
+            foreach($imagesNames as $image)
+            {
+                $stmt = $this->conn->prepare(
+                    "INSERT INTO productsimages(ProductId, FileName) 
+                    values (:ProductId, :FileName);"
+                );
+                $stmt->bindValue(":ProductId",$productId);
+                $stmt->bindValue(":FileName",$image);
+                $stmt->execute();
+            }
         }
 
         public function remove($id)
         {
             //removendo imagens do produto;
-            $query = "delete from productsimages where productid = :id;";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':id', $id);
+            $stmt = $this->conn->prepare("delete from productsimages where productid = :id");
+            $stmt->bindValue(':id', $id);
             $stmt->execute();
 
             //removendo produtos...
-            $query = "delete from Products where ProductId = :id";            
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':id', $id);
-            
+            $stmt = $this->conn->prepare("delete from products where productid = :id");
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+
             return true;
         }
 
-        public function altera($product)
+        public function update($product)
         {
-           
             $stmt = $this->conn->prepare(
                 "UPDATE Products set 
                 title = :title,
                 description = :description,
-                createdBy  = :createdBy,
                 offer = :offer,
                 stock = :stock,
                 sku = :sku
                 where ProductId = :productId"
             );
             
-            $stmt->bindValue(":title",$product->getTitle());
-            $stmt->bindValue(":description",$product->getDescription());
-            $stmt->bindValue(":createdBy",$product->getCreatedBy());
-            $stmt->bindValue(":offer",$product->getOffer());
-            $stmt->bindValue(":stock",$product->getStock());
-            $stmt->bindValue(":sku",$product->getSku());
+            $stmt->bindValue(":title", $product->getTitle());
+            $stmt->bindValue(":description", $product->getDescription());
+            $stmt->bindValue(":offer",$product->getOffer() == 'true' ? 1 : 0, PDO::PARAM_BOOL);
+            $stmt->bindValue(":stock", $product->getStock());
+            $stmt->bindValue(":sku", $product->getSku());
             $stmt->execute();
         }
 

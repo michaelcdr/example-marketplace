@@ -8,7 +8,7 @@
     use models\JsonError;
     use models\JsonSuccess;
 
-    class ProductCreatePostController implements IBaseController
+    class ProductEditPostController implements IBaseController
     {
         private $productService;
         public function __construct($factory)
@@ -27,23 +27,28 @@
                 $offer = filter_input(INPUT_POST,'offer',FILTER_SANITIZE_STRING);
                 $stock = filter_input(INPUT_POST,'stock',FILTER_SANITIZE_STRING);
                 $sku = filter_input(INPUT_POST,'sku',FILTER_SANITIZE_STRING);
+                $productId = $_POST["productId"];
                 
                 //montando model...
                 $product = new Product(
-                    null, $title, $price, $description, 
+                    $productId, 
+                    $title, 
+                    $price, $description, 
                     null, 'michael', $offer, $stock, $sku
                 );
 
                 //validando model se tiver ok o service resolve a treta!
                 if (!$product->isValid())
-                    $retornoJson = new JsonError("Não foi possível cadastrar o usuário, ocorreram erros de validação verifique a seguir"); 
+                    $retornoJson = new JsonError(
+                        "Não foi possível cadastrar o usuário, ocorreram erros de validação verifique a seguir"
+                    ); 
                 else
                 {
-                    $this->productService->add(
+                    $this->productService->update(
                         $_FILES['images'], 
                         $product
                     );
-                    $retornoJson = new JsonSuccess("Produto cadastrado com sucesso");
+                    $retornoJson = new JsonSuccess("Produto atualizado com sucesso");
                     header('Content-type:application/json;charset=utf-8');
                 }
             } 

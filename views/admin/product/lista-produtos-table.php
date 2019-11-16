@@ -21,13 +21,13 @@
                 <tr>
                     <td align="align-middle">
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-danger btn-delete" data-product-id="<?php echo $product->getId(); ?>">
+                            <button class="btn btn-sm btn-outline-danger btn-delete" data-id="<?php echo $product->getId(); ?>">
                                 <i class="fa fa-remove"></i>
                             </button>
-                            <a class="btn btn-sm btn-outline-dark" href="/admin/produto/editar?id=<?php echo $product->getId(); ?>">
+                            <a class="btn btn-sm btn-outline-dark" href="/admin/produtos/editar?id=<?php echo $product->getId(); ?>">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <a class="btn btn-sm btn-outline-dark" href="/admin/produto/detalhes?id=<?php echo $product->getId(); ?>">
+                            <a class="btn btn-sm btn-outline-dark" href="/admin/produtos/detalhes?id=<?php echo $product->getId(); ?>">
                                 <i class="fa fa-list"></i>
                             </a>
                         </div>
