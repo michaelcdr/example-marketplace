@@ -1,10 +1,10 @@
-class ListaProduto
+class ProductList
 {
     constructor()
     {
         this.initEvents();
-        this._routeDelete = '/admin/produtos/deletar';
-        this._routeList = '/admin/produtos/lista-partial';
+        this._routeDelete = '/admin/produto/deletar';
+        this._routeList = '/admin/produto/lista-partial';
     }
 
     initEvents()
@@ -19,13 +19,13 @@ class ListaProduto
         $('#btn-pesquisar').unbind('click')
         $('#btn-pesquisar').click(function(){
             let search = $("#search-products").val();
-            _self.toList(search);
+            _self.toList(0,search);
         });
 
         $("#search-products").unbind('keyup')
         $("#search-products").keyup(function(ev){
             if (ev.which === 13)
-                _self.toList($("#search-products").val());
+                _self.toList(0,$("#search-products").val());
         });
     }
 
@@ -38,25 +38,27 @@ class ListaProduto
             let params = { id : btnEl.data('id') };
             $.post(_self._routeDelete, params, function(data){
                 if (data.success){
-                    _self.toList(1,$("#search-products").val());
+                    _self.toList(0,$("#search-products").val());
                 } else {
                     alertError({ text: data.text , msg: data.msg });
                 }
             });
         }
-        alertConfirm('Deseja remover esse produto?','Essa ação não podera ser desfeita.',callback);
+        alertConfirm({
+            title:'Deseja remover esse produto?',
+            text:'Essa ação não podera ser desfeita.'
+        },callback);
     }
 
-    toList(search)
+    toList(page,search)
     {
-        let params = { page : 1, s : search };
+        let params = { page : page, s : search };
         let _self = this;
         $.post(_self._routeList, params, function(data){
-            
             $('#container-products').html(data);
             _self.initEvents();
         });
     }
 }
 
-window.listaProduto = new ListaProduto();
+window.productList = new ProductList();

@@ -45,21 +45,28 @@
                 //validando model se tiver ok o service resolve a treta!
                 if (!$product->isValid())
                     $retornoJson = new JsonError(
-                        "Não foi possível cadastrar o usuário, ocorreram erros de validação verifique a seguir"
+                        "Não foi possível cadastrar o produto, 
+                        ocorreram erros de validação verifique a seguir."
                     ); 
                 else
                 {
-                    $this->productService->update(
-                        $_FILES['images'], 
-                        $product
+                    $imagesUploaded = null;
+                    if (isset($_POST['images']))
+                        $imagesUploaded = $_POST['images'];
+                    
+                    
+                    $this->productService->update($imagesUploaded, $product);
+                    $retornoJson = new JsonSuccess(
+                        "Produto atualizado com sucesso."
                     );
-                    $retornoJson = new JsonSuccess("Produto atualizado com sucesso");
                     header('Content-type:application/json;charset=utf-8');
                 }
             } 
             catch(Exception $e)
             {
-                $retornoJson = new JsonError("Não foi possivel cadastrar o usuário"); 
+                $retornoJson = new JsonError(
+                    "Não foi possível cadastrar o usuário."
+                ); 
             }
             echo json_encode($retornoJson);
         }

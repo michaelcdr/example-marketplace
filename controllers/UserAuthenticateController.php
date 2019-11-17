@@ -26,6 +26,7 @@
                     //echo 'senha valida<br>';
                     $_SESSION["userId"] = $user->getUserId(); 
                     $_SESSION["userName"] = stripslashes($user->getName());                     
+                    $_SESSION["role"] = stripslashes($user->getRole());                     
                     $jsonReturn = new JsonSuccess("Login realizado com sucesso.");
                     $loginEfetuado = true;
                     header('Content-type:application/json;charset=utf-8');

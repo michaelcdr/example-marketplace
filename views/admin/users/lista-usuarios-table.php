@@ -4,12 +4,13 @@
             <th width="10%"></th>
             <th>Login</th>
             <th>Nome</th>
+            <th>Tipo de usuário</th>
         </tr>
     </thead>
     <tbody>
         <?php  if (count($users) == 0) : ?>
             <tr>
-                <td colspan="3">Nenhum registro cadastrado.</td>
+                <td colspan="4">Nenhum registro cadastrado.</td>
             </tr>
         <?php else  :?>
             <?php foreach ($users as $user): ?>
@@ -21,7 +22,7 @@
                                 <i class="fa fa-remove"></i>
                             </button>
                             <a class='btn btn-sm btn-outline-dark' 
-                                href="/admin/editar-usuario?id=<?php echo $user["UserId"] ?>">
+                                href="/admin/usuario/editar?id=<?php echo $user["UserId"] ?>">
                                 <i class="fa fa-edit" ></i>
                             </a>
                         </div>
@@ -31,6 +32,9 @@
                     </td>
                     <td>
                         <?php echo $user["Name"] ?>
+                    </td>
+                    <td>
+                        <?php echo $user["Role"] ?>
                     </td>
                 </tr>
             <?php endforeach?>

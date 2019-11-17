@@ -27,10 +27,11 @@
             $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_STRING);
             $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING);
             $name = filter_input(INPUT_POST,'name',FILTER_SANITIZE_STRING);
+            $role = filter_input(INPUT_POST,'role',FILTER_SANITIZE_STRING);
             // echo $password . '<br>';
             // echo password_hash($password, PASSWORD_ARGON2I) . '<br>';
             // echo password_verify('giacom',password_hash($password, PASSWORD_ARGON2I));
-            $user = new User(null,$login,trim($password),$name);
+            $user = new User(null,$login,trim($password),$name,$role);
             
             //validando modelo se valido retornamos um JSON.
             if ($user->isValid())

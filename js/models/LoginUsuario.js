@@ -49,7 +49,7 @@ class LoginUsuario
                 if (data.success){
                     document.location = "/";
                 } else {
-                    alertError({ text: data.msg });
+                    alertError({ text: data.msg, toast : true, timer:4000 });
                     btn.button('reset');
                 }
             }).fail(() => {

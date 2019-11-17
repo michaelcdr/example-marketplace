@@ -22,16 +22,38 @@ use infra\MySqlRepository;
 
             //inserindo produtos...
             $this->conn->exec(
-                "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
+                "insert into products(
+                    title,
+                    description,
+                    price,c
+                    reatedat,
+                    createdby,
+                    offer,
+                    stock,
+                    sku
+                ) values (
                     'GUITARRA FENDER STANDARD TELECASTER MEXICANA BLACK - 014-5102-506',
-                    'A Fender traz a Standard Telecaster para guitarristas que apreciam estilo e versatilidade por um super valor!',
-                    5690,now(),'michael',1,10,'001');"
+                    'A Fender traz a Standard Telecaster para guitarristas que apreciam 
+                    estilo e versatilidade por um super valor!',
+                    5690,now(),'michael',1,10,'001'
+                );"
             );
             $this->conn->exec(
-                "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
-                    'GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST (2012) - ACOMPANHA HARD CASE',
+                "insert into products(
+                    title,
+                    description,
+                    price,c
+                    reatedat,
+                    createdby,
+                    offer,
+                    stock,
+                    sku
+                ) values(
+                    'GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST 
+                    (2012) - ACOMPANHA HARD CASE',
                     'A lendária guitarra Stratocaster em sua versão mais tradicional!',
-                    7990,now(),'michael',1,10,'002');"
+                    7990,now(),'michael',1,10,'002'
+                );"
             );
             $this->conn->exec(
                 "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
@@ -42,7 +64,10 @@ use infra\MySqlRepository;
             
             //inserindo imagens de produtos...
             $this->conn->exec(
-                "insert into productsimages(productid,filename)
+                "insert into productsimages(
+                    productid,
+                    filename
+                )
                 values 
                 (
                     (
@@ -75,12 +100,11 @@ use infra\MySqlRepository;
                 , 'jackson-dincky-JS11GLOSSBLACK2910110503.jpg');"
             );
 
-           
-
             // carrossel
             $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-1.jpg',1)");
             $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-2.jpg',2)");
             $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-3.jpg',3)");
+            
             header('Location: /');
         }
 
@@ -106,7 +130,7 @@ use infra\MySqlRepository;
             }
             catch(Exception $ex)
             {
-                echo "fdasdfas";
+                echo "Ocorreu um erro ao tentar destruir o banco de dados.";
                 var_dump($ex);
             }
         }
@@ -117,7 +141,8 @@ use infra\MySqlRepository;
                 UserId  int NOT NULL PRIMARY KEY AUTO_INCREMENT,
                 Login varchar(100) not null unique,
                 Password varchar(255) not null,
-                Name varchar(255) not null
+                Name varchar(255) not null,
+                Role varchar(45) not null
             );";
             $this->conn->exec($query);
         }

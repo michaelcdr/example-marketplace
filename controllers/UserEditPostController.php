@@ -23,8 +23,9 @@
             $userId = $_POST["userId"];
             $name = $_POST["name"];
             $login = $_POST["login"];
-            
-            $user = new UserEdit($userId, $name, $login);
+            $role = $_POST["role"];
+
+            $user = new UserEdit($userId, $name, $login, $role);
             if ($user->isValid())
             {
                 $this->_repoUser->altera($user);                

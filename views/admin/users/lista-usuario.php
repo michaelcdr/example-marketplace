@@ -6,7 +6,15 @@
     <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
         <div class="lh-100">
             <h6 class="mb-0 text-white lh-100">Lista de usuários</h6>
-            <small>Categorias > Lista de usuários</small>
+            
+            <ul class="nav-breadcrumb">
+                <li>
+                    <a href="/admin/usuario">Usuarios</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">Lista de usuários</a>
+                </li>
+            </ul>
         </div>
     </div>
 
@@ -17,8 +25,10 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="search-users" placeholder="Pesquise pelo titulo da categoria" 
-                                aria-label="Pesquise pelo titulo da categoria" aria-describedby="btn-pesquisar">
+                            <input type="text" class="form-control" id="search-users" 
+                                placeholder="Pesquise pelo titulo da categoria" 
+                                aria-label="Pesquise pelo titulo da categoria" 
+                                aria-describedby="btn-pesquisar">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="btn-pesquisar">
                                     Pesquisar
@@ -27,7 +37,7 @@
                         </div>
                     </div>
                     <p>
-                        <a class="btn btn-dark btn-sm" href="/admin/cadastrar-usuario">
+                        <a class="btn btn-dark btn-sm" href="/admin/usuario/cadastrar">
                             <i class="fa fa-plus"></i> Cadastrar usuário
                         </a>
                     </p>
@@ -41,7 +51,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <p>
-                        <a class="btn btn-dark btn-sm" href="/admin/cadastrar-usuario">
+                        <a class="btn btn-dark btn-sm" href="/admin/usuario/cadastrar">
                             <i class="fa fa-plus"></i> Cadastrar usuário
                         </a>
                     </p>
@@ -68,5 +78,5 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
-<script src="/js/models/ListaUsuarios.js"></script>
+<script src="/js/models/UserList.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>

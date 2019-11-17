@@ -1,15 +1,15 @@
 <?php require_once './views/partials/header-admin.php' ?>
-
+<link rel="stylesheet" href="/libs/dropzone/dropzone.min.css">
 <div class="container">
     <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
         <div class="lh-100">
             <h6 class="mb-0 text-white lh-100">Cadastro de produto</h6>
             <ul class="nav-breadcrumb">
                 <li>
-                    <a href="/admin/produtos">Produto</a>
+                    <a href="/admin/produto">Produto</a>
                 </li>
                 <li>
-                    <a href="/admin/produtos/cadastrar">Cadastrar</a>
+                    <a href="/admin/produto/cadastrar">Cadastrar</a>
                 </li>
             </ul>
         </div>
@@ -19,8 +19,13 @@
         <div class="card-body">
             <h5>Informe os dados do produto e clique em salvar.</h6>
             <form action="/admin/produtos/editar-post" method="post" id="form-cadastro"
-              enctype="multipart/form-data">
-                <input type="hidden" id="productId" name="productId" value="<?php echo $product->getId(); ?>">
+              enctype="multipart/form-data" class="">
+                <input type="hidden" id="productId" name="productId" 
+                    value="<?php echo $product->getId(); ?>">
+                
+                <input type="hidden" id="images" name="images" 
+                    value="<?php echo  $product->getImagesStr(); ?>">
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -36,7 +41,8 @@
                             <label for="price">Preço à vista:</label>
                             <input type="number" name="price" id="price" 
                                 value="<?php echo $product->getPrice(); ?>" 
-                                data-required="true"  class="form-control" placeholder="" aria-describedby="help-price">
+                                data-required="true"  class="form-control" 
+                                placeholder="" aria-describedby="help-price">
                             <small id="help-price" class="text-muted">Preço à vista do produto</small>
                         </div>
                     </div>
@@ -63,8 +69,11 @@
                             <label for="offer">Esse produto é oferta:</label>
                             <div class="mb-2">
                                 <input type="radio" name="offer" value="true" id="offer-sim" checked="checked"
-                                    placeholder="" aria-describedby="help-stock"> <label for="offer-sim">Sim</label>
+                                    placeholder="" aria-describedby="help-stock"
+                                    <?php echo $product->getOffer() == true ? "checked='checked'" : ""; ?>> 
+                                    <label for="offer-sim">Sim</label>
                                 <input type="radio" name="offer" value="false" id="offer-nao"
+                                    <?php echo $product->getOffer() == false ? "checked='checked'" : ""; ?>
                                     placeholder="" aria-describedby="help-stock"> <label for="offer-nao">Não</label>
                             </div>
                             <small id="help-stock" class="text-muted">Se esse produto esta em oferta selecione sim</small>
@@ -84,23 +93,47 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="">Imagem do produto:</label>
-                            <div class="custom-file">
-                                <input type="file" name="images[]" class="custom-file-input" id="images" multiple
-                                    aria-describedby="images">
-                                <label class="custom-file-label" for="images">Escolha um arquivo</label>
+                            <label for="">Imagens atuais:</label>
+                            <div id="product-img-cards-container" class="card-columns ">
+                                <?php if (count($product->getImages()) > 0): ?>
+                                    <?php foreach ($product->getImages() as $image): ?>
+                                        <div class="card text-center " data-name="<?php  echo $image["FileName"]; ?>">
+                                            <div class="text-center p-2">
+                                                <img src="/img/products/<?php  echo $image["FileName"]; ?>" 
+                                                    src="..." alt="..." style="max-width:100px; max-height:100px;"
+                                                    class="img-fluid ">
+                                            </div>
+                                            <div class="card-footer p-2">
+                                                <button type="button" class="btn btn-danger btn-sm" 
+                                                    data-name="<?php  echo $image["FileName"]; ?>"
+                                                    data-product-id="<?php  echo $image["ProductId"]; ?>" 
+                                                    data-id="<?php  echo $image["ProductImageId"]; ?>" 
+                                                    title="Remover imagem">
+                                                    <i class="fa fa-trash"></i> Remover
+                                                </button>
+                                            </div>
+                                        </div>
+                                    <?php endforeach;?>
+                                <?php endif;?>
                             </div>
-                            <small id="images-HelpId" class="form-text text-muted">
-                                Selecione uma ou mais imagens para seu produto
-                            </small>
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <a class="btn btn-warning" href="/admin/produtos">
+                        <div class="form-group">
+                            <label for="">Selecione uma ou mais imagens para seu produto:</label>
+                            <div id="upload-container" class="dropzone">
+                            </div>
+                        </div>
+                    </div>
+                                        
+                    <div class="col-md-12">
+                        <a class="btn btn-sm btn-warning" href="/admin/produto">
                             <i class="fa fa-chevron-left"></i>
                         </a>
-                        <button type="submit" name="btn-salvar" id="btn-salvar" data-loading-text="Processando, Aguarde..."
-                            class="btn btn-dark"><i class="fa fa-save"></i> Salvar produto
+                        <button type="submit" name="btn-salvar" id="btn-salvar"
+                             data-loading-text="Processando, Aguarde..."
+                            class="btn btn-sm btn-dark">
+                                <i class="fa fa-save"></i> Salvar produto
                         </button>
                     </div>
                 </div>
@@ -110,7 +143,6 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
+<script src="/libs/dropzone/dropzone.min.js"></script>
 <script src="/js/models/ProductEdit.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>
-    
-    

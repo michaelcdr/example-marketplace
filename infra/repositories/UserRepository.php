@@ -12,10 +12,15 @@
     {
         public function add($user)
         {
-            $stmt = $this->conn->prepare("INSERT INTO Users (Login, Password, Name) values (:loginParam,:passwordParam, :nameParam)");
+            $stmt = $this->conn->prepare(
+                "INSERT INTO Users (Login, Password, Name,Role) 
+                values 
+                (:loginParam,:passwordParam, :nameParam,:role)"
+            );
             $stmt->bindValue(':loginParam', $user->getLogin());
             $stmt->bindValue(':passwordParam', password_hash($user->getPassword(), PASSWORD_ARGON2I));
             $stmt->bindValue(':nameParam',$user->getName());
+            $stmt->bindValue(':role',$user->getRole());
             $stmt->execute();
         }
 
@@ -32,31 +37,38 @@
 
         public function altera($user)
         {
-            // echo '<pre>';
-            // echo $user->getUserId() . ', ' . $user->getName() . ', ' . $user->getLogin();
-            // echo '</pre>';
-            // exit();
             $stmt = $this->conn->prepare(
-                "UPDATE Users set login = :loginParam, name = :nameParam
+                "UPDATE Users 
+                    set 
+                        login = :loginParam, 
+                        name = :nameParam,
+                        role = :role
                  where UserId = :userId");
             
             $stmt->bindValue(':userId', $user->getUserId());
             $stmt->bindValue(':loginParam', $user->getLogin());
             $stmt->bindValue(':nameParam', $user->getName());
+            $stmt->bindValue(':role', $user->getRole());
             $stmt->execute();
         }
 
         public function getById($id)
         {
             $stmt = $this->conn->prepare(
-                "SELECT UserId, Login, Name, Password FROM Users 
+                "SELECT UserId, Login, Name, Password, Role FROM Users 
                  WHERE UserId = :UserId LIMIT 1"
             );
             $stmt->bindValue(':UserId', $id);
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($row) 
-                $usuario = new User($row['UserId'], $row['Login'], $row['Password'], $row['Name']);
+                $usuario = new User(
+                    $row['UserId'], 
+                    $row['Login'], 
+                    $row['Password'], 
+                    $row['Name'],
+                    $row['Role']
+                );
           
             return $usuario;
         }
@@ -65,14 +77,20 @@
         {
             $usuario = null;
             $stmt = $this->conn->prepare(
-                "SELECT UserId, Login, Name, Password FROM Users 
+                "SELECT UserId, Login, Name, Password, Role FROM Users 
                  WHERE login = :login LIMIT 1"
             );
             $stmt->bindValue(':login', $login);
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($row) 
-                $usuario = new User($row['UserId'], $row['Login'], $row['Password'], $row['Name']);
+                $usuario = new User(
+                    $row['UserId'],
+                    $row['Login'], 
+                    $row['Password'], 
+                    $row['Name'], 
+                    $row['Role']
+                );
           
             return $usuario;
         }
@@ -91,7 +109,7 @@
             {
                 //echo 'Lista sem pesquisa';
                 $stmt = $this->conn->prepare(
-                    "SELECT UserId, Login, Name 
+                    "SELECT UserId, Login, Name, Role 
                      FROM Users limit :pageSize OFFSET :skipNumber "
                 );
                 //$stmt->bindParam(1, intval(trim($pageSize)), PDO::PARAM_INT); //erro ocorrido Only variables should be passed by reference
@@ -103,7 +121,7 @@
             else
             {
                 $stmt = $this->conn->prepare( 
-                    "SELECT UserId, Login, Name FROM Users 
+                    "SELECT UserId, Login, Name, Role FROM Users 
                      WHERE Login like :search or 
                      Name like :search order by name 
                      limit :pageSize OFFSET :skipNumber 

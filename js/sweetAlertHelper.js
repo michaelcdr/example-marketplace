@@ -26,26 +26,30 @@ window.alertError = function(dataObj){
 
 window.alertServerError = function(){
     Swal.fire({
-        toast: true,
+        toast: false,
         title: 'Ops, algo deu errado',
         text: 'Ocorreu um erro interno em nossos servidores, tente novamente mais tarde.',
         type: 'error'
     });
 }
 
-window.alertConfirm = function(title, text, callback){
-    Swal.fire({
-        title: title,
-        text: text,
+window.alertConfirm = function(dataObj, callback){
+    let opts= {
+        title: "Atenção",
+        text: "Erro deseja remover?",
         type: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim'
-    }).then((result) => {
-        if (result.value){
-            callback();
-        }
+        confirmButtonColor: '#DC3545',
+        cancelButtonColor: '#343A40',
+        confirmButtonText: 'Sim, desejo remover'
+    };
+    $.extend(opts, dataObj);
+
+    Swal.fire(opts)
+        .then((result) => {
+            if (result.value){
+                callback();
+            }
     });
 }
   

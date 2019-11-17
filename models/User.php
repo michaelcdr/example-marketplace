@@ -1,15 +1,15 @@
 <?php
     namespace models;
 
-    class User {
-        public function __construct($userId,$login,$password,$name)
+    class User 
+    {
+        public function __construct($userId,$login,$password,$name,$role)
         {
             $this->userId = $userId;
             $this->login = $login;
-
-            //usando padrao de senha argon2
             $this->password = $password;
             $this->name = $name;
+            $this->role=$role;
         }
 
         private $errors = array();
@@ -17,6 +17,7 @@
         private $login;
         private $password;
         private $name;
+        private $role;
 
         public function getUserId(){
             return $this->userId;
@@ -33,7 +34,9 @@
         public function getName(){
             return $this->name;
         }
-
+        public function getRole(){
+            return $this->role;
+        }
 
         public function passwordIsValid(string $senhaPura) : bool
         {   

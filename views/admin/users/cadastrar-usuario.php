@@ -22,7 +22,8 @@
                             <small id="help-name" class="text-muted">Nome do usuário</small>
                         </div>
                     </div>
-                    <div class="col-md-6">
+
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="login">Login:</label>
                             <input type="text" name="login" id="login"
@@ -31,7 +32,7 @@
                             <small id="help-login" class="text-muted">Login do usuário</small>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="password">Senha:</label>
                             <input type="password" name="password" id="password" 
@@ -40,13 +41,26 @@
                             <small id="help-password" class="text-muted">Senha do usuário</small>
                         </div>
                     </div>
-                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="role">Tipo:</label>
+                            <select name="role" id="role" 
+                                data-required="true" class="form-control" 
+                                aria-describedby="help-role" >
+                                <option value="">Selecione o tipo...</option>
+                                <option value="comum">Comum</option>
+                                <option value="vendedor">Vendedor</option>
+                                <option value="admin">Administrador</option>
+                            </select>
+                            <small id="help-role" class="text-muted">Tipo de usuário</small>
+                        </div>
+                    </div>
                     <div class="col-md-12">
-                        <a class="btn btn-warning" href="lista-usuarios">
+                        <a class="btn btn-sm btn-warning" href="/admin/usuario">
                             <i class="fa fa-chevron-left"></i>
                         </a>
                         <button type="submit" name="btn-salvar" id="btn-salvar" 
-                            class="btn btn-dark"><i class="fa fa-save"></i> Salvar usuário
+                            class="btn btn-sm btn-dark"><i class="fa fa-save"></i> Salvar usuário
                         </button>
                     </div>
                 </div>
@@ -56,5 +70,5 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
-<script src="/js/models/CadastroUsuario.js"></script>
+<script src="/js/models/UserForm.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>

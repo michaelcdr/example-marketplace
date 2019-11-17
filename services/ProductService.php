@@ -24,7 +24,9 @@
 
         public function getById($productId)
         {
-            return $this->_repoProduct->getById($productId);
+            $product = $this->_repoProduct->getById($productId);
+            
+            return $product;
         }
 
         public function add($files, $product)
@@ -59,15 +61,24 @@
             $this->_repoProduct->addImages($productId,$imagesNames);
         }
 
-        public function update($files,$product)
+        public function update($images, $product)
         {
+            $productId = $product->getId();
+            $this->_repoProduct->removeAllImages($productId);
             $this->_repoProduct->update($product);
+            $imagesNames = explode("$$",$images);
+            if (count($imagesNames) > 0)
+                $this->_repoProduct->addImages($productId, $imagesNames);
         }
 
+        /* 
+        * Transforma uma lista PDO statement em uma lista de Model Product.
+        */
         public function stmtToProduct($produtosResult)
         {
             $products = array();
-            foreach($produtosResult as $productItem){
+            foreach($produtosResult as $productItem)
+            {
                $product = new Product(
                     $productItem["ProductId"],
                     $productItem["Title"],

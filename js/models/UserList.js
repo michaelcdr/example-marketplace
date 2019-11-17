@@ -1,10 +1,10 @@
-class ListaUsuarios
+class UserList
 {
     constructor()
     {
         this.initEvents();
-        this._routeDelete = '/admin/deletar-usuario';
-        this._routeList = '/admin/lista-usuarios-table'
+        this._routeDelete = '/admin/usuario/deletar';
+        this._routeList = '/admin/usuario/lista-table'
     }
 
     initEvents()
@@ -18,14 +18,13 @@ class ListaUsuarios
 
         $('#btn-pesquisar').unbind('click')
         $('#btn-pesquisar').click(function(){
-            let search = $("#search-users").val();
-            _self.toList(search);
+            _self.toList(0,$("#search-users").val());
         });
 
         $("#search-users").unbind('keyup')
         $("#search-users").keyup(function(ev){
             if (ev.which === 13)
-                _self.toList($("#search-users").val());
+                _self.toList(0,$("#search-users").val());
         });
     }
 
@@ -37,25 +36,27 @@ class ListaUsuarios
             let params = { id : btnEl.data('id') };
             $.post(_self._routeDelete, params, function(data){
                 if (data.success){
-                    _self.toList(1,$("#search-users").val());
+                    _self.toList(0,$("#search-users").val());
                 } else {
                     alertError({ text: data.text , msg: data.msg });
                 }
             });
         }
-        alertConfirm('Deseja remover esse usuário?','Essa ação não podera ser desfeita.',callback);
+        alertConfirm({
+            title:'Deseja remover esse usuário?',
+            text:'Essa ação não podera ser desfeita.'
+        },callback);
     }
 
-    toList(search)
+    toList(page, search)
     {
-        let params = { page : 1, s : search };
+        let params = { page : page, s : search };
         let _self = this;
         $.post(_self._routeList, params, function(data){
-            
             $('#tb-users').html(data);
             _self.initEvents();
         });
     }
 }
 
-window.listaUsuarios = new ListaUsuarios();
+window.userList = new UserList();

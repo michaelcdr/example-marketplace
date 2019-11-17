@@ -1,4 +1,4 @@
-class CadastroProduto{
+class ProductCreate{
     constructor(){
         
         this.btnSubmit = $('button#btn-salvar');
@@ -13,9 +13,9 @@ class CadastroProduto{
             let model = _self.getModel();
             if (validateResponse.isValid){   
                 //dados validos, iremos gravar...  
-                let action = '/admin/produtos/cadastrar-post';
+                let action = '/admin/produto/cadastrar-post';
                 if (model.userId && model.userId !== '')
-                    action = '/admin/produtos/editar-post';
+                    action = '/admin/produto/editar-post';
                 
                 _self.btnSubmit.button('loading');
                 $.ajax({
@@ -27,8 +27,7 @@ class CadastroProduto{
                     cache: false,
                     processData:false,
                     beforeSend: function(){
-                        // $('.submitBtn').attr("disabled","disabled");
-                        // $('#fupForm').css("opacity",".5");
+                        
                     },
                     success: function(data){ 
                         console.log(data);
@@ -42,7 +41,7 @@ class CadastroProduto{
 
                         }).then((result) => {
                             if (result.value) {
-                                document.location = "/admin/produtos";
+                                document.location = "/admin/produto";
                             }
                         });
                     }
@@ -79,4 +78,4 @@ class CadastroProduto{
     }
 }
 
-window.cadastroProduto = new CadastroProduto();
+window.productCreate = new ProductCreate();

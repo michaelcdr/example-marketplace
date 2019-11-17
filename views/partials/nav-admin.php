@@ -14,29 +14,30 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
+                        <a class="nav-link" href="/admin/categorias">
+                            Categorias <span class="sr-only"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
                         <a class="nav-link" href="/admin/vendedores">
                             Vendedores <span class="sr-only"></span>
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/admin/produtos">
+                        <a class="nav-link" href="/admin/produto">
                             Produtos <span class="sr-only"></span>
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/admin/lista-usuarios">
+                        <a class="nav-link" href="/admin/usuario">
                             Usuários <span class="sr-only"></span>
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/admin/categorias">
-                            Categorias <span class="sr-only"></span>
-                        </a>
-                    </li>
+                    
                 </ul>
                 <div class="form-inline">
                     <span class="login-nav text-light ml-3">
-                        <?php if(isset($_SESSION["userId"])) :?>
+                        <?php if (isset($_SESSION["userId"])) :?>
                             <i class="fa fa-user"></i> Olá, 
                             <a href="/admin/detalhes/<?php echo $_SESSION["userId"]?>" class="a-primary" >
                                 <?php echo $_SESSION["userName"] ?>

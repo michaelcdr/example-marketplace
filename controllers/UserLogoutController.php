@@ -12,10 +12,10 @@
            
         }
 
-        
         public function proccessRequest() : void
         {
-            if (isset($_SESSION["userId"])) {
+            if (isset($_SESSION["userId"])) 
+            {
                 session_destroy();
                 header("location: /");
                 exit;

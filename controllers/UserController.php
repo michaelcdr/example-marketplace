@@ -17,9 +17,12 @@
         
         public function proccessLoginRequest() : void
         {
-            if(!isset($_SESSION["userId"])){
+            if (!isset($_SESSION["userId"]))
+            {
                 echo 'deslogado';
-            } else{
+            } 
+            else
+            {
                 echo 'logado';
             }
             require "views/usuario/login.php";

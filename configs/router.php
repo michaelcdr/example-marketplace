@@ -28,38 +28,41 @@
     use controllers\ProductEditPostController;
     use controllers\ProductPartialListController;
     use controllers\ProductDeleteController;
+    use controllers\ProductImageUploadController;
+    //rota X [controller , roles]
 
     $routes = [
-        "/" => HomeController::class,
-        "/createdb" => CreateDbController::class, 
-        "/destroydb" => DestroyDbController::class,
-        "/logout" => UserLogoutController::class,
-        "/login" => UserLoginController::class,
-        "/autenticar" => UserAuthenticateController::class,
-        "/pesquisa" => SearchController::class,
-        "/seed" => SeedController::class,
-        "/detalhes-produto" => DetailsProductController::class,
-        "/carrinho"=>CartController::class,
-        "/listar-itens-carrinho"=>CartListController::class,
-        "/atualizar-quantidade-produto"=>CartAtualizarQtdProdutoController::class,
-        "/adicionar-carrinho" => AddToCartController::class,
-        "/remover-item-carrinho" => RemoveFromCartController::class,       
+        "/" => [HomeController::class, ""],
+        "/createdb" => [CreateDbController::class, ""], 
+        "/destroydb" => [DestroyDbController::class, ""],
+        "/logout" => [UserLogoutController::class, "admin,vendedor"],
+        "/login" => [UserLoginController::class, ""],
+        "/autenticar" => [UserAuthenticateController::class, ""],
+        "/pesquisa" => [SearchController::class, ""],
+        "/seed" => [SeedController::class, ""],
+        "/detalhes-produto" => [DetailsProductController::class, ""],
+        "/carrinho"=> [CartController::class, ""],
+        "/listar-itens-carrinho"=> [CartListController::class, ""],
+        "/atualizar-quantidade-produto" => [CartAtualizarQtdProdutoController::class, ""],
+        "/adicionar-carrinho" => [AddToCartController::class, ""],
+        "/remover-item-carrinho" => [RemoveFromCartController::class, ""],       
 
-        "/admin/editar-usuario" => UserEditController::class,
-        "/admin/editar-usuario-post" => UserEditPostController::class,
-        "/admin/cadastrar-usuario" => UserCreateController::class,
-        "/admin/cadastrar-usuario-post" => UserCreatePostController::class,
-        "/admin/deletar-usuario" => UserDeleteController::class,
-        "/admin/lista-usuarios" => UserListController::class,        
-        "/admin/lista-usuarios-table" => UserPartiaListController::class,
+        "/admin/usuario/editar" => [UserEditController::class,"admin"],
+        "/admin/usuario/editar-post" => [UserEditPostController::class,"admin"],
+        "/admin/usuario/cadastrar" => [UserCreateController::class,"admin"],
+        "/admin/usuario/cadastrar-post" => [UserCreatePostController::class,"admin"],
+        "/admin/usuario/deletar" => [UserDeleteController::class,"admin"],
+        "/admin/usuario" => [UserListController::class,"admin"],        
+        "/admin/usuario/lista-table" => [UserPartiaListController::class,"admin"],
 
-        "/admin/produtos" => ProductListController::class,
-        "/admin/produtos/lista-partial" => ProductPartialListController::class,
-        "/admin/produtos/cadastrar" => ProductCreateController::class,
-        "/admin/produtos/cadastrar-post" => ProductCreatePostController::class,
-        "/admin/produtos/editar" => ProductEditController::class,
-        "/admin/produtos/editar-post" => ProductEditPostController::class,
-        "/admin/produtos/deletar" => ProductDeleteController::class
+        "/admin/produto" => [ProductListController::class, "admin,vendedor"],
+        "/admin/produto/lista-partial" => [ProductPartialListController::class, "admin,vendedor"],
+        "/admin/produto/cadastrar" => [ProductCreateController::class,"admin,vendedor"],
+        "/admin/produto/cadastrar-post" => [ProductCreatePostController::class,"admin,vendedor"],
+        "/admin/produto/editar" => [ProductEditController::class,"admin,vendedor"],
+        "/admin/produto/editar-post" => [ProductEditPostController::class,"admin,vendedor"],
+        "/admin/produto/deletar" => [ProductDeleteController::class,"admin,vendedor"],
+        "/admin/produto/upload" => [ProductImageUploadController::class,"admin,vendedor"]
     ];
 
     return $routes;

@@ -46,8 +46,10 @@ class Carrinho
         }
 
         alertConfirm(
-            'Deseja remover esse produto do carrinho?',
-            'Essa ação não podera ser desfeita.',
+            {
+                title:'Deseja remover esse produto do carrinho?',
+                text:'Essa ação não podera ser desfeita.'
+            },
             callback
         );
     }

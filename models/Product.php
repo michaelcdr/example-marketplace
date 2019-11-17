@@ -13,7 +13,7 @@
         private $Stock;
         private $Offer;
         private $Seller;
-        private $Images;
+        private $images;
         private $imageDefault;
         private $errors;
 
@@ -84,12 +84,16 @@
 
         public function setImages($images)
         {
-            $this->Images = $images;
+            $this->images = $images;
         }
 
         public function getImages()
         {
-            return $this->Images;
+            return $this->images;
+        }
+        public function hasImages() 
+        {
+            return $this->getDefaultImage() != "/img/products/";
         }
 
         public function setDefaultImage($img)
@@ -105,6 +109,17 @@
         public function getErrors()
         {
             return $this->errors;
+        }
+        
+        public function getImagesStr()
+        {
+            $itens = array();
+            foreach($this->images as $image)
+            {
+                $itens[] = $image["FileName"];
+            }
+
+            return join("$$", $itens);
         }
 
         public function isValid() : bool

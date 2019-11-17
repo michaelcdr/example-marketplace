@@ -1,12 +1,9 @@
-
-<?php 
-    //echo var_dump($products);
-?>
-<table id="tb-products" data-page="0" class="table table-bordered table-hovered table-striped">
+<table id="tb-products" data-page="0" 
+    class="table table-bordered table-hovered table-striped">
     <thead>
         <tr>
             <th width="10%"></th>
-            <th>Image</th>
+            <th align="center" style="text-align:center">Image</th>
             <th>Sku</th>
             <th>Título</th>
         </tr>
@@ -24,18 +21,20 @@
                             <button class="btn btn-sm btn-outline-danger btn-delete" data-id="<?php echo $product->getId(); ?>">
                                 <i class="fa fa-remove"></i>
                             </button>
-                            <a class="btn btn-sm btn-outline-dark" href="/admin/produtos/editar?id=<?php echo $product->getId(); ?>">
+                            <a class="btn btn-sm btn-outline-dark" href="/admin/produto/editar?id=<?php echo $product->getId(); ?>">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <a class="btn btn-sm btn-outline-dark" href="/admin/produtos/detalhes?id=<?php echo $product->getId(); ?>">
+                            <a class="btn btn-sm btn-outline-dark" href="/admin/produto/detalhes?id=<?php echo $product->getId(); ?>">
                                 <i class="fa fa-list"></i>
                             </a>
                         </div>
                     </td>
                     <td align="center" >
-                        <img src="<?php echo $product->getDefaultImage(); ?>" 
-                            title="" alt="" class="img-fluid" style="max-width:100px; max-height:100px; ">
-                        
+                        <?php if ($product->hasImages()): ?>
+                            <img src="<?php echo $product->getDefaultImage(); ?>" 
+                                title="" alt="" class="img-fluid" 
+                                style="max-width:100px; max-height:100px; ">
+                        <?php endif; ?>
                     </td>
                     <td >
                         <?php echo $product->getSku(); ?>

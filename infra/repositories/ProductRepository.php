@@ -100,12 +100,19 @@
             }
         }
 
+        /*
+         * removendo imagens do produto;
+         */
+        public function removeAllImages($productId)
+        {  
+            $stmt = $this->conn->prepare("delete from productsimages where productid = :id");
+            $stmt->bindValue(':id', $productId);
+            $stmt->execute();
+        }
+
         public function remove($id)
         {
-            //removendo imagens do produto;
-            $stmt = $this->conn->prepare("delete from productsimages where productid = :id");
-            $stmt->bindValue(':id', $id);
-            $stmt->execute();
+            $this->removeAllImages($id);
 
             //removendo produtos...
             $stmt = $this->conn->prepare("delete from products where productid = :id");
@@ -166,7 +173,8 @@
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $product = null;
 
-            if ($row){
+            if ($row)
+            {
                 $product = new Product(
                     $row['ProductId'], 
                     $row['Title'], 
@@ -186,6 +194,7 @@
                 $stmt->execute();
                 $images = $stmt->fetchAll();
                 $product->setImages($images);
+               
             }
             return $product;
         }
