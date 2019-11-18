@@ -4,6 +4,7 @@
     use infra\MySqlRepository;
     use infra\interfaces\IUserRepository;
     use models\User;
+    use models\Seller;
     use PDO;
 
     class UserRepository 
@@ -93,6 +94,27 @@
                 );
           
             return $usuario;
+        }
+
+        public function getSellers()
+        {
+            $stmt = $this->conn->prepare(
+                "SELECT userId, name 
+                 FROM Users where role = 'vendedor' "
+            );
+            
+            $stmt->execute();
+            $results = $stmt->fetchAll();
+
+            $sellers = array();
+            foreach($results as $seller){
+                $sellers[] = new Seller(
+                    $seller["userId"],
+                    $seller["name"]
+                );
+            }
+
+            return $sellers;
         }
 
         public function getAll($page, $search)

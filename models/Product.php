@@ -16,8 +16,11 @@
         private $images;
         private $imageDefault;
         private $errors;
+        private $userId;
 
-        public function __construct($id, $title, $price, $description, $createdAt, $createdBy,$offer,$stock,$sku)
+        public function __construct(
+            $id, $title, $price, $description, $createdAt, $createdBy,
+            $offer,$stock,$sku,$userId,$seller)
         {
             $this->ProductId = $id;
             $this->Title = $title;
@@ -29,6 +32,8 @@
             $this->Offer = $offer;
             $this->Sku = $sku;
             $this->Stock = $stock;
+            $this->userId = $userId;
+            $this->Seller = $seller;
             $this->errors = array();
         }
 
@@ -36,7 +41,10 @@
         {
             return $this->ProductId;
         }
-
+        public function getUserId()
+        {
+            return $this->userId;
+        }
         public function getSeller()
         {
             return $this->Seller;

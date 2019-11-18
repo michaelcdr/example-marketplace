@@ -3,31 +3,58 @@
     use infra\MySqlRepository;    
     use infra\interfaces\IProductRepository;
     use models\Product;
+    use models\PaginatedResults;
     use PDO;
 
     class ProductRepository 
         extends MySqlRepository  
         implements IProductRepository
     {
-        function getAll($page, $search)
+        public function totalOfProducts($search)
+        {
+            $stmt = null;
+            if (is_null($search) ||  $search === "")
+            {
+                $stmt = $this->conn->prepare(
+                    "SELECT count(p.ProductId) as total FROM Products p"
+                );
+            }
+            else 
+            {
+                $stmt = $this->conn->prepare(
+                    "SELECT count(p.ProductId) as total FROM Products p
+                    where 
+                        p.title like :search or
+                        p.description like :search or
+                        p.Sku like :search"
+                );
+                $stmt->bindValue(":search", '%' . $search . '%');
+            }
+            $stmt->execute();
+            $total = $stmt->fetch();
+            return intval($total["total"]);
+        }
+
+        public function getAll($page, $search)
         {
             $skipNumber = 0;
             $pageSize = 5;
+            // echo "pagina: " . $page . "<br>";
             if (!is_null($page) && $page > 0)
-                $skipNumber = $skipNumber * $page;
-
-            if (!isset($page))
-                $page = 0;
+                $skipNumber = $pageSize * ($page - 1);
+            // echo "skipNumber: " . $skipNumber . "<br>";
 
             $stmt = null;
-
+            $total = $this->totalOfProducts($search);
             
             if (is_null($search) ||  $search === "")
             {
                 $stmt = $this->conn->prepare(
                     "SELECT p.ProductId, p.Title, p.Price, p.Description, p.CreatedAt, 
-                            p.CreatedBy, p.Offer, p.Stock, p.Sku, Image.filename as ImageFileName
+                            p.CreatedBy, p.Offer, p.Stock, p.Sku, Image.filename as ImageFileName,
+                            p.UserId, u.Name as Seller
                             FROM Products p
+                    inner join users u on p.userid = u.userid
                     left join (
                         select pi.ProductId, pi.filename as filename
                         from ProductsImages pi     
@@ -42,8 +69,10 @@
             {
                 $stmt = $this->conn->prepare(
                     "SELECT p.ProductId, p.Title, p.Price, p.Description, p.CreatedAt, 
-                            p.CreatedBy, p.Offer, p.Stock, p.Sku, Image.filename as ImageFileName
+                            p.CreatedBy, p.Offer, p.Stock, p.Sku, Image.filename as ImageFileName,
+                            p.UserId, u.Name as Seller
                             FROM Products p
+                    inner join users u on p.userid = u.userid
                     left join (
                         select pi.ProductId, pi.filename as filename
                         from ProductsImages pi     
@@ -64,11 +93,28 @@
             $stmt->bindValue(':skipNumber', intval(trim($skipNumber)), PDO::PARAM_INT);
             $stmt->execute();
             $produtosResult = $stmt->fetchAll();
+            
+            $numberOfPages = ceil($total / $pageSize);
+            $hasPreviousPage = false;
+            if ($numberOfPages > 1 && $page > 1)
+                $hasPreviousPage = true;
 
-            return $produtosResult;
+            $hasNextPage = false;
+            if ($numberOfPages > intval($page))
+                $hasNextPage = true;
+            
+            return new PaginatedResults(
+                $produtosResult, 
+                $total, 
+                count($produtosResult),
+                $hasPreviousPage,
+                $hasNextPage,
+                $page,
+                $numberOfPages
+            );
         }
 
-        function add($product)
+        public function add($product)
         {
             $stmt = $this->conn->prepare(
                 "INSERT INTO products(Title, Description, Price, CreatedAt, CreatedBy, Offer, Stock, Sku) 
@@ -163,10 +209,12 @@
         function getById($id)
         {
             $stmt = $this->conn->prepare(
-                "SELECT ProductId, Title, Description, Price, 
-                        CreatedAt, CreatedBy, Offer, Stock, Sku  
-                FROM Products
-                WHERE ProductId = :ProductId"
+                "SELECT p.ProductId, p.Title, p.Description, p.Price, 
+                        p.CreatedAt, p.CreatedBy, p.Offer, p.Stock, p.Sku,
+                         p.UserId  , u.name as Seller
+                FROM Products p
+                inner join users u on p.userid = u.userid
+                WHERE p.ProductId = :ProductId"
             );
             $stmt->bindValue(":ProductId",$id);
             $stmt->execute();
@@ -184,7 +232,9 @@
                     $row['CreatedBy'],
                     $row['Offer'],
                     $row['Stock'],
-                    $row['Sku']
+                    $row['Sku'],
+                    $row['UserId'],
+                    $row["Seller"]
                 );
 
                 $stmt = $this->conn->prepare(

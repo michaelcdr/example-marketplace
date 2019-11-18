@@ -1,81 +1,71 @@
-class ProductCreate{
-    constructor(){
-        
+//evitando que o dropzonejs fique procurando uma instancia...
+Dropzone.autoDiscover = false;
+
+class ProductCreate extends ProductCrudBase
+{
+    constructor()
+    {
+        super();
+
         this.btnSubmit = $('button#btn-salvar');
         this.formEl = $('#form-cadastro');
-        this.iniciarEventos();
+        this.uploadEl = $('#upload-container');
+        this.validator = new GenericValidator($('#form-cadastro'));
+        this.dropzone = new ProductDropzone(this, $("#images"));
+        this.initEvents();
     }
 
-    iniciarEventos(){
+    initEvents()
+    {
+        this.initSubmitEvent();
+    }
+
+    initSubmitEvent()
+    {
         let _self = this;
         _self.formEl.submit(function() {            
-            let validateResponse = _self.validate();
-            let model = _self.getModel();
-            if (validateResponse.isValid){   
+            let validateResponse = _self.validator.validate();
+            if (validateResponse.isValid)
+            {   
                 //dados validos, iremos gravar...  
-                let action = '/admin/produto/cadastrar-post';
-                if (model.userId && model.userId !== '')
-                    action = '/admin/produto/editar-post';
-                
                 _self.btnSubmit.button('loading');
+
                 $.ajax({
                     type: 'POST',
-                    url: action,
+                    url: '/admin/produto/cadastrar-post',
                     data: new FormData(this),
                     dataType: 'json',
                     contentType: false,
                     cache: false,
                     processData:false,
-                    beforeSend: function(){
-                        
-                    },
                     success: function(data){ 
-                        console.log(data);
-                        Swal.fire({
-                            title: data.msg,                            
-                            showCancelButton: false,
-                            type:'success',
-                            confirmButtonText: 'Ok, voltar para lista.',
-                            showLoaderOnConfirm: true,                        
-                            allowOutsideClick: false
+                        if (data.success){
+                            Swal.fire({
+                                title: data.msg,                            
+                                showCancelButton: false,
+                                type:'success',
+                                confirmButtonText: 'Ok, voltar para lista.',
+                                showLoaderOnConfirm: true,                        
+                                allowOutsideClick: false
 
-                        }).then((result) => {
-                            if (result.value) {
-                                document.location = "/admin/produto";
-                            }
-                        });
+                            }).then((result) => {
+                                if (result.value) {
+                                    document.location = "/admin/produto";
+                                }
+                            });
+                        } else {
+                            //se deu alguma zica na request mostraremos 
+                            //um alert amigavel...
+                            alertServerError();
+                            _self.btnSubmit.button('reset');
+                        }
                     }
                 })
             }
             return false;
         });
     }
-
-    validate(){
-        let validateResponse = { isValid:true};
-        let _self = this;
-        _self.formEl.find('*[data-required="true"]').removeClass('is-invalid');
-        _self.formEl.find('*[data-required="true"]').each((index,el) => {
-            if ($(el).val() === ''){
-                $(el).addClass('is-invalid');
-                validateResponse.isValid = false;
-            }
-        });
-        return validateResponse;
-    }
-
-    getModel(){
-        let _self = this;
-        return {
-            title: _self.formEl.find('#title').val(),
-            price: _self.formEl.find('#price').val(),
-            sku: _self.formEl.find('#sku').val(),
-            description: _self.formEl.find('#description').val(),
-            stock: _self.formEl.find('#stock').val(),
-            images:_self.formEl.find('#images').val(),
-            offer: _self.formEl.find("input[name=offer]:checked").val()
-        };
-    }
 }
 
+window.productImageCard = new ProductImageCard();
 window.productCreate = new ProductCreate();

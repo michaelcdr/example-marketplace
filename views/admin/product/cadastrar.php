@@ -1,5 +1,8 @@
-<?php require_once './views/partials/header-admin.php' ?>
-
+<?php 
+    require_once './views/partials/header-admin.php';
+    
+?>
+<link rel="stylesheet" href="/libs/dropzone/dropzone.min.css">
 <div class="container">
     <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
         <div class="lh-100">
@@ -18,8 +21,12 @@
     <div class="card mt-3">
         <div class="card-body">
             <h5>Informe os dados do produto e clique em salvar.</h6>
-            <form action="/admin/produtos/cadastrar-post" method="post" id="form-cadastro"
-              enctype="multipart/form-data">
+            <form action="/admin/produtos/cadastrar-post" 
+                method="post" id="form-cadastro"
+                enctype="multipart/form-data">
+
+                <input type="hidden" id="images" name="images" 
+                    value="">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -29,7 +36,26 @@
                             <small id="helptitle" class="text-muted">Título do produto</small>
                         </div>
                     </div>
-                    <div class="col-md-6 campos-condicao" data-tipo="avista">
+                    <?php if($_SESSION["role"] == "admin"): ?> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="userId">Vendedor:</label>
+                                <select name="userId" id="userId" data-required="true" 
+                                    class="form-control"  aria-describedby="help-userId"
+                                >
+                                    <option value="">Selecione o vendedor...</option>
+                                    <?php foreach($model->getSellers() as $seller): ?> 
+                                        <option value="<?php echo $seller->getId(); ?>">
+                                            <?php echo $seller->getName(); ?> 
+                                        </option>
+                                    <?php endforeach; ?> 
+                                </select>
+                                <small id="help-userId" class="text-muted">Vendedor do produto</small>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <div class="<?php echo $colPrice; ?> campos-condicao" data-tipo="avista">
                         <div class="form-group">
                             <label for="price">Preço à vista:</label>
                             <input type="number" name="price" id="price" 
@@ -76,17 +102,20 @@
                             </small>
                         </div>
                     </div>
+                    
+                    <!--imagens atuais e container de uploads-->
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="">Imagem do produto:</label>
-                            <div class="custom-file">
-                                <input type="file" name="images[]" class="custom-file-input" id="images" multiple
-                                    aria-describedby="images">
-                                <label class="custom-file-label" for="images">Escolha um arquivo</label>
+                            <label for="">Imagens atuais:</label>
+                            <div id="product-img-cards-container" class="card-columns ">
                             </div>
-                            <small id="images-HelpId" class="form-text text-muted">
-                                Selecione uma ou mais imagens para seu produto
-                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Selecione uma ou mais imagens para seu produto:</label>
+                            <div id="upload-container" class="dropzone">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -104,6 +133,11 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
+<script src="/libs/dropzone/dropzone.min.js"></script>
+<script src="/js/models/ProductDropzone.js"></script>
+<script src="/js/models/GenericValidator.js"></script>
+<script src="/js/models/ProductImageCard.js"></script>
+<script src="/js/models/ProductCrudBase.js"></script>
 <script src="/js/models/ProductCreate.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>
     

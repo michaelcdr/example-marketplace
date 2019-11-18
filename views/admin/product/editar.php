@@ -18,8 +18,9 @@
     <div class="card mt-3">
         <div class="card-body">
             <h5>Informe os dados do produto e clique em salvar.</h6>
-            <form action="/admin/produtos/editar-post" method="post" id="form-cadastro"
-              enctype="multipart/form-data" class="">
+            <form action="/admin/produtos/editar-post" 
+                method="post" id="form-cadastro"
+                enctype="multipart/form-data" class="">
                 <input type="hidden" id="productId" name="productId" 
                     value="<?php echo $product->getId(); ?>">
                 
@@ -36,7 +37,28 @@
                             <small id="helptitle" class="text-muted">Título do produto</small>
                         </div>
                     </div>
-                    <div class="col-md-6 campos-condicao" data-tipo="avista">
+
+                    <?php if($_SESSION["role"] == "admin"): ?> 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="userId">Vendedor :</label>
+                                <select name="userId" id="userId" data-required="true" 
+                                    class="form-control"  aria-describedby="help-userId"
+                                >
+                                    <option value="">Selecione o vendedor...</option>
+                                    <?php foreach($model->getSellers() as $seller): ?> 
+                                        <option value="<?php echo $seller->getId(); ?>" 
+                                            <?php echo ($product->getUserId() == $seller->getId() ? "selected=selected" : ""); ?>>
+                                            <?php echo $seller->getName(); ?> 
+                                        </option>
+                                    <?php endforeach; ?> 
+                                </select>
+                                <small id="help-userId" class="text-muted">Vendedor do produto</small>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="col-md-3 campos-condicao" data-tipo="avista">
                         <div class="form-group">
                             <label for="price">Preço à vista:</label>
                             <input type="number" name="price" id="price" 
@@ -91,6 +113,8 @@
                             </small>
                         </div>
                     </div>
+
+                    <!--imagens atuais e container de uploads-->
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="">Imagens atuais:</label>
@@ -144,5 +168,9 @@
 
 <?php require_once './views/partials/scripts-admin.php' ?>
 <script src="/libs/dropzone/dropzone.min.js"></script>
+<script src="/js/models/GenericValidator.js"></script>
+<script src="/js/models/ProductDropzone.js"></script>
+<script src="/js/models/ProductImageCard.js"></script>
+<script src="/js/models/ProductCrudBase.js"></script>
 <script src="/js/models/ProductEdit.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>

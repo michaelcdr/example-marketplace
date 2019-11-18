@@ -5,13 +5,14 @@
             <th width="10%"></th>
             <th align="center" style="text-align:center">Image</th>
             <th>Sku</th>
+            <th>Vendedor</th>
             <th>Título</th>
         </tr>
     </thead>
     <tbody>
-        <?php  if (count($products) == 0) : ?>
+        <?php  if (!isset($products) || count($products) == 0) : ?>
             <tr>
-                <td colspan="3">Nenhum registro cadastrado.</td>
+                <td colspan="5">Nenhum registro cadastrado.</td>
             </tr>
         <?php else  :?>
             <?php foreach ($products as $product): ?>
@@ -38,6 +39,9 @@
                     </td>
                     <td >
                         <?php echo $product->getSku(); ?>
+                    </td>
+                    <td >
+                        <?php echo $product->getSeller(); ?>
                     </td>
                     <td >
                         <?php echo $product->getTitle(); ?>

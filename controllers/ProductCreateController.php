@@ -4,18 +4,20 @@
     use controllers;
     use infra;
     use models;
-    use infra\repositories;
+    use services\ProductService;
 
     class ProductCreateController implements IBaseController
     {
+        private $_productService;
         public function __construct($factory)
         {
-            
+            $this->_productService = new ProductService($factory);
         }
         
         public function proccessRequest() : void
         {
-            require $_SERVER['DOCUMENT_ROOT'] . '\\views\\admin\\product\\cadastro-produto.php';
+            $model = $this->_productService->getProductCreateViewModel();
+            require $_SERVER['DOCUMENT_ROOT'] . '\\views\\admin\\product\\cadastrar.php';
         }
     }
 ?>

@@ -27,22 +27,36 @@
                 $offer = filter_input(INPUT_POST,'offer',FILTER_SANITIZE_STRING);
                 $stock = filter_input(INPUT_POST,'stock',FILTER_SANITIZE_STRING);
                 $sku = filter_input(INPUT_POST,'sku',FILTER_SANITIZE_STRING);
-                
+                $userId  = filter_input(INPUT_POST,'userId',FILTER_SANITIZE_STRING);
+
                 //montando model...
                 $product = new Product(
-                    null, $title, $price, $description, 
-                    null, 'michael', $offer, $stock, $sku
+                    null, 
+                    $title, 
+                    $price, 
+                    $description, 
+                    null, 
+                    'michael', 
+                    $offer, 
+                    $stock,
+                    $sku,
+                    $userId,
+                    null
                 );
 
                 //validando model se tiver ok o service resolve a treta!
-                if (!$product->isValid())
-                    $retornoJson = new JsonError("Não foi possível cadastrar o usuário, ocorreram erros de validação verifique a seguir"); 
+                if (!$product->isValid()){
+                    $retornoJson = new JsonError(
+                        "Não foi possível cadastrar o produto, ocorreram erros de validação verifique a seguir"
+                    ); 
+                }
                 else
                 {
-                    $this->productService->add(
-                        $_FILES['images'], 
-                        $product
-                    );
+                    $imagesUploaded = null;
+                    if (isset($_POST['images']))
+                        $imagesUploaded = $_POST['images'];
+
+                    $this->productService->add($imagesUploaded, $product);
                     $retornoJson = new JsonSuccess("Produto cadastrado com sucesso");
                     header('Content-type:application/json;charset=utf-8');
                 }

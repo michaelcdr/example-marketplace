@@ -6,6 +6,7 @@
         // public function add($user);
         // public function remove($user);
         public function getAll($page, $search);
+        public function totalOfProducts($search);
         public function add($product);
         public function getCurrentStock($productId);
         public function addImages($productId, $imagesNames);

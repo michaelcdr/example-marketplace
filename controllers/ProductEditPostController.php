@@ -28,6 +28,7 @@
                 $offer = filter_input(INPUT_POST,'offer',FILTER_SANITIZE_STRING);
                 $stock = filter_input(INPUT_POST,'stock',FILTER_SANITIZE_STRING);
                 $sku = filter_input(INPUT_POST,'sku',FILTER_SANITIZE_STRING);
+                $userId  = filter_input(INPUT_POST,'userId',FILTER_SANITIZE_STRING);
 
                 //montando model...
                 $product = new Product(
@@ -39,7 +40,9 @@
                     'michael', 
                     $offer, 
                     $stock, 
-                    $sku
+                    $sku,
+                    $userId,
+                    null
                 );
 
                 //validando model se tiver ok o service resolve a treta!
@@ -53,7 +56,6 @@
                     $imagesUploaded = null;
                     if (isset($_POST['images']))
                         $imagesUploaded = $_POST['images'];
-                    
                     
                     $this->productService->update($imagesUploaded, $product);
                     $retornoJson = new JsonSuccess(

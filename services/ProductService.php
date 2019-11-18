@@ -2,24 +2,51 @@
     namespace services;
 
     use models\Product;
+    use models\ProductCreateViewModel;
+    use models\ProductEditViewModel;
     use models\helpers\PathHelper;
     
     class ProductService 
     {
         private $_repoProduct;
+        private $_repoUser;
         private $_pathHelper;
 
         public function __construct($factory)
         {
             $this->_repoProduct = $factory->getProductRepository();
+            $this->_repoUser = $factory->getUserRepository();
             $this->_pathHelper = new PathHelper();
+        }
+
+        public function getProductCreateViewModel()
+        {
+            $colPrice = "col-md-6";
+            $sellers = null;
+            if ($_SESSION["role"] == "admin"){
+                $colPrice = "col-md-3";
+                $sellers = $this->_repoUser->getSellers();
+            }
+            return new ProductCreateViewModel($colPrice,$sellers);
+        }
+
+        public function getProductEditViewModel($productId)
+        {
+            $colPrice = "col-md-6";
+            $sellers = null;
+            if ($_SESSION["role"] == "admin"){
+                $colPrice = "col-md-3";
+                $sellers = $this->_repoUser->getSellers();
+            }
+            return new ProductEditViewModel($colPrice,$sellers);
+
         }
 
         public function getAllPaginatedAdmin($pagina,$search)
         {
-            $stmtProdutosResult = $this->_repoProduct->getAll(0, $search);
-            $products = $this->stmtToProduct($stmtProdutosResult);
-            return $products;
+            $paginatedResults = $this->_repoProduct->getAll($pagina, $search);
+            $paginatedResults->results = $this->stmtToProduct($paginatedResults->results);
+            return $paginatedResults;
         }
 
         public function getById($productId)
@@ -29,36 +56,16 @@
             return $product;
         }
 
-        public function add($files, $product)
+        public function add($images, $product)
         {
-             //uplodeando arquivos informados pelo usuario...
-             $imagesNames = array();
-             if (isset($files))
-             {                        
-                $totalFiles = count($files);
-                // echo '<br>total: ' . $totalFiles;
-                // echo "<br>***********************************";
-                for ($i=0 ; $i < $totalFiles ; $i++ ) {
-                    if (isset($files["name"][$i])){
-                        //echo '<br>item: ' . $i ;
-                        $fileName = basename($files["name"][$i]); 
-                        $targetFilePath = 'img/products/' . $fileName; 
-                        // echo '<br>diretorio: ' . $targetFilePath;
-                        //obtendo extensao...
-                        $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION); 
-                        // echo '<br>extensao: ' . $fileType;
-                        move_uploaded_file($files["tmp_name"][$i], $targetFilePath);
-                        // echo "<br>***********************************";
-                        $imagesNames[] = $fileName;
-                    }
-                }
-            }
-            
             //persistindo produto...
             $productId = $this->_repoProduct->add($product);
-
             //persistindo imagens...
-            $this->_repoProduct->addImages($productId,$imagesNames);
+            if (isset($images) && !is_null($images) && $images != ""){
+                $imagesNames = explode("$$",$images);
+                if (count($imagesNames) > 0)
+                    $this->_repoProduct->addImages($productId, $imagesNames);
+            }
         }
 
         public function update($images, $product)
@@ -66,9 +73,13 @@
             $productId = $product->getId();
             $this->_repoProduct->removeAllImages($productId);
             $this->_repoProduct->update($product);
-            $imagesNames = explode("$$",$images);
-            if (count($imagesNames) > 0)
-                $this->_repoProduct->addImages($productId, $imagesNames);
+
+            //persistindo imagens...
+            if (isset($images) && !is_null($images) && $images != ""){
+                $imagesNames = explode("$$",$images);
+                if (count($imagesNames) > 0)
+                    $this->_repoProduct->addImages($productId, $imagesNames);
+            }
         }
 
         /* 
@@ -88,7 +99,9 @@
                     $productItem["CreatedBy"],
                     $productItem["Offer"],
                     $productItem["Stock"],
-                    $productItem["Sku"]
+                    $productItem["Sku"],
+                    $productItem["UserId"],
+                    $productItem["Seller"]
                 );
                 $product->setDefaultImage(
                     $this->_pathHelper->getPathImgProduct() . $productItem["ImageFileName"]

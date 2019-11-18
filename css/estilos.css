@@ -1,6 +1,7 @@
 :root {
     --primary-color:#C01327;
     --second-color:#F5F0EC;
+    --default-color:#212529;
     --ts-time:.4s;
 }
 /* 
@@ -20,6 +21,14 @@ a:visited:not(.btn-outline-dark),
 a:hover:not(.btn-outline-dark),
 a:active:not(.btn-outline-dark){
     color:var(--second-color);
+    text-decoration: none;
+}
+a.page-link,
+a.page-link:link,
+a.page-link:visited,
+a.page-link:hover,
+a.page-link:active{
+    color:var(--default-color);
     text-decoration: none;
 }
 footer .lista-contatos a,
@@ -309,4 +318,10 @@ footer{
 
 .preco .preco-avista{
     color:var(--primary-color);
+}
+.dropzone.dz-clickable{
+    border-style: dashed;
+    min-height:unset;
+    border-color: #212529;
+    border-width: 2px;
 }

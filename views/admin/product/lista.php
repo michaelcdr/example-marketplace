@@ -1,5 +1,12 @@
 <?php 
      require_once './views/partials/header-admin.php';
+    //  var_dump($paginatedResults->qtdTotal);
+    //  echo '<br>';
+    //  var_dump($paginatedResults->hasNextPage);
+    //  echo '<br>';
+    //  var_dump($paginatedResults->hasPreviousPage);
+    //  echo 'page: ' .$paginatedResults->page;
+    //  echo ', number of pages: ' .$paginatedResults->numberOfPages;
 ?>
 <div class="container">
     <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
@@ -20,6 +27,7 @@
     <div class="card mt-3 ">
         <div class="card-body">
             <h5>Veja abaixo os produtos disponiveis.</h6>
+            <!-- pesquisa de produtos -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -45,21 +53,42 @@
 
             <div class="row">
                 <div class="col-md-12" id="container-products">
-                    <?php include './views/admin/product/lista-produtos-table.php' ?>
+                    <?php include './views/admin/product/lista-table.php' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 mt-3">
+                <div class="col-md-6 mt-3">
+                <?php
+                    echo "Mostrando " . $paginatedResults->qtdTotalFiltered . " de " .
+                    $paginatedResults->qtdTotal . " registros.";
+                ?>
+                </div>
+                <div class="col-md-6 mt-3">
                     <nav aria-label="Page navigation example">
+                        <?php 
+                            $pageValPrev = $paginatedResults->page - 1;
+                            $urlPrevPage = "/admin/produto?p=" . $pageValPrev;
+                            $attrDisablePrev = "";
+                            if ($paginatedResults->hasPreviousPage == false){
+                                $attrDisablePrev = "disabled";
+                            }
+
+                            $pageVal = $paginatedResults->page + 1;
+                            $urlNextPage = "/admin/produto?p=" . $pageVal;
+                            $attrDisable = "";
+                            if (!$paginatedResults->hasNextPage){
+                                $attrDisable = "disabled";
+                            }
+
+                            
+                        ?>
                         <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Anterior</a>
+                            <li class="page-item <?php echo $attrDisablePrev; ?>">
+                                <a class="page-link " 
+                                   href="<?php echo $urlPrevPage; ?>" >Anterior</a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Próxima</a>
+                            <li class="page-item <?php echo $attrDisable; ?>">
+                                <a class="page-link" href="<?php echo $urlNextPage; ?>" >Próxima</a>
                             </li>
                         </ul>
                     </nav>
