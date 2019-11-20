@@ -14,7 +14,10 @@
 
         public function proccessRequest() : void
         {
-            $this->_repoSeed->seed();
+            //$this->_repoSeed->seed();
+
+            $this->_repoSeed->createTableStates();
+            $this->_repoSeed->createTableSellers();
         }
     }
 ?>

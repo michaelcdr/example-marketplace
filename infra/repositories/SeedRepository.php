@@ -209,6 +209,46 @@ use infra\MySqlRepository;
                 );"
             );
         }
-    }
 
+
+        
+        public function createTableStates()
+        {
+            $this->conn->exec(
+                "CREATE TABLE States (
+                    StateId INT NOT NULL  PRIMARY KEY AUTO_INCREMENT,
+                    Name varchar(255) NOT NULL,
+                    StateAbreviattion varchar(255)
+                );"
+            );
+        }
+
+        public function createTableSellers()
+        {
+            $this->conn->exec(
+                "CREATE TABLE Sellers (
+                    SellerId int NOT NULL AUTO_INCREMENT,
+                    PRIMARY KEY(SellerId),
+                    LastName varchar(255),
+                    Age int,    
+                    CPF int,
+                    CEP int,
+                    Neighborhood nvarchar(100),
+                    Email varchar(100),
+                    DateOfBirth datetime,
+                    WebSite varchar(255),
+                    City varchar(255),
+                    
+                    Company varchar(150),
+                    CNPJ varchar(150),
+                    BranchOfActivity varchar(150),
+                    FantasyName varchar(150),
+                    UserId int,
+                    FOREIGN KEY(UserId) REFERENCES Users(UserId),
+                    StateId int,
+                    FOREIGN KEY(StateId) REFERENCES States(StateId)
+                );"
+            );
+        }
+    }
 ?>

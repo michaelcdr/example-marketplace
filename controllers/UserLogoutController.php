@@ -16,7 +16,9 @@
         {
             if (isset($_SESSION["userId"])) 
             {
-                session_destroy();
+                $_SESSION["userId"] = null;
+                $_SESSION["role"] = null;
+                $_SESSION["userName"] = null;
                 header("location: /");
                 exit;
             } 

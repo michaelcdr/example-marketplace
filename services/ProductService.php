@@ -44,7 +44,11 @@
 
         public function getAllPaginatedAdmin($pagina,$search)
         {
-            $paginatedResults = $this->_repoProduct->getAll($pagina, $search);
+            $userId = null;
+            if ($_SESSION["role"] === "vendedor")
+                $userId = $_SESSION["userId"];   
+
+            $paginatedResults = $this->_repoProduct->getAll($pagina, $search,$userId);
             $paginatedResults->results = $this->stmtToProduct($paginatedResults->results);
             return $paginatedResults;
         }

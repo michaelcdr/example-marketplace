@@ -23,6 +23,8 @@
             $stmt->bindValue(':nameParam',$user->getName());
             $stmt->bindValue(':role',$user->getRole());
             $stmt->execute();
+            
+            return $this->conn->lastInsertId();
         }
 
         public function remove($id)

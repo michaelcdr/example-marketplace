@@ -9,6 +9,7 @@
     use infra\repositories\SeedRepository;
     use infra\repositories\CartRepository;
     use infra\repositories\CategoryRepository;
+    use infra\repositories\SellerRepository;
     use infra\RepositoryFactory;
 
     use PDO;
@@ -80,6 +81,11 @@
         public function getCartRepository()
         {
             return new CartRepository($this->getConnection());
+        }
+
+        public function getSellerRepository()
+        {
+            return new SellerRepository($this->getConnection());
         }
     }
 

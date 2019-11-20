@@ -10,45 +10,57 @@
         extends MySqlRepository  
         implements IProductRepository
     {
-        public function totalOfProducts($search)
+        public function totalOfProducts($search, $userId)
         {
             $stmt = null;
+            $userClausule = "";
             if (is_null($search) ||  $search === "")
             {
+                if (isset($userId) && $userId != null)
+                    $userClausule = " where p.userId = :userId ";
+
                 $stmt = $this->conn->prepare(
-                    "SELECT count(p.ProductId) as total FROM Products p"
+                    "SELECT count(p.ProductId) as total FROM Products p $userClausule"
                 );
+                
             }
             else 
             {
+                if (isset($userId) && $userId != null)
+                    $userClausule = " where p.userId = :userId ";
+
                 $stmt = $this->conn->prepare(
                     "SELECT count(p.ProductId) as total FROM Products p
                     where 
-                        p.title like :search or
+                        (p.title like :search or
                         p.description like :search or
-                        p.Sku like :search"
+                        p.Sku like :search) $userClausule "
                 );
+
                 $stmt->bindValue(":search", '%' . $search . '%');
             }
+            if (isset($userId) && $userId != null)
+                    $stmt->bindValue(":userId", $userId);
             $stmt->execute();
             $total = $stmt->fetch();
             return intval($total["total"]);
         }
 
-        public function getAll($page, $search)
+        public function getAll($page, $search, $userId)
         {
             $skipNumber = 0;
             $pageSize = 5;
-            // echo "pagina: " . $page . "<br>";
             if (!is_null($page) && $page > 0)
                 $skipNumber = $pageSize * ($page - 1);
-            // echo "skipNumber: " . $skipNumber . "<br>";
 
             $stmt = null;
-            $total = $this->totalOfProducts($search);
-            
+            $total = $this->totalOfProducts($search, $userId);
+            $userClausule = "";
             if (is_null($search) ||  $search === "")
             {
+                if (isset($userId) && $userId != null)
+                    $userClausule = " where p.userId = :userId ";
+                
                 $stmt = $this->conn->prepare(
                     "SELECT p.ProductId, p.Title, p.Price, p.Description, p.CreatedAt, 
                             p.CreatedBy, p.Offer, p.Stock, p.Sku, Image.filename as ImageFileName,
@@ -59,14 +71,19 @@
                         select pi.ProductId, pi.filename as filename
                         from ProductsImages pi     
                     )
-                    as Image on p.ProductId = Image.ProductId 
+                    as Image on p.ProductId = Image.ProductId $userClausule
                     group by p.productid 
                     order by p.title
                     limit :pageSize OFFSET :skipNumber "
                 );
+                
+                
             }
             else 
             {
+                if (isset($userId) && $userId != null)
+                    $userClausule = " and p.userId = :userId ";
+                    
                 $stmt = $this->conn->prepare(
                     "SELECT p.ProductId, p.Title, p.Price, p.Description, p.CreatedAt, 
                             p.CreatedBy, p.Offer, p.Stock, p.Sku, Image.filename as ImageFileName,
@@ -79,15 +96,18 @@
                     )
                     as Image on p.ProductId = Image.ProductId 
                     where 
-                        p.title like :search or
+                        (p.title like :search or
                         p.description like :search or
-                        p.Sku like :search
+                        p.Sku like :search) $userClausule 
                     group by productid 
                     order by p.title 
                     limit :pageSize OFFSET :skipNumber "
                 );
                 $stmt->bindValue(":search", '%' . $search . '%');
             }
+
+            if (isset($userId) && $userId != null)
+                $stmt->bindValue(':userId',  $userId);
 
             $stmt->bindValue(':pageSize', intval(trim($pageSize)), PDO::PARAM_INT);
             $stmt->bindValue(':skipNumber', intval(trim($skipNumber)), PDO::PARAM_INT);
@@ -176,7 +196,8 @@
                 description = :description,
                 offer = :offer,
                 stock = :stock,
-                sku = :sku
+                sku = :sku,
+                userId = :userId
                 where ProductId = :productId"
             );
             
@@ -186,6 +207,7 @@
             $stmt->bindValue(":stock", $product->getStock());
             $stmt->bindValue(":sku", $product->getSku());
             $stmt->bindValue(":productId", $product->getId());
+            $stmt->bindValue(":userId", $product->getUserId());
             $stmt->execute();
         }
 

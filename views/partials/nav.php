@@ -1,6 +1,6 @@
 <?php 
     $qtdItensCarrinho = 0;
-    if(isset($_SESSION["cart"])){
+    if (isset($_SESSION["cart"])){
         foreach($_SESSION["cart"]->getProducts() as $productItem){
             $qtdItensCarrinho += $productItem->getQtd();
         }

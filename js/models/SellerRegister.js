@@ -1,26 +1,25 @@
-class LoginUsuario
+class SellerRegister
 {
     constructor(){
         this._formEl = $('form#form-login');
         this._loginEl = $("#login");
         this._passwordEl = $("#password");
+        this._nameEl = $("#nome");
+        this._lastNameEl = $("#sobrenome");
+
         this.initEvents();
     }
 
     initEvents(){
         let _self = this;
         _self._formEl.submit(() => {
-            _self.login();
+            _self.register();
             return false;
-        });
-
-        $('#btn-register').click(function(){
-            $('#btn-register').button('loading');
-            document.location = '/vendedor-registrar';
         });
     }
 
-    validate(){
+    validate()
+    {
         let isValid = true;
         $('input[required]').each((index,el) => {
             if ($(el).val() === ''){
@@ -31,29 +30,39 @@ class LoginUsuario
         return isValid;
     }
 
-    getModelData()
+    getModel()
     {
         let _self = this;
         return {
             isValid : _self.validate(),
             model : {
                 login : _self._loginEl.val(),
-                password: _self._passwordEl.val()
+                password: _self._passwordEl.val(),
+                lastName: _self._lastNameEl.val(),
+                name: _self._nameEl.val(),
             }
         };
     }
     
-    
-    login()
+    register()
     {
         let _self = this;
-        let objModel = _self.getModelData();
-        let btn =_self._formEl.find('button[type=submit]');
+        let objModel = _self.getModel();
+        let btn =_self._formEl.find('button');
         if (objModel.isValid){
             btn.button('loading');
-            $.post('/autenticar', objModel.model, function(data){
+            $.post('/vendedor-registrar-post', objModel.model, function(data){
                 if (data.success){
-                    document.location = "/";
+                    alertConfirm({
+                        text : data.msg,
+                        type:'success',
+                        title:'Sucesso',
+                        showCancelButton: false,
+                        confirmButtonColor: '#A5DC86',
+                        confirmButtonText: 'Ok'
+                    },() => {
+                        document.location = "/admin/produto";
+                    });
                 } else {
                     alertError({ text: data.msg, toast : true, timer:4000 });
                     btn.button('reset');

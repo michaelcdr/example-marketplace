@@ -16,7 +16,8 @@
             crossorigin="anonymous">
         <link rel="stylesheet" 
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" 
+            href="css/login.css">
         <link rel="stylesheet" href="/libs/sweetAlert2/sweetalert2.min.css">
     </head>
     <body>  
@@ -49,7 +50,12 @@
                         
                             <button class="btn btn-lg btn-block mt-3 btn-outline-dark" 
                                 data-loading-text="Processando, aguarde <i class='fa fa-circle-o-notch fa-spin'></i>"
-                                 type="submit">Entrar
+                                 type="submit"> Entrar
+                            </button>
+                            <button class="btn btn-lg btn-block mt-1 btn-outline-dark" 
+                                id="btn-register" 
+                                data-loading-text="Processando, aguarde <i class='fa fa-circle-o-notch fa-spin'></i>"
+                                type="button"> Criar conta
                             </button>
                         </div>
                     </form>
@@ -57,7 +63,9 @@
            </div>
         </main>
         <footer class="mt-3 text-light"></footer>
-        
+
+
+
         <!-- Optional JavaScript -->
         <script src="/libs/jquery/jquery-3.4.1.min.js" ></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 

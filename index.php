@@ -21,14 +21,9 @@
         exit();
     }
 
-    // $authService = new AuthService($caminho);
-    // if (!$authService->isAuthorized()){
-    //     header('Location:' . $authService->routeWarning);
-    // }
-    // echo "Autenticação: ";
-    // echo "UserId: " . $_SESSION["userId"] . ", username: " . $_SESSION["userName"];
-    // echo ", Role: " . $_SESSION["role"];
-    // echo ", PathInfo: " . $caminho;
+    //verificando se o usuario tem acesso a rota requisitada
+    if (!AuthService::isAuthorized($rotas[$caminho]))
+        header('Location: /login');
 
     //fazendo um "de para" de rota para o Controller alvo...
     $controllerAlvo = $rotas[$caminho][0];

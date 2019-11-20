@@ -28,7 +28,10 @@
                 $offer = filter_input(INPUT_POST,'offer',FILTER_SANITIZE_STRING);
                 $stock = filter_input(INPUT_POST,'stock',FILTER_SANITIZE_STRING);
                 $sku = filter_input(INPUT_POST,'sku',FILTER_SANITIZE_STRING);
-                $userId  = filter_input(INPUT_POST,'userId',FILTER_SANITIZE_STRING);
+
+                $userId = $_SESSION["userId"];
+                if ($_SESSION["role"] === "admin")
+                    $userId  = filter_input(INPUT_POST,'userId',FILTER_SANITIZE_STRING);
 
                 //montando model...
                 $product = new Product(

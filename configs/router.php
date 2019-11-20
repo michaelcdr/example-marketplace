@@ -29,14 +29,23 @@
     use controllers\ProductPartialListController;
     use controllers\ProductDeleteController;
     use controllers\ProductImageUploadController;
+    use controllers\SellerSimpleCreateController;
+    use controllers\SellerRegisterController;
+    use controllers\SellerRegisterPostController;
+    use controllers\SellerAuthController;
     //rota X [controller , roles]
 
     $routes = [
         "/" => [HomeController::class, ""],
         "/createdb" => [CreateDbController::class, ""], 
         "/destroydb" => [DestroyDbController::class, ""],
-        "/logout" => [UserLogoutController::class, "admin,vendedor"],
+        "/logout" => [UserLogoutController::class, "admin,vendedor,comum"],
         "/login" => [UserLoginController::class, ""],
+        "/vender" => [SellerSimpleCreateController::class, ""],
+        "/vendedor-indentificacao" => [SellerAuthController::class, ""],
+        "/vendedor-registrar" => [SellerRegisterController::class, ""],
+        "/vendedor-registrar-post" => [SellerRegisterPostController::class, ""],
+        
         "/autenticar" => [UserAuthenticateController::class, ""],
         "/pesquisa" => [SearchController::class, ""],
         "/seed" => [SeedController::class, ""],
@@ -47,8 +56,8 @@
         "/adicionar-carrinho" => [AddToCartController::class, ""],
         "/remover-item-carrinho" => [RemoveFromCartController::class, ""],       
 
-        "/admin/usuario/editar" => [UserEditController::class,"admin"],
-        "/admin/usuario/editar-post" => [UserEditPostController::class,"admin"],
+        "/admin/usuario/editar" => [UserEditController::class, "admin"],
+        "/admin/usuario/editar-post" => [UserEditPostController::class, "admin"],
         "/admin/usuario/cadastrar" => [UserCreateController::class,"admin"],
         "/admin/usuario/cadastrar-post" => [UserCreatePostController::class,"admin"],
         "/admin/usuario/deletar" => [UserDeleteController::class,"admin"],
@@ -64,7 +73,5 @@
         "/admin/produto/deletar" => [ProductDeleteController::class,"admin,vendedor"],
         "/admin/produto/upload" => [ProductImageUploadController::class,"admin,vendedor"]
     ];
-
     return $routes;
-    
 ?>

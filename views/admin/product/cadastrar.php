@@ -1,6 +1,9 @@
 <?php 
     require_once './views/partials/header-admin.php';
-    
+    $colPrice = "col-md-3"; 
+    if($_SESSION["role"] == "vendedor"){
+        $colPrice = "col-md-6"; 
+    }
 ?>
 <link rel="stylesheet" href="/libs/dropzone/dropzone.min.css">
 <div class="container">
