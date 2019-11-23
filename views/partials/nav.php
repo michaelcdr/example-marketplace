@@ -40,11 +40,11 @@
             </ul>
             <form class="form-inline" id="form-pesquisa" action="/pesquisa" method="GET">
                 <div class="input-group mr-3">
-                    <input type="text" class="form-control" id="pesquisa" 
+                    <input type="text" class="form-control" id="pesquisa" name="pesquisa"
                         placeholder="Pesquisar produto" 
                         aria-label="Pesquisar produto" aria-describedby="button-addon2">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-light" type="button" id="button-addon2">
+                        <button class="btn btn-outline-light" type="submit" id="button-addon2">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>

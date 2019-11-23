@@ -1,31 +1,27 @@
 <?php
-    
     namespace controllers;
+    use services\ProductService;
 
     class SearchController implements IBaseController
     {
-        // private $_repoOfertas;
-        // private $_repoCarousel;
+         private $_productService;
+        
 
         public function __construct($factory)
         {
-            // $this->_repoOfertas = $factory->getProductOnOfferRepository();
-            // $this->_repoCarousel = $factory->getCarouselRepository();
-            
+            $this->_productService = new ProductService($factory);
         }
-
-        // public function getProductsOnOffer()
-        // {
-        //     return $this->_repoOfertas->getAll();
-        // }
-
-        // public function getCaroselItens()
-        // {
-        //     return $this->_repoCarousel->getAll();
-        // }
         
         public function proccessRequest() : void
         {
+            $pagina = 0;
+            if (isset($_GET["pagina"]))
+                $pagina = $_GET["pagina"];
+
+            $products = $this->_productService->getAllPaginatedAdmin(
+                $pagina,
+                $_GET["pesquisa"]
+            )->results;
             require "views/home/pesquisa.php";
         }
     }

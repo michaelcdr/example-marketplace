@@ -7,7 +7,9 @@
     <?php require_once './views/carousel/lista.php' ?>
     
     <div class="container">
-    <!-- ofertas -->
+        <!-- categorias -->
+        <?php require_once './views/category/lista.php' ?>
+        <!-- ofertas -->
         <section id="ofertas-container">
             <h3 class="text-center">Ofertas em destaque</h3>
             <div class="row">
@@ -36,7 +38,7 @@
             </div>
         </section>
 
-        <?php require_once './views/category/lista.php' ?>
+        
     </div>
 </main>
 

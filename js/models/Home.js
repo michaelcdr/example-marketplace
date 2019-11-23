@@ -9,9 +9,9 @@ class Home
     {
         //dando uma animada na bagaça...
         setTimeout(() => {
-            $('.card').addClass('in');
+            $('#linhas').addClass('in');
             setTimeout(() => {
-                $('#linhas').addClass('in');
+                $('.card').addClass('in');
             },300);
         },300);        
     }
