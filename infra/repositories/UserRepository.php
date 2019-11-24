@@ -5,6 +5,7 @@
     use infra\interfaces\IUserRepository;
     use models\User;
     use models\Seller;
+    use models\PaginatedResults;
     use PDO;
 
     class UserRepository 
@@ -29,13 +30,23 @@
 
         public function remove($id)
         {
-            $query = "delete from Users where UserId = :id";
-            $stmt = $this->conn->prepare($query);
+            $stmt = $this->conn->prepare(
+                "delete from productsimages where productid in (select productid from products where userid = :id)"
+            );
             $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            
+            $stmt = $this->conn->prepare("delete from products where UserId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
 
-            // execute the query
-            if ($stmt->execute())
-                return true;
+            $stmt = $this->conn->prepare("delete from sellers where UserId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $stmt = $this->conn->prepare("delete from Users where UserId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
         }
 
         public function altera($user)
@@ -119,28 +130,58 @@
             return $sellers;
         }
 
-        public function getAll($page, $search)
+
+        public function total($search)
         {
-            $skipNumber = 0;
-            $pageSize = 5;
-            if (!is_null($page) && $page > 0)
-                $skipNumber = $skipNumber * $page;
-
-            if (!isset($page))
-                $page = 0;
-
             if (is_null($search) ||  $search === "")
             {
-                //echo 'Lista sem pesquisa';
+                $stmt = $this->conn->prepare(
+                    "SELECT count(UserId) as total FROM Users "
+                );
+                $stmt->execute();
+                $total = $stmt->fetch();
+                return intval($total["total"]);
+            }
+            else
+            {
+                $stmt = $this->conn->prepare( 
+                    "SELECT count(UserId) as total FROM Users 
+                     WHERE Login like :search or Name like :search" 
+                );
+                $stmt->bindValue(":search", '%' . $search . '%');
+                $total = $stmt->fetch();
+                return intval($total["total"]);
+            }  
+        }
+
+        public function getAll($page, $search, $pageSize)
+        {
+            //configurando variaveis para paginação
+            if (!isset($page))
+                $page = 0;
+            
+            if (!isset($pageSize))
+                $pageSize = 5;  
+            
+            $skipNumber = 0;
+            if (!is_null($page) && $page > 0)
+                $skipNumber = $pageSize * ($page - 1);
+            
+            $total = $this->total($search);
+            //echo "page: " . $page . "<br/> skipNumber: " . $skipNumber . "<br/>";
+
+            //obtendo lista de usuarios...
+            $usersResults = null;
+            if (is_null($search) ||  $search === "")
+            {
                 $stmt = $this->conn->prepare(
                     "SELECT UserId, Login, Name, Role 
                      FROM Users limit :pageSize OFFSET :skipNumber "
                 );
-                //$stmt->bindParam(1, intval(trim($pageSize)), PDO::PARAM_INT); //erro ocorrido Only variables should be passed by reference
                 $stmt->bindValue(':pageSize', intval(trim($pageSize)), PDO::PARAM_INT);
                 $stmt->bindValue(':skipNumber', intval(trim($skipNumber)), PDO::PARAM_INT);
                 $stmt->execute();
-                return $stmt->fetchAll();
+                $usersResults = $stmt->fetchAll();
             }
             else
             {
@@ -148,16 +189,40 @@
                     "SELECT UserId, Login, Name, Role FROM Users 
                      WHERE Login like :search or 
                      Name like :search order by name 
-                     limit :pageSize OFFSET :skipNumber 
-                    " 
+                     limit :pageSize OFFSET :skipNumber " 
                 );
-                
                 $stmt->bindValue(":search", '%' . $search . '%');
                 $stmt->bindValue(':pageSize', intval(trim($pageSize)), PDO::PARAM_INT);
                 $stmt->bindValue(':skipNumber', intval(trim($skipNumber)), PDO::PARAM_INT);
                 $stmt->execute();
-                return $stmt->fetchAll();
-            }            
+                $usersResults = $stmt->fetchAll();
+            }   
+            
+            //obtendo dados para controle da paginação
+            $numberOfPages = ceil($total / $pageSize);
+            $hasPreviousPage = false;
+            if ($numberOfPages > 1 && $page > 1)
+                $hasPreviousPage = true;
+
+            $hasNextPage = false;
+            if ($numberOfPages > intval($page))
+                $hasNextPage = true;
+            
+            $paginatedReesults = new PaginatedResults(
+                $usersResults, 
+                $total, 
+                count($usersResults),
+                $hasPreviousPage,
+                $hasNextPage,
+                $page,
+                $numberOfPages,
+                "/admin/usuario?p="
+            );
+
+
+            
+
+            return $paginatedReesults;
         }
     }
 

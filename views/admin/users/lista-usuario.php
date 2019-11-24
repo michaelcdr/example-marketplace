@@ -49,30 +49,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <p>
-                        <a class="btn btn-dark btn-sm" href="/admin/usuario/cadastrar">
-                            <i class="fa fa-plus"></i> Cadastrar usuário
-                        </a>
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Anterior</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Próxima</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <?php require_once './views/partials/pagination-admin-controlls.php' ?>
             </div>
-            
+            <p class="mt-3">
+                <a class="btn btn-dark btn-sm" href="/admin/usuario/cadastrar">
+                <i class="fa fa-plus"></i> Cadastrar usuário
+                </a>
+            </p>
         </div>
     </div>
 </div>

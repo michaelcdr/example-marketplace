@@ -18,8 +18,12 @@
         
         public function proccessRequest() : void
         {
-          
-            $users = $this->_repoUser->getAll(1, null);
+            $page = 1;
+            if (isset($_GET["p"]))
+                $page = intval($_GET["p"]);
+            
+            $paginatedResults = $this->_repoUser->getAll($page, null, 5);
+            $users = $paginatedResults->results;
             require "views/admin/users/lista-usuario.php";
         }
     }

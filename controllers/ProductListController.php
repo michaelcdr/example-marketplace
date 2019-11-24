@@ -19,7 +19,7 @@
             if (isset($_GET["p"])){
                 $page = intval($_GET["p"]);
             }
-            $paginatedResults = $this->_productService->getAllPaginatedAdmin($page, null);
+            $paginatedResults = $this->_productService->getAllPaginatedAdmin($page, null, 5);
             $products = $paginatedResults->results;
             require $_SERVER['DOCUMENT_ROOT'] . '\\views\\admin\\product\\lista.php';
         }

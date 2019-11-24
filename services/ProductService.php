@@ -42,13 +42,13 @@
 
         }
 
-        public function getAllPaginatedAdmin($pagina,$search)
+        public function getAllPaginatedAdmin($pagina,$search,$pageSize)
         {
             $userId = null;
             if ($_SESSION["role"] === "vendedor")
                 $userId = $_SESSION["userId"];   
 
-            $paginatedResults = $this->_repoProduct->getAll($pagina, $search, $userId);
+            $paginatedResults = $this->_repoProduct->getAll($pagina, $search, $userId,$pageSize);
             $paginatedResults->results = $this->stmtToProduct($paginatedResults->results);
             return $paginatedResults;
         }

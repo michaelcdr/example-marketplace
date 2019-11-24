@@ -20,7 +20,9 @@
                 $page = intval($_GET["p"]);
             }
             $paginatedResult = $this->_productService->getAllPaginatedAdmin(
-                $page, $_POST["s"]
+                $page, 
+                $_POST["s"],
+                5
             );
             $products = $paginatedResult->results;
             require $_SERVER['DOCUMENT_ROOT'] . '\\views\\admin\\product\\lista-table.php';

@@ -34,7 +34,8 @@
             <?php else:  ?>
             <div class="col-lg-12 col-md-12">
                 <section id="produtos-pesquisa-ct">
-                <?php require_once './views/produto/card-list.php' ?>
+                    <p>Sua busca retornou <strong><?php echo count($products); ?></strong> produtos.</p>
+                    <?php require_once './views/produto/card-list.php' ?>
                 </section>
                 
                 <nav aria-label="Page navigation example">

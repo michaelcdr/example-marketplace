@@ -46,10 +46,13 @@
             return intval($total["total"]);
         }
 
-        public function getAll($page, $search, $userId)
+        public function getAll($page, $search, $userId, $pageSize)
         {
+            if (!isset($pageSize))
+                $pageSize = 5;
+
             $skipNumber = 0;
-            $pageSize = 5;
+             
             if (!is_null($page) && $page > 0)
                 $skipNumber = $pageSize * ($page - 1);
 
@@ -130,15 +133,16 @@
                 $hasPreviousPage,
                 $hasNextPage,
                 $page,
-                $numberOfPages
+                $numberOfPages,
+                "/admin/produto?p="
             );
         }
 
         public function add($product)
         {
             $stmt = $this->conn->prepare(
-                "INSERT INTO products(Title, Description, Price, CreatedAt, CreatedBy, Offer, Stock, Sku) 
-                values (:title, :desc, :price, now(), :createdBy, :offer, :stock,:sku);"
+                "INSERT INTO products(Title, Description, Price, CreatedAt, CreatedBy, Offer, Stock, Sku,UserId) 
+                values (:title, :desc, :price, now(), :createdBy, :offer, :stock,:sku,:userId);"
             );
             
             $stmt->bindValue(":title",$product->getTitle());
@@ -148,7 +152,9 @@
             $stmt->bindValue(":offer",$product->getOffer() == 'true' ? 1 : 0, PDO::PARAM_BOOL);
             $stmt->bindValue(":stock",$product->getStock());
             $stmt->bindValue(":sku",$product->getSku());
+            $stmt->bindValue(":userId",$product->getUserId());
             $stmt->execute();
+            
             return $this->conn->lastInsertId();
         }
 

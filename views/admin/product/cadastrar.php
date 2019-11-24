@@ -62,7 +62,9 @@
                         <div class="form-group">
                             <label for="price">Preço à vista:</label>
                             <input type="number" name="price" id="price" 
-                                data-required="true"  class="form-control" placeholder="" aria-describedby="help-price">
+                                data-required="true"  class="form-control" 
+                                pattern="[0-9]+([\.,][0-9]+)?" step="0.01"
+                                placeholder="" aria-describedby="help-price">
                             <small id="help-price" class="text-muted">Preço à vista do produto</small>
                         </div>
                     </div>

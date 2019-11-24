@@ -18,10 +18,13 @@
             if (isset($_GET["pagina"]))
                 $pagina = $_GET["pagina"];
 
-            $products = $this->_productService->getAllPaginatedAdmin(
+            $resultPaginated =  $this->_productService->getAllPaginatedAdmin(
                 $pagina,
-                $_GET["pesquisa"]
-            )->results;
+                $_GET["pesquisa"],
+                6
+            );
+
+            $products = $resultPaginated->results;
             require "views/home/pesquisa.php";
         }
     }

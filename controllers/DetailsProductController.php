@@ -15,7 +15,8 @@
             if (is_null($_GET["id"]) || !isset($_GET["id"]))
                 header('location: /');
 
-            $product = $this->_repoProduct->getById($_GET["id"]);            
+            $product = $this->_repoProduct->getById($_GET["id"]);           
+            
             require "views/produto/detalhes-produto.php";
         }
     }
