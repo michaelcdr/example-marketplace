@@ -17,10 +17,11 @@
     class MySqlRepositoryFactory extends RepositoryFactory {
 
         private $host = "localhost";
-        private $db_name = "ProjetoUcs";
+        private $db_name = "projetoucs";
         private $port = "3306";
         private $username = "root";
-        private $password = "giacom";
+        private $password = null;
+        //private $password = "giacom";
         public $conn;
     
         //obtendo conexão
@@ -30,7 +31,8 @@
             try
             {
                 
-                $this->conn = new PDO("mysql:host=" . $this->host . 
+                $this->conn = new PDO(
+                    "mysql:host=" . $this->host . 
                     ";port=" . $this->port . 
                     ";dbname=" . $this->db_name, 
                     $this->username, 

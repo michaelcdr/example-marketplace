@@ -1,104 +1,99 @@
 <?php
     namespace infra\repositories;
 
-use Exception;
-use infra\MySqlRepository;
+    use Exception;
+    use infra\MySqlRepository;
     use infra\interfaces;
     use infra\interfaces\ISeedRepository;
 
-    class SeedRepository implements ISeedRepository
+    class SeedRepository 
+        extends MySqlRepository 
+        implements ISeedRepository
     {
-        private $conn;
-
-        public function __construct($connection)
-        {
-            $this->conn =  $connection;
-        }
-
         public function seed()
         {
             $this->destroyDatabase();
             $this->createDb();
 
             //inserindo produtos...
-            $this->conn->exec(
-                "insert into products(
-                    title,
-                    description,
-                    price,c
-                    reatedat,
-                    createdby,
-                    offer,
-                    stock,
-                    sku
-                ) values (
-                    'GUITARRA FENDER STANDARD TELECASTER MEXICANA BLACK - 014-5102-506',
-                    'A Fender traz a Standard Telecaster para guitarristas que apreciam 
-                    estilo e versatilidade por um super valor!',
-                    5690,now(),'michael',1,10,'001'
-                );"
-            );
-            $this->conn->exec(
-                "insert into products(
-                    title,
-                    description,
-                    price,c
-                    reatedat,
-                    createdby,
-                    offer,
-                    stock,
-                    sku
-                ) values(
-                    'GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST 
-                    (2012) - ACOMPANHA HARD CASE',
-                    'A lendária guitarra Stratocaster em sua versão mais tradicional!',
-                    7990,now(),'michael',1,10,'002'
-                );"
-            );
-            $this->conn->exec(
-                "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
-                    'GUITARRA JACKSON DINKY JS11 GLOSS BLACK - 291 0110 503',
-                    'Uma guitarra de alta qualidade e excelente preço da lendária marca Jackson!',
-                    1790,now(),'michael',1,10,'003');"
-            );
+            // $this->conn->exec(
+            //     "insert into products(
+            //         title,
+            //         description,
+            //         price,c
+            //         reatedat,
+            //         createdby,
+            //         offer,
+            //         stock,
+            //         sku
+            //     ) values (
+            //         'GUITARRA FENDER STANDARD TELECASTER MEXICANA BLACK - 014-5102-506',
+            //         'A Fender traz a Standard Telecaster para guitarristas que apreciam 
+            //         estilo e versatilidade por um super valor!',
+            //         5690,now(),'michael',1,10,'001'
+            //     );"
+            // );
+            // $this->conn->exec(
+            //     "insert into products(
+            //         title,
+            //         description,
+            //         price,c
+            //         reatedat,
+            //         createdby,
+            //         offer,
+            //         stock,
+            //         sku
+            //     ) values(
+            //         'GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST 
+            //         (2012) - ACOMPANHA HARD CASE',
+            //         'A lendária guitarra Stratocaster em sua versão mais tradicional!',
+            //         7990,now(),'michael',1,10,'002'
+            //     );"
+            // );
+            // $this->conn->exec(
+            //     "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
+            //         'GUITARRA JACKSON DINKY JS11 GLOSS BLACK - 291 0110 503',
+            //         'Uma guitarra de alta qualidade e excelente preço da lendária marca Jackson!',
+            //         1790,now(),'michael',1,10,'003');"
+            // );
             
-            //inserindo imagens de produtos...
-            $this->conn->exec(
-                "insert into productsimages(
-                    productid,
-                    filename
-                )
-                values 
-                (
-                    (
-                        select ProductId from products where 
-                        title like '%GUITARRA FENDER STANDARD TELECASTER MEXICANA BLACK - 014-5102-506%' 
-                        limit 1
-                    ) 
-                , 'fender-mex-black-014-5102-506.jpg');"
-            );
-            $this->conn->exec(
-                "insert into productsimages(productid,filename)
-                values 
-                (
-                    (
-                        select ProductId from products where 
-                        title like '%GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST (2012) - ACOMPANHA HARD CASE%' 
-                        limit 1
-                    ) 
-                , 'fender-american-especial-stratocaster-maple2-color-sunburst2012.jpg');"
-            );
-            $this->conn->exec(
-                "insert into productsimages(productid,filename)
-                values 
-                (
-                    (
-                        select ProductId from products where 
-                        title like '%GUITARRA JACKSON DINKY JS11 GLOSS BLACK - 291 0110 503%' 
-                        limit 1
-                    ) 
-                , 'jackson-dincky-JS11GLOSSBLACK2910110503.jpg');"
-            );
+            // //inserindo imagens de produtos...
+            // $this->conn->exec(
+            //     "insert into productsimages(
+            //         productid,
+            //         filename
+            //     )
+            //     values 
+            //     (
+            //         (
+            //             select ProductId from products where 
+            //             title like '%GUITARRA FENDER STANDARD TELECASTER MEXICANA BLACK - 014-5102-506%' 
+            //             limit 1
+            //         ) 
+            //     , 'fender-mex-black-014-5102-506.jpg');"
+            // );
+            // $this->conn->exec(
+            //     "insert into productsimages(productid,filename)
+            //     values 
+            //     (
+            //         (
+            //             select ProductId from products where 
+            //             title like '%GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST (2012) - ACOMPANHA HARD CASE%' 
+            //             limit 1
+            //         ) 
+            //     , 'fender-american-especial-stratocaster-maple2-color-sunburst2012.jpg');"
+            // );
+            // $this->conn->exec(
+            //     "insert into productsimages(productid,filename)
+            //     values 
+            //     (
+            //         (
+            //             select ProductId from products where 
+            //             title like '%GUITARRA JACKSON DINKY JS11 GLOSS BLACK - 291 0110 503%' 
+            //             limit 1
+            //         ) 
+            //     , 'jackson-dincky-JS11GLOSSBLACK2910110503.jpg');"
+            // );
 
             // carrossel
             $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-1.jpg',1)");
@@ -110,7 +105,9 @@ use infra\MySqlRepository;
 
         public function createDb()
         {
+            $this->createTableStates();
             $this->createTableUsers();  
+            $this->createTableSellers();
             $this->createTableProducts();
             $this->createTableProductImages();
             $this->createTableCategories();
@@ -121,6 +118,8 @@ use infra\MySqlRepository;
         public function destroyDatabase()
         {   
             try{
+                $this->conn->exec("drop table if exists Sellers");
+                $this->conn->exec("drop table if exists States");
                 $this->conn->exec("drop table if exists ProductsImages");
                 $this->conn->exec("drop table if exists Carts");
                 $this->conn->exec("drop table if exists Products");

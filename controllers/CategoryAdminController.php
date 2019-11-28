@@ -1,8 +1,9 @@
 <?php
+    namespace controllers;
     require_once './infra/repositories-mysql/CategoryRepository.php';
     require_once './infra/MySqlRepositoryFactory.php';
     
-    class CategoryAdminController
+    class CategoryAdminController  implements IBaseController
     {
         private $_repoCategories;
 
@@ -11,9 +12,15 @@
             $this->_repoCategories = $factory->getCategoryRepository();
         }
 
-        public function getCategories()
+        public function proccessRequest() : void
         {
-            return $this->_repoCategories->getAll();
+            $page = 1;
+            if (isset($_GET["p"]))
+                $page = intval($_GET["p"]);
+            
+            $paginatedResults = $this->_repoCategories->getAll($page, null, 5);
+            $categories = $paginatedResults->results;
+            require "views/admin/users/lista-usuario.php";
         }
     }
 ?>
