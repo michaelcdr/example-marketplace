@@ -83,7 +83,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a class="btn btn-block btn-success" href="carrinho-checkout.html">
+                    <a class="btn btn-block btn-success" href="/finalizar-pedido">
                         <i class="fa fa-check"></i> Finalizar pedido
                     </a>
                 </div>

@@ -33,8 +33,11 @@
     use controllers\SellerRegisterController;
     use controllers\SellerRegisterPostController;
     use controllers\SellerAuthController;
+    use controllers\CartCheckoutController;
+    use controllers\CartCheckoutPostController;
+    
+    
     //rota X [controller , roles]
-
     $routes = [
         "/" => [HomeController::class, ""],
         "/createdb" => [CreateDbController::class, ""], 
@@ -54,9 +57,11 @@
         "/listar-itens-carrinho"=> [CartListController::class, ""],
         "/atualizar-quantidade-produto" => [CartAtualizarQtdProdutoController::class, ""],
         "/adicionar-carrinho" => [AddToCartController::class, ""],
+        "/finalizar-pedido" => [CartCheckoutController::class, ""],
+        "/cart-checkout-post"=> [CartCheckoutPostController::class, ""],
         "/remover-item-carrinho" => [RemoveFromCartController::class, ""],       
 
-        "/admin/usuario/editar" => [UserEditController::class, "admin"],
+        "/admin/usuario/editar" => [UserEditController::class, "admin","vendedor","comum"],
         "/admin/usuario/editar-post" => [UserEditPostController::class, "admin"],
         "/admin/usuario/cadastrar" => [UserCreateController::class,"admin"],
         "/admin/usuario/cadastrar-post" => [UserCreatePostController::class,"admin"],

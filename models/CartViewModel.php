@@ -77,7 +77,8 @@
             return $valor;
         }
 
-        public function getQtdFromProduct($productId){
+        public function getQtdFromProduct($productId)
+        {
             $qtd = 0;
             if (!is_null($this->getProducts())){
                 foreach($this->getProducts() as $productItem){
@@ -101,9 +102,12 @@
 
         public function getTotalFinal()
         {
+            
             return $this->getFreteValor() + $this->getSubTotalComCondicoes();
         }
-
+        public function getTotalFormatted(){
+            return "R$ ".  number_format($this->getTotalFinal(),2,",",".");
+        }
         /**
          * Get the value of products
          */ 
@@ -164,8 +168,8 @@
             }
         }
 
-        public function getQtdProducts(){
-
+        public function getQtdProducts()
+        {
             $total = 0;
             foreach ($this->getProducts() as $productItem)
             {

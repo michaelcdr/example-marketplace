@@ -12,8 +12,11 @@
     {
         public function seed()
         {
-            $this->destroyDatabase();
-            $this->createDb();
+            $this->createTableOrder();
+            $this->createTableOrderItens();
+
+            // $this->destroyDatabase();
+            // $this->createDb();
 
             //inserindo produtos...
             // $this->conn->exec(
@@ -96,9 +99,9 @@
             // );
 
             // carrossel
-            $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-1.jpg',1)");
-            $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-2.jpg',2)");
-            $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-3.jpg',3)");
+            // $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-1.jpg',1)");
+            // $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-2.jpg',2)");
+            // $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-3.jpg',3)");
             
             header('Location: /');
         }
@@ -208,8 +211,6 @@
                 );"
             );
         }
-
-
         
         public function createTableStates()
         {
@@ -246,6 +247,45 @@
                     FOREIGN KEY(UserId) REFERENCES Users(UserId),
                     StateId int,
                     FOREIGN KEY(StateId) REFERENCES States(StateId)
+                );"
+            );
+        }
+
+        public function createTableOrder()
+        {
+            $this->conn->exec(
+                "CREATE TABLE Orders (
+                    OrderId int NOT NULL AUTO_INCREMENT, PRIMARY KEY(OrderId),
+                    Total int, 
+                    CreatedAt datetime, 
+                    UserId int,
+                    FOREIGN KEY(UserId) REFERENCES Users(UserId),
+                    StateId int,
+                    FOREIGN KEY(StateId) REFERENCES States(StateId),
+                    CardOwnerName varchar(150),
+                    ExpirationMonth int,
+                    ExpirationYear int,
+                    Name varchar(150),
+                    Address varchar(150),
+                    Neighborhood varchar(150),
+                    Cep int,                    
+                    City varchar(150),
+                    CPF int
+                );"
+            );
+        }
+
+        public function createTableOrderItens()
+        {
+            $this->conn->exec(
+                "CREATE TABLE OrderItens (
+                    OrderItemId int NOT NULL AUTO_INCREMENT, 
+                    PRIMARY KEY(OrderItemId),
+                    OrderId int not null,
+                    FOREIGN KEY(OrderId) REFERENCES Orders(OrderId),
+                    ProductId int,
+                    FOREIGN KEY(ProductId) REFERENCES Products(ProductId),
+                    Qtd int
                 );"
             );
         }

@@ -53,7 +53,8 @@ class LoginUsuario
             btn.button('loading');
             $.post('/autenticar', objModel.model, function(data){
                 if (data.success){
-                    document.location = "/";
+                    
+                    document.location = data.urlDestino;
                 } else {
                     alertError({ text: data.msg, toast : true, timer:4000 });
                     btn.button('reset');

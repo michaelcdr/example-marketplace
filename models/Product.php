@@ -75,6 +75,11 @@
             return $this->Price;
         }
 
+        public function getFormattedPrice()
+        {
+            return "R$ ".  number_format($this->Price,2,",",".");
+        }
+
         public function getStock()
         {
             return $this->Stock;

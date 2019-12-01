@@ -4,16 +4,24 @@
     use models\responses\UpdateQtdProductResponse;
     use models\CartViewModel;
     use models\ProductCart;
+    use models\Order;
+    use models\Checkout;
+    use models\CheckoutResult;
+    use models\OrderItem;
 
     class CartService 
     {
         private $_repoCart;
         private $_repoProd;
+        private $_repoStates;
+        private $_repoOrder;
 
         public function __construct($factory)
         {
             $this->_repoCart = $factory->getCartRepository();
             $this->_repoProd = $factory->getProductRepository();
+            $this->_repoStates = $factory->getStateRepository();
+            $this->_repoOrder = $factory->getOrderRepository();
         }
 
         public function updateQtdProduct($productId,$qtd)
@@ -72,25 +80,35 @@
             {
                 //ja existe um carrinho na sessao...
                 $cartViewModel = $_SESSION["cart"];
-                
-                //obtendo imagem principal...
-                $firstImage = null;
-                if (!is_null($product->getImages()) && count($product->getImages()) > 0)
-                    $firstImage = $product->getImages()[0]["FileName"];
 
-                //adicionando produto no objeto de carrinho
-                $cartViewModel->addProduct(
-                    new ProductCart(
-                        null,
-                        $cartViewModel->getCartGroup(),
-                        $product->getId(),
-                        $product->getTitle(),
-                        $product->getPrice(),
-                        1,
-                        $firstImage,
-                        $product->getPrice()
-                    )
-                );
+                $productCart = $cartViewModel->getProduct($productId);
+                $stockAvailble =  $product->getStock();
+                if ($productCart !== null)
+                    $stockAvailble =  $product->getStock() - $productCart->getQtd();
+
+                //se tiver estoque adicionamos no carrinho...
+                if ($stockAvailble > 0)
+                {
+                    //obtendo imagem principal...
+                    $firstImage = null;
+                    if (!is_null($product->getImages()) && count($product->getImages()) > 0)
+                        $firstImage = $product->getImages()[0]["FileName"];
+
+                    //adicionando produto no objeto de carrinho
+                    $cartViewModel->addProduct(
+                        new ProductCart(
+                            null,
+                            $cartViewModel->getCartGroup(),
+                            $product->getId(),
+                            $product->getTitle(),
+                            $product->getPrice(),
+                            1,
+                            $firstImage,
+                            $product->getPrice()
+                        )
+                    );
+                }
+
                 //atualizando na sessao
                 $_SESSION["cart"] = $cartViewModel;
                 return $cartViewModel;
@@ -133,8 +151,65 @@
             }  
             else 
             {
-                
                 return null;
             }
+        }
+
+        public function getCheckoutViewModel()
+        {            
+            $carrinho = $_SESSION["cart"];
+            $states = $this->_repoStates->getAll();
+            
+            return new Checkout($carrinho,$states);
+        }
+
+        public function checkoutVerifyAuth()
+        {
+            if (is_null($_SESSION["userId"]))
+            {
+                return false;
+            } 
+            else 
+                return true;
+        }
+            
+        public function checkout()
+        {
+            $cart = $_SESSION["cart"];
+            
+            //montando objeto de itens do pedido
+            $orderItens = array();
+
+            foreach($cart->getProducts() as $product){
+                $orderItens[] = new OrderItem(
+                    null,
+                    null,
+                    $product->getProductId(),
+                    $product->getQtd()
+                );
+            }
+            //montando objeto do pedido
+            $order = new Order(
+                null,
+                intval($_SESSION["userId"]),
+                $cart->getTotalFinal(),
+                $_POST["name"],
+                $_POST["cardName"],
+                $_POST["cardNumber"],
+                $_POST["cardExpiration"],
+                $_POST["cvv"],
+                $_POST["cep"],
+                $_POST["cpf"],
+                $_POST["address"],
+                $_POST["neighborhood"],
+                $_POST["city"],
+                $_POST["stateId"],
+                $_POST["complement"],
+                $orderItens
+            );
+            
+            //persistindo os dados...
+            $this->_repoOrder->add($order);
+            return new CheckoutResult(true);
         }
     }

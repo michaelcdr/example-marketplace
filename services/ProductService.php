@@ -97,7 +97,7 @@
                $product = new Product(
                     $productItem["ProductId"],
                     $productItem["Title"],
-                    $productItem["Price"],
+                    number_format($productItem["Price"],2,",","."),
                     $productItem["Description"],
                     $productItem["CreatedAt"],
                     $productItem["CreatedBy"],

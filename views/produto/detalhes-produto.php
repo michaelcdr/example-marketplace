@@ -33,17 +33,18 @@
                                     <?php foreach($product->getImages() as $image) :?>
                                     <div class="text-center">
                                         <img src="img/products/<?php echo $image["FileName"]?>" 
-                                            class="img-fluid d-block " style="max-height:250px; text-align:center; display:inline !important;" 
+                                            class="img-fluid d-block " 
+                                            style="max-height:250px; text-align:center; display:inline !important;" 
                                             alt="Guitarra Ibanez RG 7420Z | HH | 7 Cordas | Weathered Black (WK)" 
                                             title="Guitarra Ibanez RG 7420Z | HH | 7 Cordas | Weathered Black (WK)">
                                     </div>
                                     <?php endforeach; ?>
                                 </div>   
                                 <div class="slider-nav-produto">
-                                  
                                     <?php foreach($product->getImages() as $image) :?>
                                     <div style="width:70px; height:70px; text-align:center">
-                                        <img src="img/products/<?php echo $image["FileName"]?>" style="max-height:50px;display:inline;"  class="img-fluid">
+                                        <img src="img/products/<?php echo $image["FileName"]?>" 
+                                            style="max-height:50px;display:inline;"  class="img-fluid">
                                     </div>
                                     <?php endforeach; ?>
                                 </div>
@@ -53,13 +54,15 @@
                                 <div class="sku">(Cód. <?php echo $product->getSku(); ?>)</div>
                                 <div class="vendedor">Vendido por: <strong><?php echo $product->getSeller(); ?></strong></div>
                                 <div class="estoque">Qtd. estoque: <?php echo $product->getStock(); ?></div>
-                                <div class="preco">
-                                    <div class="preco-avista h2 mb-0">R$ <?php echo $product->getPrice() ?></div>
-                                    <small class="parcela">em 1x no cartão</small>
-                                </div>
-                                <a class="btn btn-success btn-block" href="/adicionar-carrinho?id=<?php echo $product->getId(); ?>">
-                                    <i class="fa fa-shopping-cart"></i> Adicionar no carrinho
-                                </a>
+                                <?php if (intval($product->getStock()) > 0): ?>
+                                    <div class="preco">
+                                        <div class="preco-avista h2 mb-0"><?php echo $product->getFormattedPrice() ?></div>
+                                        <small class="parcela">em 1x no cartão</small>
+                                    </div>
+                                    <a class="btn btn-success btn-block" href="/adicionar-carrinho?id=<?php echo $product->getId(); ?>">
+                                        <i class="fa fa-shopping-cart"></i> Adicionar no carrinho
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

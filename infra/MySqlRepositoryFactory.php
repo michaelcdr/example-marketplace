@@ -10,18 +10,23 @@
     use infra\repositories\CartRepository;
     use infra\repositories\CategoryRepository;
     use infra\repositories\SellerRepository;
+    
+    use infra\repositories\StateRepository;
+    use infra\repositories\OrderRepository;
+
     use infra\RepositoryFactory;
 
     use PDO;
 
-    class MySqlRepositoryFactory extends RepositoryFactory {
-
+    class MySqlRepositoryFactory extends RepositoryFactory 
+    {
         private $host = "localhost";
         private $db_name = "projetoucs";
         private $port = "3306";
-        private $username = "root";
-        private $password = null;
-        //private $password = "giacom";
+        // private $username = "root";
+        // private $password = null;
+        private $username = "michael";
+        private $password = "giacom";
         public $conn;
     
         //obtendo conexão
@@ -30,7 +35,6 @@
             $this->conn = null;
             try
             {
-                
                 $this->conn = new PDO(
                     "mysql:host=" . $this->host . 
                     ";port=" . $this->port . 
@@ -46,6 +50,16 @@
                 $exception->getMessage();
             }
             return $this->conn;
+        }
+
+        public function getOrderRepository() 
+        {
+            return new OrderRepository($this->getConnection());
+        }
+
+        public function getStateRepository() 
+        {
+            return new StateRepository($this->getConnection());
         }
 
         public function getUserRepository() 
