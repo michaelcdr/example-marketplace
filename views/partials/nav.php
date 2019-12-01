@@ -27,7 +27,7 @@
                 </li>
                 <?php  if(isset($_SESSION["userId"])): ?>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">
+                        <a class="nav-link" href="/admin/usuario/minhas-compras">
                             Minhas compras
                         </a>
                     </li>
@@ -68,7 +68,7 @@
                 <span class="login-nav text-light ml-3">
                     <?php  if (isset($_SESSION["userId"])): ?>
                         <i class="fa fa-user"></i> Olá, 
-                        <a href="/admin/usuario/editar/<?php echo $_SESSION["userId"]?>" class="a-primary" >
+                        <a href="/admin/usuario/perfil/<?php echo $_SESSION["userId"]?>" class="a-primary" >
                             <?php echo $_SESSION["userName"] ?>
                         </a> clique em 
                         <a href="/logout" class="a-primary" title="Sair no sistema" 
@@ -83,7 +83,7 @@
                             data-container="body" title="Entrar no sistema" 
                             data-toggle="tooltip" data-placement="body">Login</a> 
                         <br /> ou 
-                        <a href="cadastro-usuario.html" class="a-primary" 
+                        <a href="/registrar" class="a-primary" 
                             title="Entrar no sistema" 
                             data-container="body">Cadastre-se
                         </a>.

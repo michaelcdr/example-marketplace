@@ -102,10 +102,11 @@
 
         public function getTotalFinal()
         {
-            
             return $this->getFreteValor() + $this->getSubTotalComCondicoes();
         }
-        public function getTotalFormatted(){
+
+        public function getTotalFormatted()
+        {
             return "R$ ".  number_format($this->getTotalFinal(),2,",",".");
         }
         /**

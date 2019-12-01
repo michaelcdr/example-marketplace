@@ -5,6 +5,7 @@
     use infra\interfaces\IOrderRepository;
     use models\Order;
     use models\OrderItem;
+    
     use models\PaginatedResults;
     use PDO;
 
@@ -15,51 +16,71 @@
     {
         public function add($order)
         {
-            $stmt = $this->conn->prepare(
-                "INSERT INTO orders
-                (
-                    total,createdat,userid,stateid,cardownername,
-                    expirationdate,name,address,neighborhood,cep,city,cpf
-                )
-                values
-                (
-                    :total,now(),:userId,:stateId,:cardOwner,
-                    :expirationDate,:name,:address,:neighborhood,:cep,:city,:cpf
-                );"
-            );
-            $stmt->bindValue(':total', $order->getTotal());
-            $stmt->bindValue(':userId', $order->getUserId());
-            $stmt->bindValue(':stateId', $order->getStateId());
-            $stmt->bindValue(':cardOwner', $order->getCardOwner());
-            $stmt->bindValue(':expirationDate', $order->getExpirationDate());
-            $stmt->bindValue(':name', $order->getName());
-            $stmt->bindValue(':address', $order->getAddress());
-            $stmt->bindValue(':neighborhood', $order->getNeighborhood());
-            $stmt->bindValue(':cep', $order->getCep());
-            $stmt->bindValue(':city', $order->getCity());
-            $stmt->bindValue(':cpf', $order->getCpf());
-            $stmt->execute();
-            
-            $orderId = $this->conn->lastInsertId();
-
-            foreach($order->getOrderItens() as $item)
-            {
-                $stmt = $this->conn->prepare(
-                    "insert into orderitens(orderid, productid, qtd) 
-                    values(
-                        :orderId, :productId, :qtd
-                    )"
+            try{    $stmt = $this->conn->prepare(
+                    "INSERT INTO orders
+                    (
+                        total,createdat,userid,stateid,cardownername,
+                        expirationdate,name,address,neighborhood,cep,city,cpf,complement
+                    )
+                    values
+                    (
+                        :total,now(),:userId,:stateId,:cardOwner,
+                        :expirationDate,:name,:address,:neighborhood,:cep,:city,:cpf,:complement
+                    );"
                 );
-                $stmt->bindValue(':orderid', $item->getOrderId());
-                $stmt->bindValue(':productid', $item->getProductId());
-                $stmt->bindValue(':qtd', $item->getQtd());
+                $stmt->bindValue(':total', $order->getTotal());
+                $stmt->bindValue(':userId', $order->getUserId());
+                $stmt->bindValue(':stateId', $order->getStateId());
+                $stmt->bindValue(':cardOwner', $order->getCardOwner());
+                $stmt->bindValue(':expirationDate', $order->getExpirationDate());
+                $stmt->bindValue(':name', $order->getName());
+                $stmt->bindValue(':address', $order->getAddress());
+                $stmt->bindValue(':neighborhood', $order->getNeighborhood());
+                $stmt->bindValue(':cep', $order->getCep());
+                $stmt->bindValue(':city', $order->getCity());
+                $stmt->bindValue(':cpf', $order->getCpf());
+                $stmt->bindValue(':complement', $order->getComplement());
                 $stmt->execute();
+
+                // echo "chegou <br> total:" . $order->getTotal();
+                // echo "<br> userId: " . $order->getUserId();
+                // echo "<br> stateid: " . $order->getStateId();
+                // echo "<br> cardOwner: " . $order->getCardOwner();
+                // echo "<br> getExpirationDate: " . $order->getExpirationDate();
+                // echo "<br> name: " . $order->getName();
+                // echo "<br> getAddress: " . $order->getAddress();
+                // echo "<br> getNeighborhood: " . $order->getNeighborhood();
+                // echo "<br> getCep: " . $order->getCep();
+                
+                $orderId = $this->conn->lastInsertId();
+                // echo $orderId;
+                // echo "<pre>";
+                // echo $order->getOrderItens();
+                // echo "</pre>";
+                foreach($order->getOrderItens() as $item)
+                {
+                    $stmt = $this->conn->prepare(
+                        
+                        "insert into orderitens(orderid,productid,qtd) 
+                        values(
+                            :orderId, :productId, :qtd
+                        )"
+                    );
+                    $stmt->bindValue(':orderId', intval($orderId));
+                    $stmt->bindValue(':productId', $item->getProductId());
+                    $stmt->bindValue(':qtd', $item->getQtd());
+                   // echo "orderId: ". $orderId . ", productid: " . $item->getProductId() .", qtd:" .$item->getQtd() . "<br>";
+                    $stmt->execute();
+                }
+                
+                return $orderId;
+                
             }
-            
-            return $orderId;
+            catch(PDOException $Exception){
+                echo "erro " .  $Exception->getMessage();
+                return null;
+            }
         }
-
-
 
         public function getById($orderId)
         {
@@ -82,14 +103,12 @@
             return $usuario;
         }
 
-
-
         public function total($search)
         {
             if (is_null($search) ||  $search === "")
             {
                 $stmt = $this->conn->prepare(
-                    "SELECT count(UserId) as total FROM Users "
+                    "SELECT count(OrderId) as total FROM Orders "
                 );
                 $stmt->execute();
                 $total = $stmt->fetch();
@@ -98,8 +117,13 @@
             else
             {
                 $stmt = $this->conn->prepare( 
-                    "SELECT count(UserId) as total FROM Users 
-                     WHERE Login like :search or Name like :search" 
+                    "SELECT count(OrderId) as total FROM Orders 
+                     WHERE 
+                        CardOwnerName like :search or 
+                        Name like :search or 
+                        Address like :search or 
+                        Complement like :search 
+                        "
                 );
                 $stmt->bindValue(":search", '%' . $search . '%');
                 $total = $stmt->fetch();
@@ -124,31 +148,41 @@
             //echo "page: " . $page . "<br/> skipNumber: " . $skipNumber . "<br/>";
 
             //obtendo lista de usuarios...
-            $usersResults = null;
+            $ordersResults = null;
             if (is_null($search) ||  $search === "")
             {
                 $stmt = $this->conn->prepare(
-                    "SELECT UserId, Login, Name, Role 
-                     FROM Users limit :pageSize OFFSET :skipNumber "
+                    "SELECT *
+                     FROM Orders o
+                     inner join states s on o.stateid = s.stateid
+                     order by o.createdat desc
+                     limit :pageSize OFFSET :skipNumber "
                 );
                 $stmt->bindValue(':pageSize', intval(trim($pageSize)), PDO::PARAM_INT);
                 $stmt->bindValue(':skipNumber', intval(trim($skipNumber)), PDO::PARAM_INT);
                 $stmt->execute();
-                $usersResults = $stmt->fetchAll();
+                $ordersResults = $stmt->fetchAll();
             }
             else
             {
                 $stmt = $this->conn->prepare( 
-                    "SELECT UserId, Login, Name, Role FROM Users 
-                     WHERE Login like :search or 
-                     Name like :search order by name 
+                    "SELECT o.orderId,o.userId,o.total,o.name,o.name,o.cep,o,address,o.neighborhood,o.city
+                     FROM Orders o
+                     inner join states s on o.stateid = s.stateid
+                     WHERE 
+                        o.Name like :search or 
+                        o.City like :search or 
+                        o.Address like :search or 
+                        o.Complement like :search or
+                        s.stateAbreviattion like :search 
+                     order by o.createdat desc 
                      limit :pageSize OFFSET :skipNumber " 
                 );
                 $stmt->bindValue(":search", '%' . $search . '%');
                 $stmt->bindValue(':pageSize', intval(trim($pageSize)), PDO::PARAM_INT);
                 $stmt->bindValue(':skipNumber', intval(trim($skipNumber)), PDO::PARAM_INT);
                 $stmt->execute();
-                $usersResults = $stmt->fetchAll();
+                $ordersResults = $stmt->fetchAll();
             }   
             
             //obtendo dados para controle da paginação
@@ -161,21 +195,57 @@
             if ($numberOfPages > intval($page))
                 $hasNextPage = true;
             
+            var_dump($ordersResults);
+            
+            $orders = array();
+            
+            foreach($ordersResults as $row){
+                $orders[] = new Order(
+                    $row["orderId"],
+                    $row["userId"],
+                    $row["total"],
+                    $row["name"],
+                    null,
+                    null,
+                    null,
+                    null,
+                    $row["cep"],
+                    null,
+                    $row["address"],
+                    $row["neighborhood"],
+                    $row["city"],
+                    $row["stateId"],
+                    $row["complement"],
+                    null
+                );
+            }
+            exit();
             $paginatedReesults = new PaginatedResults(
-                $usersResults, 
+                $orders, 
                 $total, 
-                count($usersResults),
+                count($orders),
                 $hasPreviousPage,
                 $hasNextPage,
                 $page,
                 $numberOfPages,
-                "/admin/usuario?p="
+                "/admin/usuario/minhas-compras?p="
             );
 
-
-            
-
             return $paginatedReesults;
+        }
+
+        public function delete($id){
+            $stmt = $this->conn->prepare(
+                "delete from orderitens where orderId = :orderId"
+            );
+            $stmt->bindValue(':orderId', intval($id));
+            $stmt->execute();
+
+            $stmt = $this->conn->prepare(
+                "delete from orders where orderId = :orderId"
+            );
+            $stmt->bindValue(':orderId', intval($id));
+            $stmt->execute();
         }
     }
 

@@ -203,7 +203,8 @@
                 offer = :offer,
                 stock = :stock,
                 sku = :sku,
-                userId = :userId
+                userId = :userId,
+                price = :price
                 where ProductId = :productId"
             );
             
@@ -213,7 +214,9 @@
             $stmt->bindValue(":stock", $product->getStock());
             $stmt->bindValue(":sku", $product->getSku());
             $stmt->bindValue(":productId", $product->getId());
+            $stmt->bindValue(":price", $product->getPrice());
             $stmt->bindValue(":userId", $product->getUserId());
+            
             $stmt->execute();
         }
 

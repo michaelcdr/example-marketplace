@@ -9,13 +9,12 @@
         private $_repoOfertas;
         private $_repoCarousel;
         private $_repoCategories;
+
         public function __construct($factory)
         {
             $this->_repoOfertas = $factory->getProductOnOfferRepository();
             $this->_repoCarousel = $factory->getCarouselRepository();
             $this->_repoCategories = $factory->getCategoryRepository();
-            
-            
         }
 
         public function getProductsOnOffer()
@@ -32,7 +31,8 @@
         {
             $ofertas = $this->getProductsOnOffer();
             $caroselItens = $this->getCaroselItens();
-            $categories = $this->_repoCategories->getAll(0,null);
+            $categories = $this->_repoCategories->getAll();
+            
             require "views/home/home.php";
         }
     }

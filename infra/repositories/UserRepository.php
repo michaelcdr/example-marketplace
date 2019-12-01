@@ -219,9 +219,6 @@
                 "/admin/usuario?p="
             );
 
-
-            
-
             return $paginatedReesults;
         }
     }

@@ -6,6 +6,8 @@
     {
         public function add($order);
         public function getById($id);
+        public function delete($id);
+        public function total($search);
     }
 
 ?>

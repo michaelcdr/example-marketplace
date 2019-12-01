@@ -175,41 +175,66 @@
             
         public function checkout()
         {
-            $cart = $_SESSION["cart"];
-            
-            //montando objeto de itens do pedido
-            $orderItens = array();
+            $orderId = null;
+            try
+            {
+                $cart = $_SESSION["cart"];
+                
+                //montando objeto de itens do pedido
+                $orderItens = array();
 
-            foreach($cart->getProducts() as $product){
-                $orderItens[] = new OrderItem(
+                foreach($cart->getProducts() as $product){
+                    $orderItens[] = new OrderItem(
+                        null,
+                        null,
+                        $product->getProductId(),
+                        $product->getQtd()
+                    );
+                }
+
+                //montando objeto do pedido...
+                $order = new Order(
                     null,
-                    null,
-                    $product->getProductId(),
-                    $product->getQtd()
+                    intval($_SESSION["userId"]),
+                    $cart->getTotalFinal(),
+                    $_POST["name"],
+                    $_POST["cardName"],
+                    $_POST["cardNumber"],
+                    $_POST["cardExpiration"],
+                    $_POST["cvv"],
+                    $_POST["cep"],
+                    $_POST["cpf"],
+                    $_POST["address"],
+                    $_POST["neighborhood"],
+                    $_POST["city"],
+                    $_POST["stateId"],
+                    $_POST["complement"],
+                    $orderItens
                 );
+                
+                //persistindo os dados do pedido...
+                $orderId = $this->_repoOrder->add($order);
+                
+                //se o pedido nao foi gerado sera lançado um erro
+                if (is_null($orderId)){
+                    throw new Exception();
+                }
+
+                //baixar estoque...
+
+                //limpando o carrinho...
+                $_SESSION["cart"] = null;
+
+                return new CheckoutResult(true, $orderId);
             }
-            //montando objeto do pedido
-            $order = new Order(
-                null,
-                intval($_SESSION["userId"]),
-                $cart->getTotalFinal(),
-                $_POST["name"],
-                $_POST["cardName"],
-                $_POST["cardNumber"],
-                $_POST["cardExpiration"],
-                $_POST["cvv"],
-                $_POST["cep"],
-                $_POST["cpf"],
-                $_POST["address"],
-                $_POST["neighborhood"],
-                $_POST["city"],
-                $_POST["stateId"],
-                $_POST["complement"],
-                $orderItens
-            );
-            
-            //persistindo os dados...
-            $this->_repoOrder->add($order);
-            return new CheckoutResult(true);
+            catch (Exception $ex){
+                //se ocorreram problemas removemos o pedido...
+                if ($orderId != null)
+                    $this->_repoOrder->delete($orderId);
+
+                return new CheckoutResult(false,null);
+            }
         }
+
+       
     }

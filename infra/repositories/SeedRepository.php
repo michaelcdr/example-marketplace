@@ -231,8 +231,8 @@
                     PRIMARY KEY(SellerId),
                     LastName varchar(255),
                     Age int,    
-                    CPF int,
-                    CEP int,
+                    CPF varchar(14),
+                    CEP varchar(8),
                     Neighborhood nvarchar(100),
                     Email varchar(100),
                     DateOfBirth datetime,
@@ -256,21 +256,22 @@
             $this->conn->exec(
                 "CREATE TABLE Orders (
                     OrderId int NOT NULL AUTO_INCREMENT, PRIMARY KEY(OrderId),
-                    Total int, 
-                    CreatedAt datetime, 
-                    UserId int,
-                    FOREIGN KEY(UserId) REFERENCES Users(UserId),
-                    StateId int,
-                    FOREIGN KEY(StateId) REFERENCES States(StateId),
-                    CardOwnerName varchar(150),
-                    ExpirationMonth int,
-                    ExpirationYear int,
-                    Name varchar(150),
-                    Address varchar(150),
-                    Neighborhood varchar(150),
-                    Cep int,                    
-                    City varchar(150),
-                    CPF int
+                    Total int NOT NULL , 
+                    CreatedAt datetime NOT NULL , 
+                    UserId int NOT NULL ,
+                    FOREIGN KEY(UserId) REFERENCES Users(UserId) NOT NULL ,
+                    StateId int NOT NULL ,
+                    FOREIGN KEY(StateId) REFERENCES States(StateId) NOT NULL ,
+                    CardOwnerName varchar(150) NOT NULL ,
+                    ExpirationMonth int NOT NULL ,
+                    ExpirationYear int NOT NULL ,
+                    Name varchar(150) NOT NULL ,
+                    Address varchar(150) NOT NULL ,
+                    Neighborhood varchar(150) NOT NULL ,
+                    CPF varchar(14) NOT NULL ,
+                    CEP varchar(8) NOT NULL ,                
+                    City varchar(150) NOT NULL, 
+                    Complement varchar(150) NOT NULL
                 );"
             );
         }

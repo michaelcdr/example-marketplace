@@ -1,7 +1,6 @@
 <?php
-    require_once './infra/repositories-mysql/CategoryRepository.php';
-    require_once './infra/MySqlRepositoryFactory.php';
-
+    namespace controllers;
+    
     class CategoryController
     {
         private $_repoCategories;

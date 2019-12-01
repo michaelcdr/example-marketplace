@@ -16,6 +16,10 @@
     use controllers\UserDeleteController;
     use controllers\UserListController;
     use controllers\UserPartiaListController;
+    use controllers\UserRegisterController;
+    use controllers\UserRegisterPostController;
+    use controllers\UserPurchaseController;
+
     use controllers\AddToCartController;
     use controllers\CartController;
     use controllers\RemoveFromCartController;
@@ -36,6 +40,15 @@
     use controllers\CartCheckoutController;
     use controllers\CartCheckoutPostController;
     
+    use controllers\SellerListController;
+
+    use controllers\CategoryEditController;
+    use controllers\CategoryEditPostController;
+    use controllers\CategoryCreateController;
+    use controllers\CategoryCreatePostController;
+    use controllers\CategoryDeleteController;
+    use controllers\CategoryListController;
+    use controllers\CategoryListPartialController;
     
     //rota X [controller , roles]
     $routes = [
@@ -45,6 +58,8 @@
         "/logout" => [UserLogoutController::class, "admin,vendedor,comum"],
         "/login" => [UserLoginController::class, ""],
         "/vender" => [SellerSimpleCreateController::class, ""],
+        "/registrar" => [UserRegisterController::class, ""],
+        "/registrar-usuario-post" => [UserRegisterPostController::class, ""],
         "/vendedor-indentificacao" => [SellerAuthController::class, ""],
         "/vendedor-registrar" => [SellerRegisterController::class, ""],
         "/vendedor-registrar-post" => [SellerRegisterPostController::class, ""],
@@ -68,6 +83,7 @@
         "/admin/usuario/deletar" => [UserDeleteController::class,"admin"],
         "/admin/usuario" => [UserListController::class,"admin"],        
         "/admin/usuario/lista-table" => [UserPartiaListController::class,"admin"],
+        "/admin/usuario/minhas-compras" => [UserPurchaseController::class,"admin,vendedor,comum"],
 
         "/admin/produto" => [ProductListController::class, "admin,vendedor"],
         "/admin/produto/lista-partial" => [ProductPartialListController::class, "admin,vendedor"],
@@ -76,7 +92,17 @@
         "/admin/produto/editar" => [ProductEditController::class,"admin,vendedor"],
         "/admin/produto/editar-post" => [ProductEditPostController::class,"admin,vendedor"],
         "/admin/produto/deletar" => [ProductDeleteController::class,"admin,vendedor"],
-        "/admin/produto/upload" => [ProductImageUploadController::class,"admin,vendedor"]
+        "/admin/produto/upload" => [ProductImageUploadController::class,"admin,vendedor"],
+
+        "/admin/categoria/editar" => [CategoryEditController::class, "admin"],
+        "/admin/categoria/editar-post" => [CategoryEditPostController::class, "admin"],
+        "/admin/categoria/cadastrar" => [CategoryCreateController::class,"admin"],
+        "/admin/categoria/cadastrar-post" => [CategoryCreatePostController::class,"admin"],
+        "/admin/categoria/deletar" => [CategoryDeleteController::class,"admin"],
+        "/admin/categoria" => [CategoryListController::class,"admin"],        
+        "/admin/categoria/lista-table" => [CategoryListPartialController::class,"admin"],
+
+        "/admin/vendedor" => [SellerListController::class,"admin"],
     ];
     return $routes;
 ?>

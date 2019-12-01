@@ -12,34 +12,26 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/admin/categorias">
-                            Categorias <span class="sr-only"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/admin/vendedores">
-                            Vendedores <span class="sr-only"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/admin/produto">
-                            Produtos <span class="sr-only"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/admin/usuario">
-                            Usuários <span class="sr-only"></span>
-                        </a>
-                    </li>
-                    
-                </ul>
+                <?php 
+                    if($_SESSION["role"] == "comum") 
+                    {
+                        require_once "./views/partials/nav-menu-default.php";
+                    }
+                    else if($_SESSION["role"] == "vendedor")
+                    {
+                        require_once "./views/partials/nav-menu-seller.php";
+                    }
+                    else
+                    {
+                        require_once "./views/partials/nav-menu-admin.php";
+                    }
+                ?>
+               
                 <div class="form-inline">
                     <span class="login-nav text-light ml-3">
                         <?php if (isset($_SESSION["userId"])) :?>
                             <i class="fa fa-user"></i> Olá, 
-                            <a href="/admin/usuario/editar/<?php echo $_SESSION["userId"]?>" class="a-primary" >
+                            <a href="/admin/usuario/perfil/<?php echo $_SESSION["userId"]?>" class="a-primary" >
                                 <?php echo $_SESSION["userName"] ?>
                             </a> clique em 
                             <a href="/logout" class="a-primary" title="Sair no sistema" 

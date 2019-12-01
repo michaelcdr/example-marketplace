@@ -1,8 +1,13 @@
 <?php
     namespace controllers;
-    use controllers\IBaseController;
+    use infra;
+    use models;
+    use infra\repositories;
+    use models\JsonSuccess;
+    use models\JsonError;
+    use models\User;
 
-    class UserListController implements IBaseController
+    class UserPurchaseController implements IBaseController
     {
         private $_repoOrder;
 
@@ -18,7 +23,7 @@
                 $page = intval($_GET["p"]);
             
             $paginatedResults = $this->_repoOrder->getAll($page, null, 5);
-            $users = $paginatedResults->results;
+            $compras = $paginatedResults->results;
             require "views/admin/users/lista-compras.php";
         }
     }

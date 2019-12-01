@@ -51,4 +51,14 @@
                 }
             }
         }
+
+        public function getAllPaginated()
+        {
+            $page = 1;
+            if (isset($_GET["p"]))
+                $page = intval($_GET["p"]);
+            
+            $paginatedResults = $this->_repoSeller->getAll($page, null, 5);
+            return $paginatedResults;
+        }
     }

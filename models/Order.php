@@ -18,6 +18,7 @@
         private $_city;
         private $_cpf;
         private $_orderItens;
+        private $_complement;
 
         public function __construct(
                 $orderId, $userId, $total, $name, 
@@ -91,6 +92,9 @@
 
         public function getOrderId(){
             return $this->_orderId;
+        }
+        public function getComplement(){
+            return $this->_complement;
         }
     }
 ?>

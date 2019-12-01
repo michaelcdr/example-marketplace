@@ -4,10 +4,11 @@
     class CheckoutResult
     {
         public $success;
-        
-        public function __construct($success)
+        public $orderId;
+
+        public function __construct($success, $orderId)
         {
             $this->success = $success;
+            $this->orderId = $orderId;
         }
-
     }
