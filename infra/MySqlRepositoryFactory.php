@@ -26,7 +26,7 @@
         // private $username = "root";
         // private $password = null;
         private $username = "michael";
-        private $password = "giacom";
+        private $password = "Teste@123";
         public $conn;
     
         //obtendo conexão
@@ -91,6 +91,7 @@
 
         public function getSeedRepository()
         {
+            
             return new SeedRepository($this->getConnection());
         }
         
