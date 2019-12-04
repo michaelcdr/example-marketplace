@@ -49,6 +49,10 @@
 
             $this->_orderItens = $orderItens;
         }
+        
+        public function setCreatedAt($createdAt){
+            $this->_createdAt = $createdAt;
+        }
 
         public function getId() {
             return $this->_orderId;
@@ -74,6 +78,9 @@
         public function getAddress(){
             return $this->_address;
         }
+        public function getCreatedAt(){
+            return $this->_createdAt;
+        }
         public function getNeighborhood(){
             return $this->_neighborhood;
         }
@@ -95,6 +102,15 @@
         }
         public function getComplement(){
             return $this->_complement;
+        }
+
+        public function getTotalFormatted() {
+            return "R$ ".  number_format($this->_total,2,",",".");
+            
+        }
+        public function getCreateAtFormatted() {
+            
+            return date("d-m-Y H:i:s", strtotime( $this->_createdAt ) );
         }
     }
 ?>

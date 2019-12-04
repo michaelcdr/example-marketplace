@@ -73,7 +73,7 @@
 
         public function getFreteValor()
         {
-            $valor = 100;
+            $valor = 0;
             return $valor;
         }
 

@@ -1,40 +1,37 @@
 <table id="tb-users" data-page="0" class="table table-bordered table-hovered table-striped">
     <thead>
         <tr>
-            <th width="10%"></th>
-            <th>Login</th>
-            <th>Nome</th>
-            <th>Tipo de usuário</th>
+            <th width="15px"></th>
+            <th>Data</th>
+            <th>Total</th>
+            <th>Nº Pedido</th>
         </tr>
     </thead>
     <tbody>
-        <?php  if (count($users) == 0) : ?>
+        <?php  if (count($compras) == 0) : ?>
             <tr>
                 <td colspan="4">Nenhum registro cadastrado.</td>
             </tr>
         <?php else  :?>
-            <?php foreach ($users as $user): ?>
+            <?php foreach ($compras as $compra): ?>
                 <tr>
                     <td>
                         <div class="btn-group">
-                            <button class='btn btn-sm btn-outline-danger btn-delete' 
-                                data-id="<?php echo $user["UserId"] ?>">
-                                <i class="fa fa-remove"></i>
-                            </button>
                             <a class='btn btn-sm btn-outline-dark' 
-                                href="/admin/usuario/editar?id=<?php echo $user["UserId"] ?>">
-                                <i class="fa fa-edit" ></i>
+                                href="/admin/usuario/pedido?id=<?php echo $compra->getUserId(); ?>">
+                                <i class="fa fa-list" ></i>
                             </a>
                         </div>
                     </td>
                     <td>
-                        <?php echo $user["Login"] ?>
+                        <?php echo $compra->getCreateAtFormatted(); ?>
                     </td>
                     <td>
-                        <?php echo $user["Name"] ?>
+                        <?php echo $compra->getTotalFormatted(); ?>
                     </td>
+                    
                     <td>
-                        <?php echo $user["Role"] ?>
+                        <?php  echo $compra->getOrderId();  ?>
                     </td>
                 </tr>
             <?php endforeach?>

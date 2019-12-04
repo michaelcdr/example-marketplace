@@ -5,7 +5,6 @@
     use infra\interfaces\IOrderRepository;
     use models\Order;
     use models\OrderItem;
-    
     use models\PaginatedResults;
     use PDO;
 
@@ -16,22 +15,25 @@
     {
         public function add($order)
         {
-            try{    $stmt = $this->conn->prepare(
+            try{    
+               
+                $stmt = $this->conn->prepare(
                     "INSERT INTO orders
                     (
-                        total,createdat,userid,stateid,cardownername,
-                        expirationdate,name,address,neighborhood,cep,city,cpf,complement
+                        total, createdat, userId, stateId, cardOwnerName,
+                        expirationDate, name, address, neighborhood, cep, 
+                        city, cpf, complement
                     )
                     values
                     (
-                        :total,now(),:userId,:stateId,:cardOwner,
+                        :total, now(), :userId, :stateId, :cardOwnerName,
                         :expirationDate,:name,:address,:neighborhood,:cep,:city,:cpf,:complement
                     );"
                 );
                 $stmt->bindValue(':total', $order->getTotal());
-                $stmt->bindValue(':userId', $order->getUserId());
-                $stmt->bindValue(':stateId', $order->getStateId());
-                $stmt->bindValue(':cardOwner', $order->getCardOwner());
+                $stmt->bindValue(':userId', intval($order->getUserId()));
+                $stmt->bindValue(':stateId', intval($order->getStateId()));
+                $stmt->bindValue(':cardOwnerName', $order->getCardOwner());
                 $stmt->bindValue(':expirationDate', $order->getExpirationDate());
                 $stmt->bindValue(':name', $order->getName());
                 $stmt->bindValue(':address', $order->getAddress());
@@ -152,9 +154,21 @@
             if (is_null($search) ||  $search === "")
             {
                 $stmt = $this->conn->prepare(
-                    "SELECT *
+                    "SELECT 
+                        o.orderId as orderId,
+                        o.userId as userId, 
+                        o.total as total,
+                        o.cardOwnerName as cardOwnerName,
+                        s.stateId as stateId,
+                        o.name as name, 
+                        o.cep as cep, 
+                        o.complement as complement,
+                        o.address as address, 
+                        o.neighborhood as neighborhood,
+                        o.city as city,
+                        o.createdAt as createdAt
                      FROM Orders o
-                     inner join states s on o.stateid = s.stateid
+                     left join states s on o.stateid = s.stateid
                      order by o.createdat desc
                      limit :pageSize OFFSET :skipNumber "
                 );
@@ -166,9 +180,18 @@
             else
             {
                 $stmt = $this->conn->prepare( 
-                    "SELECT o.orderId,o.userId,o.total,o.name,o.name,o.cep,o,address,o.neighborhood,o.city
+                    "SELECT o.orderId as orderId, 
+                            o.userId as userId,
+                            o.total as total,
+                            o.cardOwnerName as cardOwnerName
+                            o.name as name,
+                            o.cep as cep,
+                            o.address as address,
+                            o.neighborhood,
+                            o.city,
+                            o.createdAt as createdAt
                      FROM Orders o
-                     inner join states s on o.stateid = s.stateid
+                     left join states s on o.stateid = s.stateid
                      WHERE 
                         o.Name like :search or 
                         o.City like :search or 
@@ -195,17 +218,15 @@
             if ($numberOfPages > intval($page))
                 $hasNextPage = true;
             
-            var_dump($ordersResults);
-            
             $orders = array();
-            
-            foreach($ordersResults as $row){
-                $orders[] = new Order(
+            foreach($ordersResults as $row)
+            {
+                $order =new Order(
                     $row["orderId"],
                     $row["userId"],
                     $row["total"],
                     $row["name"],
-                    null,
+                    $row["cardOwnerName"],
                     null,
                     null,
                     null,
@@ -218,9 +239,11 @@
                     $row["complement"],
                     null
                 );
+                $order->setCreatedAt($row["createdAt"]);
+                $orders[] = $order;
             }
-            exit();
-            $paginatedReesults = new PaginatedResults(
+            
+            $paginatedResults = new PaginatedResults(
                 $orders, 
                 $total, 
                 count($orders),
@@ -231,7 +254,7 @@
                 "/admin/usuario/minhas-compras?p="
             );
 
-            return $paginatedReesults;
+            return $paginatedResults;
         }
 
         public function delete($id){

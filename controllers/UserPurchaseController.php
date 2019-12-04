@@ -24,6 +24,7 @@
             
             $paginatedResults = $this->_repoOrder->getAll($page, null, 5);
             $compras = $paginatedResults->results;
+            
             require "views/admin/users/lista-compras.php";
         }
     }

@@ -59,6 +59,7 @@
                 $page = intval($_GET["p"]);
             
             $paginatedResults = $this->_repoSeller->getAll($page, null, 5);
+            
             return $paginatedResults;
         }
     }

@@ -81,12 +81,12 @@
             {
                 $stmt = $this->conn->prepare(
                     "SELECT 
-                        s.SellerId, u.Name, s.LastName, s.Company, 
-                        s.FantasyName, s.City ,u.Login
-                     from Users u
-                     inner join Sellers s on u.userid = s.userid
-                     where u.role = 'vendedor'
-                     limit :pageSize OFFSET :skipNumber "
+                    s.SellerId, u.Name, s.LastName, s.Company, 
+                    s.FantasyName, s.City ,u.Login
+                    from Users u
+                    inner join Sellers s on u.userid = s.userid
+                    where u.role = 'vendedor'
+                    limit :pageSize OFFSET :skipNumber "
                 );
                 $stmt->bindValue(':pageSize', intval(trim($pageSize)), PDO::PARAM_INT);
                 $stmt->bindValue(':skipNumber', intval(trim($skipNumber)), PDO::PARAM_INT);

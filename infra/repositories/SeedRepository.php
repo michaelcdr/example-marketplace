@@ -6,21 +6,14 @@
     use infra;
     use infra\MySqlRepository;
     use infra\interfaces\ISeedRepository;
+    use models\User;
+    use infra\repositories\UserRepository;
+    use infra\repositories\SellerRepository;
 
     class SeedRepository 
         extends MySqlRepository 
         implements ISeedRepository
     {
-
-        private $_repoUser;
-
-        public function __construct($factory)
-        {
-            var_dump($factory);
-            $this->_repoUser = $factory->getUserRepository();
-            echo "dsafds";
-        }
-
         public function seedProducts()
         {
              //inserindo produtos...
@@ -33,36 +26,65 @@
                     createdby,
                     offer,
                     stock,
-                    sku
+                    sku,
+                    userId
                 ) values (
                     'GUITARRA FENDER STANDARD TELECASTER MEXICANA BLACK - 014-5102-506',
-                    'A Fender traz a Standard Telecaster para guitarristas que apreciam 
-                    estilo e versatilidade por um super valor!',
-                    5690,now(),'michael',1,10,'001'
+                    'A Fender traz a Standard Telecaster para guitarristas que apreciam estilo e versatilidade por um super valor!',
+                    5690.99,
+                    now(),
+                    'michael',
+                    1,
+                    10,
+                    '001',
+                    (select UserId from users where role = 'vendedor' limit 1)
                 );"
             );
             $this->conn->exec(
                 "insert into products(
                     title,
                     description,
-                    price,c
-                    reatedat,
+                    price,
+                    createdat,
                     createdby,
                     offer,
                     stock,
-                    sku
+                    sku,
+                    userId
                 ) values(
-                    'GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST 
-                    (2012) - ACOMPANHA HARD CASE',
+                    'GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST (2012) - ACOMPANHA HARD CASE',
                     'A lendária guitarra Stratocaster em sua versão mais tradicional!',
-                    7990,now(),'michael',1,10,'002'
+                    7990,
+                    now(),
+                    'michael',
+                    1,
+                    10,
+                    '002',
+                    (select UserId from users where role = 'vendedor' limit 1)
                 );"
             );
             $this->conn->exec(
-                "insert into products(title,description,price,createdat,createdby,offer,stock,sku)values(
+                "insert into products(
+                    title,
+                    description,
+                    price,
+                    createdat,
+                    createdby,
+                    offer,
+                    stock,
+                    sku,
+                    userId
+                )values(
                     'GUITARRA JACKSON DINKY JS11 GLOSS BLACK - 291 0110 503',
                     'Uma guitarra de alta qualidade e excelente preço da lendária marca Jackson!',
-                    1790,now(),'michael',1,10,'003');"
+                    1790,
+                    now(),
+                    'michael',
+                    1,
+                    10,
+                    '003',
+                    (select UserId from users where role = 'vendedor' limit 1)
+                );"
             );
             
             //inserindo imagens de produtos...
@@ -78,7 +100,7 @@
                         title like '%GUITARRA FENDER STANDARD TELECASTER MEXICANA BLACK - 014-5102-506%' 
                         limit 1
                     ) 
-                , 'fender-mex-black-014-5102-506.jpg');"
+                , 'fender-american-especial-stratocaster-maple2-color-sunburst2012.jpg');"
             );
             $this->conn->exec(
                 "insert into productsimages(productid,filename)
@@ -89,7 +111,7 @@
                         title like '%GUITARRA FENDER AMERICAN SPECIAL STRATOCASTER MAPLE 2-COLOR SUNBURST (2012) - ACOMPANHA HARD CASE%' 
                         limit 1
                     ) 
-                , 'fender-american-especial-stratocaster-maple2-color-sunburst2012.jpg');"
+                , 'fender-mex-black-014-5102-506.jpg');"
             );
             $this->conn->exec(
                 "insert into productsimages(productid,filename)
@@ -106,10 +128,13 @@
 
         public function seedUsersAndSellers()
         {
-            $userAdmin = new User(null,"michael","123456","michael","admin");
-            $userVendedor = new User(null,"michael.vendedor","123456","michael Vendedor","vendedor"); 
-            $this->_repoUser->add($userAdmin);
-            $this->_repoUser->add($userVendedor);
+            $_repoUser = new UserRepository($this->conn);
+            $_repoUser->add(new User(null,"michael","123456","michael","admin"));
+            $userId = $_repoUser->add(new User(null,"multisom","123456","Multisom","vendedor"));
+            echo "vendedorId: " . $userId . "<br>";
+
+            $_repoSeller = new SellerRepository($this->conn);
+            $_repoSeller->addSimplifiedSeller($userId, "Multisom LTDA");
         }
 
         public function seedCarousel()
@@ -120,22 +145,34 @@
             $this->conn->exec("insert into carouselimages(filename,`order`) values ('guitar-1920x384-3.jpg',3)");
         }
 
+        public function seedStates()
+        {
+            $this->conn->exec("insert into states(name, stateabreviattion) values ('Rio Grande do Sul','RS')");
+            $this->conn->exec("insert into states(name, stateabreviattion) values ('Santa Catarina','SC')");
+        }
+
         public function seed()
         {
             $this->destroyDatabase();
+            echo "Destruiu o banco<br>";
             $this->createDb();
-
+            echo "Criou o banco<br>";
             $this->seedCarousel();
-            $this->seedProducts();
+            echo "Adicionou imagens de carrosel<br>";
             $this->seedUsersAndSellers();
+            echo "Adicionou usuarios e vendedores padroes de carrosel<br>";
+            $this->seedStates();
+            echo "Adicionou estados<br>";
+            $this->seedProducts();
+            echo "Adicionou produtos<br>";
             
-            
-            header('Location: /');
+            //header('Location: /');
         }
 
         public function createDb()
         {
             $this->createTableCategories();
+            $this->createTableSubCategories();
             $this->createTableStates();
             $this->createTableUsers();  
             $this->createTableSellers();
@@ -149,15 +186,18 @@
         public function destroyDatabase()
         {   
             try{
-                $this->conn->exec("drop table if exists Categories");
+                $this->conn->exec("drop table if exists CarouselImages");
                 $this->conn->exec("drop table if exists Sellers");
-                $this->conn->exec("drop table if exists States");
+                
                 $this->conn->exec("drop table if exists OrderItens");
-                $this->conn->exec("drop table if exists Order");
+                $this->conn->exec("drop table if exists Orders");
                 $this->conn->exec("drop table if exists ProductsImages");
                 $this->conn->exec("drop table if exists Products");
-                $this->conn->exec("drop table if exists CarouselImages");
+                $this->conn->exec("drop table if exists SubCategories");
+                $this->conn->exec("drop table if exists Categories");
                 $this->conn->exec("drop table if exists Users");
+                
+                $this->conn->exec("drop table if exists states");
             }
             catch(Exception $ex)
             {
@@ -200,6 +240,18 @@
             $this->conn->exec($query);
         }
 
+        public function createTableSubCategories()
+        {
+            $query = "CREATE TABLE SubCategories (
+                SubCategoryId int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                CategoryId int,
+                Title varchar(255) NOT NULL,    
+                Image varchar(100), 
+                FOREIGN KEY(CategoryId) REFERENCES Categories(CategoryId)
+            );";            
+            $this->conn->exec($query);
+        }
+
         public function createTableCarouselImages()
         {      
             $query = "CREATE TABLE CarouselImages (
@@ -224,7 +276,9 @@
                 Stock int(11) not null,
                 Sku varchar(45) not null,
                 UserId int not null,
-                FOREIGN KEY(UserId) REFERENCES Users(UserId)
+                FOREIGN KEY(UserId) REFERENCES Users(UserId),
+                SubCategoryId int, 
+                FOREIGN KEY(SubCategoryId) REFERENCES SubCategories(SubCategoryId)
             );";
             $this->conn->exec($query);
         }
@@ -240,22 +294,15 @@
             $this->conn->exec($query);
         }
 
-        
-
-      
-        
-        
-
         public function createTableSellers()
         {
             $this->conn->exec(
                 "CREATE TABLE Sellers (
-                    SellerId int NOT NULL AUTO_INCREMENT,
-                    PRIMARY KEY(SellerId),
+                    SellerId int NOT NULL PRIMARY KEY AUTO_INCREMENT,
                     LastName varchar(255),
                     Age int,    
                     CPF varchar(14),
-                    CEP varchar(8),
+                    CEP varchar(9),
                     Neighborhood nvarchar(100),
                     Email varchar(100),
                     DateOfBirth datetime,
@@ -278,21 +325,20 @@
         {
             $this->conn->exec(
                 "CREATE TABLE Orders (
-                    OrderId int NOT NULL AUTO_INCREMENT, PRIMARY KEY(OrderId),
+                    OrderId int NOT NULL PRIMARY KEY AUTO_INCREMENT ,
                     Total int NOT NULL , 
                     CreatedAt datetime NOT NULL , 
                     UserId int NOT NULL ,
-                    FOREIGN KEY(UserId) REFERENCES Users(UserId) NOT NULL ,
+                    FOREIGN KEY(UserId) REFERENCES Users(UserId)  ,
                     StateId int NOT NULL ,
-                    FOREIGN KEY(StateId) REFERENCES States(StateId) NOT NULL ,
+                    FOREIGN KEY(StateId) REFERENCES States(StateId) ,
                     CardOwnerName varchar(150) NOT NULL ,
-                    ExpirationMonth int NOT NULL ,
-                    ExpirationYear int NOT NULL ,
+                    ExpirationDate varchar(150) NOT NULL ,
                     Name varchar(150) NOT NULL ,
                     Address varchar(150) NOT NULL ,
                     Neighborhood varchar(150) NOT NULL ,
                     CPF varchar(14) NOT NULL ,
-                    CEP varchar(8) NOT NULL ,                
+                    CEP varchar(9) NOT NULL ,                
                     City varchar(150) NOT NULL, 
                     Complement varchar(150) NOT NULL
                 );"
@@ -303,8 +349,7 @@
         {
             $this->conn->exec(
                 "CREATE TABLE OrderItens (
-                    OrderItemId int NOT NULL AUTO_INCREMENT, 
-                    PRIMARY KEY(OrderItemId),
+                    OrderItemId int NOT NULL PRIMARY KEY AUTO_INCREMENT, 
                     OrderId int not null,
                     FOREIGN KEY(OrderId) REFERENCES Orders(OrderId),
                     ProductId int,

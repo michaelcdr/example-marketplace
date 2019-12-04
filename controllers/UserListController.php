@@ -4,11 +4,11 @@
 
     class UserListController implements IBaseController
     {
-        private $_repoOrder;
+        private $_repoUser;
 
         public function __construct($factory)
         {
-            $this->_repoOrder = $factory->getOrderRepository();
+            $this->_repoUser = $factory->getUserRepository();
         }
         
         public function proccessRequest() : void
@@ -17,9 +17,9 @@
             if (isset($_GET["p"]))
                 $page = intval($_GET["p"]);
             
-            $paginatedResults = $this->_repoOrder->getAll($page, null, 5);
+            $paginatedResults = $this->_repoUser->getAll($page, null, 5);
             $users = $paginatedResults->results;
-            require "views/admin/users/lista-compras.php";
+            require "views/admin/users/lista-usuario.php";
         }
     }
 ?>

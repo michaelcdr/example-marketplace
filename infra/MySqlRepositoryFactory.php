@@ -9,6 +9,7 @@
     use infra\repositories\SeedRepository;
     use infra\repositories\CartRepository;
     use infra\repositories\CategoryRepository;
+    use infra\repositories\SubCategoryRepository;
     use infra\repositories\SellerRepository;
     
     use infra\repositories\StateRepository;
@@ -21,7 +22,7 @@
     class MySqlRepositoryFactory extends RepositoryFactory 
     {
         private $host = "localhost";
-        private $db_name = "projetoucs";
+        private $db_name = "examplemarketplace";
         private $port = "3306";
         // private $username = "root";
         // private $password = null;
@@ -51,7 +52,7 @@
             }
             return $this->conn;
         }
-
+        
         public function getOrderRepository() 
         {
             return new OrderRepository($this->getConnection());
@@ -88,7 +89,10 @@
         {
             return new CategoryRepository($this->getConnection());
         }
-
+        public function getSubCategoryRepository()
+        {
+            return new SubCategoryRepository($this->getConnection());
+        }
         public function getSeedRepository()
         {
             
