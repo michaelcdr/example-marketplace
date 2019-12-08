@@ -14,7 +14,7 @@
     
     use infra\repositories\StateRepository;
     use infra\repositories\OrderRepository;
-
+    use infra\repositories\AddressRepository;
     use infra\RepositoryFactory;
 
     use PDO;
@@ -107,6 +107,10 @@
         public function getSellerRepository()
         {
             return new SellerRepository($this->getConnection());
+        }
+        public function getAddressRepository()
+        {
+            return new AddressRepository($this->getConnection());
         }
     }
 

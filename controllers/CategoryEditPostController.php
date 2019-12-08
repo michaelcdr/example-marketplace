@@ -22,6 +22,11 @@
 
             if ($category->isValid())
             {
+                $imagesUploaded = null;
+                if (isset($_POST['images'])){
+                    $imagesUploaded = $_POST['images'];
+                    $category->setImage($imagesUploaded);
+                }
                 $this->_repoCategory->update($category);                
                 $retorno = new JsonSuccess("Categoria alterada com sucesso");
                 header('Content-type:application/json;charset=utf-8');

@@ -42,13 +42,22 @@
 
         }
 
-        public function getAllPaginatedAdmin($pagina,$search,$pageSize)
+        public function getAllPaginatedAdmin()
         {
+            $pagina = 1;
+            if (isset($_GET["p"]))
+                $pagina = intval($_GET["p"]);
+            
+            $search = null;
+            if (isset($_GET["s"]))
+                $search = $_GET["s"];
+
             $userId = null;
+
             if ($_SESSION["role"] === "vendedor")
                 $userId = $_SESSION["userId"];   
-
-            $paginatedResults = $this->_repoProduct->getAll($pagina, $search, $userId,$pageSize);
+                
+            $paginatedResults = $this->_repoProduct->getAll($pagina, $search, $userId,5);
             $paginatedResults->results = $this->stmtToProduct($paginatedResults->results);
             return $paginatedResults;
         }
@@ -64,12 +73,16 @@
         {
             //persistindo produto...
             $productId = $this->_repoProduct->add($product);
+
+            if (is_null($productId))
+                return null;
             //persistindo imagens...
             if (isset($images) && !is_null($images) && $images != ""){
                 $imagesNames = explode("$$",$images);
                 if (count($imagesNames) > 0)
                     $this->_repoProduct->addImages($productId, $imagesNames);
             }
+            return $productId;
         }
 
         public function update($images, $product)

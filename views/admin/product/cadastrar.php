@@ -48,7 +48,7 @@
                                 >
                                     <option value="">Selecione o vendedor...</option>
                                     <?php foreach($model->getSellers() as $seller): ?> 
-                                        <option value="<?php echo $seller->getId(); ?>">
+                                        <option value="<?php echo $seller->getUserId(); ?>">
                                             <?php echo $seller->getName(); ?> 
                                         </option>
                                     <?php endforeach; ?> 

@@ -16,7 +16,6 @@ window.alertError = function(dataObj){
     let opts = {
         title: 'Ops, algo deu errado',
         type: 'error',
-        position: 'top-start',
         showConfirmButton: false
     };
     $.extend(opts, dataObj);

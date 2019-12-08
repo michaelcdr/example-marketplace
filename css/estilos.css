@@ -14,6 +14,7 @@ F5F0EC */
 body{
     font-family: 'Roboto', sans-serif;
     background-color: #F5F0EC;
+    line-height: normal;
 }
 a:not(.btn-outline-dark),
 a:link:not(.btn-outline-dark),
@@ -277,7 +278,8 @@ main{
     box-shadow: 0 7px 16px 0 rgba(0,0,0,.2), 0 1px 3px 0 rgba(0,0,0,.1);
 }
 .linhas-list .card-linha img{
-    width: 100px;
+    max-width: 100px;
+    max-height: 100px;
 }
 footer{
     background-color: #343A40;
@@ -356,4 +358,50 @@ footer{
     top:-15px;
     background-color: #fff;
     padding: 5px;
+}
+
+
+.container-nav {
+    background-color:#343A40;
+    padding: 10px 10px 0px 10px;
+}
+.menu{
+    margin:0px;
+    margin-left:-10px;
+    padding: 0px;
+    list-style: none;
+
+    
+    
+}
+.menu > li{
+    display: inline-block;
+    padding: 10px;
+
+}
+
+/*drop-down override*/
+div.dropdown-menu.show {
+    background-color: #343A40;
+    
+}
+
+div.dropdown-menu.show .dropdown-item {
+    color: #fff;
+    transition: all .4s;
+}
+
+
+div.dropdown-menu.show .dropdown-item:hover,
+div.dropdown-menu.show .dropdown-item:focus {
+    background-color: #fff;
+    color: #343A40;
+    transition: all .4s;
+}
+#linhas h3,
+#ofertas-container h3{
+    padding-top:20px;
+    padding-bottom:20px;
+    margin-bottom:0px;
+    
 }

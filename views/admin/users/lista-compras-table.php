@@ -2,9 +2,9 @@
     <thead>
         <tr>
             <th width="15px"></th>
+            <th width="100px">Nº Pedido</th>
             <th>Data</th>
             <th>Total</th>
-            <th>Nº Pedido</th>
         </tr>
     </thead>
     <tbody>
@@ -18,20 +18,19 @@
                     <td>
                         <div class="btn-group">
                             <a class='btn btn-sm btn-outline-dark' 
-                                href="/admin/usuario/pedido?id=<?php echo $compra->getUserId(); ?>">
+                                href="/admin/pedido/detalhes?id=<?php echo $compra->getOrderId(); ?>">
                                 <i class="fa fa-list" ></i>
                             </a>
                         </div>
+                    </td>
+                    <td>
+                        <?php  echo $compra->getOrderId();  ?>
                     </td>
                     <td>
                         <?php echo $compra->getCreateAtFormatted(); ?>
                     </td>
                     <td>
                         <?php echo $compra->getTotalFormatted(); ?>
-                    </td>
-                    
-                    <td>
-                        <?php  echo $compra->getOrderId();  ?>
                     </td>
                 </tr>
             <?php endforeach?>

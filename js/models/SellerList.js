@@ -4,7 +4,8 @@ class SellerList
     {
         this.initEvents();
         this._routeDelete = '/admin/vendedor/deletar';
-        this._routeList = '/admin/vendedor/lista-table'
+        this._routeList = '/admin/vendedor/lista-table';
+        this.listContainerEl = $('#list-container');
     }
 
     initEvents()
@@ -53,7 +54,7 @@ class SellerList
         let params = { page : page, s : search };
         let _self = this;
         $.post(_self._routeList, params, function(data){
-            $('#tb-sellers').html(data);
+            _self.listContainerEl.html(data);
             _self.initEvents();
         });
     }

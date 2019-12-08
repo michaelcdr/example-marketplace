@@ -5,6 +5,7 @@ class UserList
         this.initEvents();
         this._routeDelete = '/admin/usuario/deletar';
         this._routeList = '/admin/usuario/lista-table'
+        this._listContainerEl = $("#list-container");
     }
 
     initEvents()
@@ -52,8 +53,8 @@ class UserList
     {
         let params = { page : page, s : search };
         let _self = this;
-        $.post(_self._routeList, params, function(data){
-            $('#tb-users').html(data);
+        $.get(_self._routeList, params, function(data){
+            _self._listContainerEl.html(data);
             _self.initEvents();
         });
     }

@@ -20,6 +20,9 @@
             $id = $_GET["id"];
             
             $category = $this->_repoCategory->getById($id);
+
+            
+            
             require "views/admin/categories/editar.php";
         }
     }

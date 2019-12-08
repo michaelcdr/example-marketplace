@@ -5,7 +5,7 @@
     use models\Product;
     use models\PaginatedResults;
     use PDO;
-
+    use Exception;
     class ProductRepository 
         extends MySqlRepository  
         implements IProductRepository
@@ -153,7 +153,9 @@
             $stmt->bindValue(":stock",$product->getStock());
             $stmt->bindValue(":sku",$product->getSku());
             $stmt->bindValue(":userId",$product->getUserId());
-            $stmt->execute();
+            if (!$stmt->execute()){
+                return null;
+            }
             
             return $this->conn->lastInsertId();
         }

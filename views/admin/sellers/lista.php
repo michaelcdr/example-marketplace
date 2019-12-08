@@ -5,8 +5,7 @@
 <div class="container">
     <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
         <div class="lh-100">
-            <h6 class="mb-0 text-white lh-100">Lista de vendedores</h6>
-            
+            <h6 class="mb-0 text-white lh-100">Lista de vendedores</h6>            
             <ul class="nav-breadcrumb">
                 <li>
                     <a href="/admin/vendedor">Vendedores</a>
@@ -43,13 +42,8 @@
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <?php include './views/admin/sellers/lista-table.php' ?>
-                </div>
-            </div>
-            <div class="row">
-                <?php require_once './views/partials/pagination-admin-controlls.php' ?>
+            <div id="list-container">
+                <?php include './views/admin/sellers/lista-table.php' ?>
             </div>
             <p class="mt-3">
                 <a class="btn btn-dark btn-sm" href="/admin/vendedor/cadastrar">

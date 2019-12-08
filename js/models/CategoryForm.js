@@ -1,4 +1,5 @@
-
+//evitando que o dropzonejs fique procurando uma instancia...
+Dropzone.autoDiscover = false;
 /*
 * Classe responsável pela edição e criação de categorias.
 */
@@ -9,7 +10,7 @@ class CategoriesForm
         this.btnSubmit = $('button#btn-salvar');
         this.formEl = $("#formCategories");
         this.initEvents();
-
+        this.dropzone = new CategoryDropzone(this, $("#images"));
         $("#name").focus();
     }
     
@@ -31,8 +32,9 @@ class CategoriesForm
     {
         let _self = this;
         return {
-            categoryId:_self.formEl.find('#categoryId').val(),
-            title:_self.formEl.find('#title').val()
+            categoryId: _self.formEl.find('#categoryId').val(),
+            title: _self.formEl.find('#title').val(),
+            images: _self.formEl.find('#images').val()
         };
     }
     
@@ -77,4 +79,5 @@ class CategoriesForm
     }
 }
 
+window.categoryImageCard = new CategoryImageCard();
 window.categoryForm = new CategoriesForm();

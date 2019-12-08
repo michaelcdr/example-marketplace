@@ -47,11 +47,13 @@
                                 >
                                     <option value="">Selecione o vendedor...</option>
                                     <?php foreach($model->getSellers() as $seller): ?> 
-                                        <option value="<?php echo $seller->getId(); ?>" 
-                                            <?php echo ($product->getUserId() == $seller->getId() ? "selected=selected" : ""); ?>>
+                                        <option value="<?php echo $seller->getUserId(); ?>" 
+                                            <?php echo ($product->getUserId() == $seller->getUserId() ? "selected=selected" : ""); ?>>
                                             <?php echo $seller->getName(); ?> 
                                         </option>
                                     <?php endforeach; ?> 
+
+                                    
                                 </select>
                                 <small id="help-userId" class="text-muted">Vendedor do produto</small>
                             </div>

@@ -19,8 +19,8 @@
                 $page = intval($_GET["p"]);
 
             $search = null;
-            if (isset($_POST["s"]))
-                $search = $_POST["s"];
+            if (isset($_GET["s"]))
+                $search = $_GET["s"];
             
             $paginatedResults = $this->_repoUser->getAll($page, $search, 5);
             $users = $paginatedResults->results;

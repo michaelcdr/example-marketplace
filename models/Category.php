@@ -23,7 +23,10 @@
         {
             return  $this->_image;
         }
-
+        public function setImage($image)
+        {
+            $this->_image = $image;
+        }
         public function __construct($categoryId, $title, $image)
         {
             $this->_categoryId = $categoryId;

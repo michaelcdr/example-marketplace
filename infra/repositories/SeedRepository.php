@@ -129,8 +129,8 @@
         public function seedUsersAndSellers()
         {
             $_repoUser = new UserRepository($this->conn);
-            $_repoUser->add(new User(null,"michael","123456","michael","admin"));
-            $userId = $_repoUser->add(new User(null,"multisom","123456","Multisom","vendedor"));
+            $_repoUser->add(new User(null,"michael","123456","michael","admin",""));
+            $userId = $_repoUser->add(new User(null,"multisom","123456","Multisom","vendedor",""));
             echo "vendedorId: " . $userId . "<br>";
 
             $_repoSeller = new SellerRepository($this->conn);
@@ -175,6 +175,8 @@
             $this->createTableSubCategories();
             $this->createTableStates();
             $this->createTableUsers();  
+            $this->createTableAddress();
+
             $this->createTableSellers();
             $this->createTableProducts();
             $this->createTableProductImages();
@@ -195,6 +197,7 @@
                 $this->conn->exec("drop table if exists Products");
                 $this->conn->exec("drop table if exists SubCategories");
                 $this->conn->exec("drop table if exists Categories");
+                $this->conn->exec("drop table if exists Addresses");
                 $this->conn->exec("drop table if exists Users");
                 
                 $this->conn->exec("drop table if exists states");
@@ -224,7 +227,8 @@
                 Login varchar(100) not null unique,
                 Password varchar(255) not null,
                 Name varchar(255) not null,
-                Role varchar(45) not null
+                Role varchar(45) not null,
+                Cpf  varchar(10)
             );";
             $this->conn->exec($query);
         }
@@ -268,7 +272,7 @@
             $query = "CREATE TABLE Products (
                 ProductId int NOT NULL PRIMARY KEY AUTO_INCREMENT,
                 Title varchar(255) NOT NULL,
-                Description varchar(255),
+                Description varchar(10000),
                 Price decimal(10,2),
                 CreatedAt datetime,
                 CreatedBy varchar(255),
@@ -294,6 +298,26 @@
             $this->conn->exec($query);
         }
 
+        public function createTableAddress()
+        {
+            $this->conn->exec(
+                "CREATE TABLE Addresses (
+                    AddressId int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                    Street varchar(255) NOT NULL,
+                    CEP varchar(9) NOT NULL,
+                    Neighborhood nvarchar(100) NOT NULL,
+                    City varchar(100) NOT NULL,
+                    StateId int NOT NULL,
+                    Complement varchar(255) NOT NULL,
+                    UserId int not null,
+                    FOREIGN KEY(StateId) REFERENCES States(StateId),
+                    FOREIGN KEY(UserId) REFERENCES Users(UserId)
+                );"
+            );
+        }
+        
+       
+
         public function createTableSellers()
         {
             $this->conn->exec(
@@ -302,21 +326,15 @@
                     LastName varchar(255),
                     Age int,    
                     CPF varchar(14),
-                    CEP varchar(9),
-                    Neighborhood nvarchar(100),
                     Email varchar(100),
                     DateOfBirth datetime,
                     WebSite varchar(255),
-                    City varchar(255),
-                    
                     Company varchar(150),
                     CNPJ varchar(150),
                     BranchOfActivity varchar(150),
                     FantasyName varchar(150),
                     UserId int,
-                    FOREIGN KEY(UserId) REFERENCES Users(UserId),
-                    StateId int,
-                    FOREIGN KEY(StateId) REFERENCES States(StateId)
+                    FOREIGN KEY(UserId) REFERENCES Users(UserId)
                 );"
             );
         }

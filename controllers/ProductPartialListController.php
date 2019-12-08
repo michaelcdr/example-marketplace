@@ -14,17 +14,9 @@
         }
 
         public function proccessRequest() : void
-        {
-            $page = 0;
-            if (isset($_GET["p"])){
-                $page = intval($_GET["p"]);
-            }
-            $paginatedResult = $this->_productService->getAllPaginatedAdmin(
-                $page, 
-                $_POST["s"],
-                5
-            );
-            $products = $paginatedResult->results;
+        {   
+            $paginatedResults = $this->_productService->getAllPaginatedAdmin();
+            $products = $paginatedResults ->results;
             require $_SERVER['DOCUMENT_ROOT'] . '\\views\\admin\\product\\lista-table.php';
         }
     }

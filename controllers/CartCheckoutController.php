@@ -16,7 +16,10 @@
             if (!$this->cartService->checkoutVerifyAuth())
                 header("Location: /login?returnto=checkout");
 
-            $model =$this->cartService->getCheckoutViewModel();
+            if (is_null($_SESSION["cart"]))
+                header("Location: /carrinho");
+                
+            $model = $this->cartService->getCheckoutViewModel();
 
             require "views/home/carrinho-checkout.php";
         }

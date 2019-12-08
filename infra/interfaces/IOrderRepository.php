@@ -8,6 +8,8 @@
         public function getById($id);
         public function delete($id);
         public function total($search);
+        public function getOrderWithProducts($orderId);
+        public function getAll($page, $search, $pageSize, $userId);
     }
 
 ?>

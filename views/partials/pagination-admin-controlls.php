@@ -1,3 +1,4 @@
+<div class="row">
 <div class="col-md-6 mt-3">
 <?php
     echo "Mostrando " . $paginatedResults->qtdTotalFiltered . " de " .
@@ -16,4 +17,5 @@
             </li>
         </ul>
     </nav>
+</div>
 </div>

@@ -3,13 +3,14 @@
 
     class User 
     {
-        public function __construct($userId,$login,$password,$name,$role)
+        public function __construct($userId,$login,$password,$name,$role,$cpf)
         {
             $this->userId = $userId;
             $this->login = $login;
             $this->password = $password;
             $this->name = $name;
             $this->role=$role;
+            $this->cpf =$cpf;
         }
 
         private $errors = array();
@@ -18,6 +19,7 @@
         private $password;
         private $name;
         private $role;
+        private $cpf;
 
         public function getUserId(){
             return $this->userId;
@@ -37,7 +39,9 @@
         public function getRole(){
             return $this->role;
         }
-
+        public function getCpf(){
+            return $this->cpf;
+        }
         public function passwordIsValid(string $senhaPura) : bool
         {   
             return password_verify($senhaPura,  $this->getPassword());

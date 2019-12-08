@@ -52,5 +52,4 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
-<script src="/js/models/PurchaseList.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>

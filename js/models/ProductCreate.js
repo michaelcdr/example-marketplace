@@ -56,7 +56,7 @@ class ProductCreate extends ProductCrudBase
                         } else {
                             //se deu alguma zica na request mostraremos 
                             //um alert amigavel...
-                            alertServerError();
+                            alertError({ toast:false, text :data.msg});
                             _self.btnSubmit.button('reset');
                         }
                     }

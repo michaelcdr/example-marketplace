@@ -13,14 +13,15 @@
                 $rolesPermitidas = explode(",",$item[1]);
                 
                 if (!isset($_SESSION["role"]) || is_null($_SESSION["role"])){
-                    // echo "nao tem usuario logado";
+                    //echo "nao tem usuario logado";
                     return false;
                 } else {
                     if (in_array($_SESSION["role"],$rolesPermitidas)){
                         //echo "a role" . $_SESSION["role"] . "tem acesso";
                         return true;
                     } else {
-                        // echo "a role" . $_SESSION["role"] . "nao tem acesso";
+                        
+                        echo "a role" . $_SESSION["role"] . "nao tem acesso";
                         return false;
                     }
                 }

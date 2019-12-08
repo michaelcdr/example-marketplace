@@ -31,7 +31,7 @@
                     <span class="login-nav text-light ml-3">
                         <?php if (isset($_SESSION["userId"])) :?>
                             <i class="fa fa-user"></i> Olá, 
-                            <a href="/admin/usuario/perfil/<?php echo $_SESSION["userId"]?>" class="a-primary" >
+                            <a href="/admin/usuario/editar?id=<?php echo $_SESSION["userId"]?>" class="a-primary" >
                                 <?php echo $_SESSION["userName"] ?>
                             </a> clique em 
                             <a href="/logout" class="a-primary" title="Sair no sistema" 

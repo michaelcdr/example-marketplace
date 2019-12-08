@@ -2,39 +2,24 @@
     namespace controllers;
     
     use controllers;
-    use infra;
-    use models;
-    use infra\repositories;
-    use models\JsonSuccess;
-    use models\JsonError;
-    use models\UserEdit;
+    
+    use services\UserService;
 
     class UserEditPostController implements IBaseController
     {
-        private $_repoUser;
+        private $_userService;
 
         public function __construct($factory)
         {
-            $this->_repoUser = $factory->getUserRepository();
+            $this->_userService = new UserService($factory);
         }
         
         public function proccessRequest() : void
         {
-            $userId = $_POST["userId"];
-            $name = $_POST["name"];
-            $login = $_POST["login"];
-            $role = $_POST["role"];
-
-            $user = new UserEdit($userId, $name, $login, $role);
-            if ($user->isValid())
-            {
-                $this->_repoUser->altera($user);                
-                $retorno = new JsonSuccess("Usuário alterado com sucesso");
-                header('Content-type:application/json;charset=utf-8');
-            } 
-            else 
-                $retorno = new JsonError("Não foi possivel cadastrar o usuário");                
-                
+            $retorno = $this->_userService->update();
+            $retorno->urlDestino = "/admin/usuario";
+            if ($_SESSION["role"] == "vendedor" || $_SESSION["role"] == "comum")
+                $retorno->urlDestino = "/admin/usuario/minhas-compras";
             echo json_encode($retorno);
         }
     }

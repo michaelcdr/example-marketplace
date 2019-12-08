@@ -4,6 +4,7 @@
     class Seller
     {
         private $_sellerId;
+        private $_userId;
         private $_name; 
         private $_company;
         private $_lastName;
@@ -12,7 +13,7 @@
         private $_login;
         
         public function __construct(
-            $sellerId, $name,$lastName,$company,$fantasyName,$city,$login)
+            $sellerId, $name,$lastName,$company,$fantasyName,$city,$login,$userId)
         {
             $this->_sellerId = $sellerId;
             $this->_name = $name;
@@ -21,6 +22,7 @@
             $this->_fantasyName = $fantasyName;
             $this->_city = $city;
             $this->_login = $login;
+            $this->_userId = $userId;
             
         }
         public function getLogin()
@@ -30,9 +32,13 @@
 
         public function getSellerId()
         {
-            return $this->_userId;
+            return $this->_sellerId;
         }
 
+        public function getUserId()
+        {
+            return $this->_userId;
+        }
         public function getName()
         {
             return $this->_name;

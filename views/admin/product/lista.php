@@ -4,8 +4,7 @@
 <div class="container">
     <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
         <div class="lh-100">
-            <h6 class="mb-0 text-white lh-100">Lista de produto</h6>
-            
+            <h6 class="mb-0 text-white lh-100">Lista de produtos</h6>
             <ul class="nav-breadcrumb">
                 <li>
                     <a href="/admin/produto">Produtos</a>
@@ -44,14 +43,12 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-12" id="container-products">
-                    <?php include './views/admin/product/lista-table.php' ?>
-                </div>
+            
+            <div id="container-products">
+                <?php include './views/admin/product/lista-table.php' ?>
             </div>
-            <div class="row">
-                <?php require_once './views/partials/pagination-admin-controlls.php' ?>
-            </div>
+            
+            
             <p class="mt-3">
                 <a class="btn btn-dark btn-sm" href="/admin/produto/cadastrar">
                     <i class="fa fa-plus"></i> Cadastrar produto

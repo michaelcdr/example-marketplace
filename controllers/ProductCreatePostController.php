@@ -7,7 +7,7 @@
     use services\ProductService;
     use models\JsonError;
     use models\JsonSuccess;
-
+    use Exception;
     class ProductCreatePostController implements IBaseController
     {
         private $productService;
@@ -59,14 +59,18 @@
                     if (isset($_POST['images']))
                         $imagesUploaded = $_POST['images'];
 
-                    $this->productService->add($imagesUploaded, $product);
+                    $retornoAdd =  $this->productService->add($imagesUploaded, $product);
+                    
+                    if (is_null($retornoAdd))
+                        throw new Exception();
+
                     $retornoJson = new JsonSuccess("Produto cadastrado com sucesso");
                     header('Content-type:application/json;charset=utf-8');
                 }
             } 
             catch(Exception $e)
             {
-                $retornoJson = new JsonError("Não foi possivel cadastrar o usuário"); 
+                $retornoJson = new JsonError("Não foi possivel cadastrar o produto"); 
             }
             echo json_encode($retornoJson);
         }

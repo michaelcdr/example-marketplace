@@ -28,7 +28,7 @@
                     <div class="card p-3">
                         <div class="row">
                             <!-- Imagens disponiveis para o produto -->
-                            <div class="col-lg-5">
+                            <div class="col-lg-5" id="img-container" data-qtd="<?php echo count($product->getImages()); ?>">
                                 <div class="card p-3 slider-for">
                                     <?php foreach($product->getImages() as $image) :?>
                                     <div class="text-center">
@@ -92,18 +92,32 @@
 <?php require_once './views/partials/footer.php' ?>
 <script src="libs/slick/slick.min.js"></script>
 <script>
-    $('.slider-for').slick({
-        arrows: false,
-        fade: true,
-        asNavFor: '.slider-nav-produto'
-    });
-    $('.slider-nav-produto').slick({
-        slidesToShow: 3,
-        arrows: true,
-        asNavFor: '.slider-for',
-        focusOnSelect: true,
-        prevArrow:'<button type="button" class="btn btn-outline-dark slick-next"><i class="fa fa-chevron-left"></i></button>',
-        nextArrow:'<button type="button" class="btn btn-outline-dark slick-next"><i class="fa fa-chevron-right"></i></button>'
-    });
+    $(function(){
+        let qtdImgs = parseInt($("#img-container").data('qtd'));
+        console.log(qtdImgs)
+        if (qtdImgs > 0){
+            let minImgs = 3;
+            if (qtdImgs < minImgs)
+                minImgs = qtdImgs;
+
+            $('.slider-for').slick({
+                arrows: false,
+                fade: true,
+                asNavFor: '.slider-nav-produto'
+            });
+            $('.slider-nav-produto').slick({
+                slidesToShow:minImgs,
+                arrows: true,
+                asNavFor: '.slider-for',
+                focusOnSelect: true,
+                prevArrow:'<button type="button" class="btn btn-outline-dark slick-next"><i class="fa fa-chevron-left"></i></button>',
+                nextArrow:'<button type="button" class="btn btn-outline-dark slick-next"><i class="fa fa-chevron-right"></i></button>'
+            });
+
+        }
+
+    })
+
+    
 </script>
         

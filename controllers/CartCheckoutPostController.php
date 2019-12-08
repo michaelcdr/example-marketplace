@@ -18,7 +18,7 @@
             $checkoutResult = $this->cartService->checkout();
             if ($checkoutResult->success)
             {
-                $retorno = new JsonSuccess("Cadastro efetuado com sucesso");
+                $retorno = new JsonSuccess("Número do pedido: " . $checkoutResult->orderId);
                 header('Content-type:application/json;charset=utf-8');
             } 
             else 

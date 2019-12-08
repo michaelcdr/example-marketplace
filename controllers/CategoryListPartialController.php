@@ -21,10 +21,9 @@
             $search = null;
             if (isset($_POST["s"]))
                 $search = $_POST["s"];
-            
+                
             $paginatedResults = $this->_repoCategories->getAllPaginated($page, $search, 5);
             $categories = $paginatedResults->results;
-
             require "views/admin/categories/lista-table.php";
         }
     }

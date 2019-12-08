@@ -5,6 +5,7 @@ class ProductList
         this.initEvents();
         this._routeDelete = '/admin/produto/deletar';
         this._routeList = '/admin/produto/lista-partial';
+        this._listContainerEl = $('#container-products');
     }
 
     initEvents()
@@ -54,8 +55,8 @@ class ProductList
     {
         let params = { page : page, s : search };
         let _self = this;
-        $.post(_self._routeList, params, function(data){
-            $('#container-products').html(data);
+        $.get(_self._routeList, params, function(data){
+            _self._listContainerEl.html(data);
             _self.initEvents();
         });
     }

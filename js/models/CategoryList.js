@@ -5,6 +5,7 @@ class CategoryList
         this.initEvents();
         this._routeDelete = '/admin/categoria/deletar';
         this._routeList = '/admin/categoria/lista-table'
+        this._listContainerEl = $("#list-container");
     }
 
     initEvents()
@@ -53,7 +54,7 @@ class CategoryList
         let params = { page : page, s : search };
         let _self = this;
         $.post(_self._routeList, params, function(data){
-            $('#tb-categories').html(data);
+            _self._listContainerEl.html(data)
             _self.initEvents();
         });
     }

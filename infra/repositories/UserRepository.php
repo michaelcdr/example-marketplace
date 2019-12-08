@@ -23,6 +23,7 @@
             $stmt->bindValue(':passwordParam', password_hash($user->getPassword(), PASSWORD_ARGON2I));
             $stmt->bindValue(':nameParam',$user->getName());
             $stmt->bindValue(':role',$user->getRole());
+            $stmt->bindValue(':cpf',$user->getCpf());
             $stmt->execute();
             
             return $this->conn->lastInsertId();
@@ -56,20 +57,22 @@
                     set 
                         login = :loginParam, 
                         name = :nameParam,
-                        role = :role
+                        role = :role,
+                        cpf = :cpf
                  where UserId = :userId");
             
             $stmt->bindValue(':userId', $user->getUserId());
             $stmt->bindValue(':loginParam', $user->getLogin());
             $stmt->bindValue(':nameParam', $user->getName());
+            $stmt->bindValue(':cpf', $user->getCpf());
             $stmt->bindValue(':role', $user->getRole());
-            $stmt->execute();
+            $stmt->execute(); 
         }
 
         public function getById($id)
         {
             $stmt = $this->conn->prepare(
-                "SELECT UserId, Login, Name, Password, Role FROM Users 
+                "SELECT UserId, Login, Name, Password, Role, Cpf FROM Users 
                  WHERE UserId = :UserId LIMIT 1"
             );
             $stmt->bindValue(':UserId', $id);
@@ -81,7 +84,8 @@
                     $row['Login'], 
                     $row['Password'], 
                     $row['Name'],
-                    $row['Role']
+                    $row['Role'],
+                    $row['Cpf']
                 );
           
             return $usuario;
@@ -91,7 +95,7 @@
         {
             $usuario = null;
             $stmt = $this->conn->prepare(
-                "SELECT UserId, Login, Name, Password, Role FROM Users 
+                "SELECT UserId, Login, Name, Password, Role, Cpf FROM Users 
                  WHERE login = :login LIMIT 1"
             );
             $stmt->bindValue(':login', $login);
@@ -103,7 +107,8 @@
                     $row['Login'], 
                     $row['Password'], 
                     $row['Name'], 
-                    $row['Role']
+                    $row['Role'],
+                    $row['Cpf']
                 );
           
             return $usuario;
@@ -112,8 +117,11 @@
         public function getSellers()
         {
             $stmt = $this->conn->prepare(
-                "SELECT userId, name 
-                 FROM Users where role = 'vendedor' "
+                "SELECT s.sellerId as sellerId, u.userId as userId, u.name as name, s.lastName as lastName, 
+                        s.company as company, s.fantasyName as fantasyName, s.city as city, u.login as login
+                 FROM Users as u 
+                 inner join Sellers s on u.userId = s.userId
+                 where u.role = 'vendedor' "
             );
             
             $stmt->execute();
@@ -122,8 +130,14 @@
             $sellers = array();
             foreach($results as $seller){
                 $sellers[] = new Seller(
-                    $seller["userId"],
-                    $seller["name"]
+                    $seller["sellerId"],
+                    $seller["name"],
+                    $seller["lastName"],
+                    $seller["company"],
+                    $seller["fantasyName"],
+                    $seller["city"],
+                    $seller["login"],
+                    $seller["userId"]
                 );
             }
 

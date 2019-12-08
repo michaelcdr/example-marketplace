@@ -60,7 +60,8 @@ class CartCheckout
                 $.post('/cart-checkout-post',formData, function(data){ 
                     if (data.success){
                         Swal.fire({
-                            title: data.msg,                            
+                            title: "Seu pedido foi criado com sucesso",     
+                            text: data.msg,                       
                             showCancelButton: false,
                             type:'success',
                             confirmButtonText: 'Ok, voltar para lista.',
@@ -69,7 +70,7 @@ class CartCheckout
 
                         }).then((result) => {
                             if (result.value) {
-                                document.location = "/admin/produto";
+                                document.location = "/";
                             }
                         });
                     } else {

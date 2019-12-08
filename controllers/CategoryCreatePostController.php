@@ -27,6 +27,11 @@
             //validando modelo se valido retornamos um JSON.
             if ($category->isValid())
             {
+                $imagesUploaded = null;
+                if (isset($_POST['images'])){
+                    $imagesUploaded = $_POST['images'];
+                    $category->setImage($imagesUploaded);
+                }
                 $this->_repoCategory->add($category);
                 $retorno = new JsonSuccess("Categoria cadastrada com sucesso");
                 header('Content-type:application/json;charset=utf-8');

@@ -1,28 +1,18 @@
-
-<ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-        <a class="nav-link" href="/admin/categoria">
-            Categorias <span class="sr-only"></span>
+<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" 
+        role="button" aria-haspopup="true" aria-expanded="false">Area administrativa</a>
+    <div class="dropdown-menu bg-dark text-white">
+        <a class="dropdown-item" href="/admin/categoria">
+        Categorias <span class="sr-only"></span>
         </a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="/admin/usuario/minhas-compras">
-            Minhas Compras <span class="sr-only"></span>
-        </a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="/admin/vendedor">
+        <a class="dropdown-item" href="/admin/vendedor">
             Vendedores <span class="sr-only"></span>
         </a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="/admin/produto">
-            Produtos <span class="sr-only"></span>
+        <a class="dropdown-item" href="/admin/produto">
+        Produtos <span class="sr-only"></span>
         </a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="/admin/usuario">
+        <a class="dropdown-item" href="/admin/usuario">
             Usuários <span class="sr-only"></span>
         </a>
-    </li>
-</ul>
+    </div>
+</li>

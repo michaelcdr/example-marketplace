@@ -23,8 +23,8 @@
             $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING);
             $name = filter_input(INPUT_POST,'name',FILTER_SANITIZE_STRING);
             $role = filter_input(INPUT_POST,'role',FILTER_SANITIZE_STRING);
-            
-            $user = new User(null,$login,trim($password),$name,$role);
+            $cpf = filter_input(INPUT_POST,'cpf',FILTER_SANITIZE_STRING);
+            $user = new User(null,$login,trim($password),$name,$role,$cpf);
             
             //validando modelo se valido retornamos um JSON.
             if ($user->isValid())

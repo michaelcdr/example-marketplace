@@ -140,7 +140,8 @@
                     $row["Company"],
                     $row["FantasyName"],
                     $row["City"],
-                    $row["Login"]
+                    $row["Login"],
+                    $seller["userId"]
                 );
             }
 

@@ -29,7 +29,8 @@
                         $request->getLogin(),
                         trim($request->getPassword()),
                         $request->getName(),
-                        'vendedor'
+                        'vendedor',
+                        ""
                     );
                     $userId = $this->_repoUser->add($user);
 
@@ -57,8 +58,12 @@
             $page = 1;
             if (isset($_GET["p"]))
                 $page = intval($_GET["p"]);
-            
-            $paginatedResults = $this->_repoSeller->getAll($page, null, 5);
+
+            $search = null;
+            if (isset($_POST["s"]))
+                $search = $_POST["s"];
+
+            $paginatedResults = $this->_repoSeller->getAll($page, $search, 5);
             
             return $paginatedResults;
         }

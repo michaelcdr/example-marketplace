@@ -17,6 +17,9 @@
         public function proccessRequest() : void
         {
             $model = $this->_productService->getProductCreateViewModel();
+            // echo "<pre>";
+            // var_dump($model->getSellers());
+            // echo "</pre>";
             require $_SERVER['DOCUMENT_ROOT'] . '\\views\\admin\\product\\cadastrar.php';
         }
     }

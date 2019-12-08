@@ -1,21 +1,26 @@
 <?php
     namespace models;
 
+
     class UserEdit
     {
-        public function __construct($userId,$login,$name,$role)
-        {
-            $this->userId = $userId;
-            $this->login = $login;
-            $this->name = $name;
-            $this->role = $role;
-        }
-
         private $errors = array();
         private $userId;
         private $login;
         private $name;
         private $role;
+        private $_addresses;
+        private $_cpf;
+
+        public function __construct($userId,$name,$login,$role,$cpf)
+        {
+            $this->userId = $userId;
+            $this->login = $login;
+            $this->name = $name;
+            $this->role = $role;
+            $this->_cpf = $cpf;
+            $this->_addresses = array();
+        }
 
         public function getUserId()
         {
@@ -35,6 +40,18 @@
         public function getRole()
         {
             return $this->role;
+        }
+        public function getCpf()
+        {
+            return $this->_cpf;
+        }
+        public function getAddresses()
+        {
+            return $this->_addresses;
+        }
+        public function setAddresses($addresses)
+        {
+            $this->_addresses = $addresses;
         }
 
         public function errors()

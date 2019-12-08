@@ -16,8 +16,12 @@
             $page = 1;
             if (isset($_GET["p"]))
                 $page = intval($_GET["p"]);
-            
-            $paginatedResults = $this->_repoUser->getAll($page, null, 5);
+
+            $search = null;
+            if (isset($_GET["s"]))
+                $search = $_GET["s"];
+
+            $paginatedResults = $this->_repoUser->getAll($page, $search, 5);
             $users = $paginatedResults->results;
             require "views/admin/users/lista-usuario.php";
         }

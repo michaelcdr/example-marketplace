@@ -5,7 +5,14 @@
     <div class="d-flex align-items-center p-3 mt-3 text-white-50 bg-dark rounded shadow-sm">
         <div class="lh-100">
             <h6 class="mb-0 text-white lh-100">Lista de categorias</h6>
-            <small>Categorias > Lista de categorias</small>
+            <ul class="nav-breadcrumb">
+                <li>
+                    <a href="/admin/categoria">Lista de categorias</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">Lista de categorias</a>
+                </li>
+            </ul>
         </div>
     </div>
 
@@ -33,18 +40,8 @@
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <?php include './views/admin/categories/lista-table.php' ?>
-                </div>
-            </div>
-            <div class="row">
-                <?php require_once './views/partials/pagination-admin-controlls.php' ?>
+            <div id="list-container">
+                <?php include './views/admin/categories/lista-table.php' ?>
             </div>
             <div class="row">
                 <div class="col-md-6">

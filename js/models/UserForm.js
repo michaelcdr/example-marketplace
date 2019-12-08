@@ -8,6 +8,7 @@ class UserForm
     {
         this.btnSubmit = $('button#btn-salvar');
         this.formEl = $("#formUsuario");
+        this.btnAddAddress = $("#btn-add-address");
         this.initEvents();
         $("#name").focus();
     }
@@ -34,13 +35,56 @@ class UserForm
             login:_self.formEl.find('#login').val(),
             password:_self.formEl.find('#password').val(),
             name:_self.formEl.find('#name').val(),
-            role:_self.formEl.find('#role').val()
+            role:_self.formEl.find('#role').val(),
+            cpf:_self.formEl.find('#cpf').val(),
+            addresses:_self.getAddresses()
         };
+    }
+
+    getAddresses()
+    {
+        let addressesArray = [];
+        $('.address-container').each(function(){
+            addressesArray.push({
+                cep : $(this).find("#cep").val(),
+                street : $(this).find("#street").val(),
+                neighborhood : $(this).find("#neighborhood").val(),
+                stateId : $(this).find("#stateId").val(),
+                city : $(this).find("#city").val(),
+                complement : $(this).find("#complement").val()
+            });
+        });
+        return addressesArray;
+    }
+
+
+    initEventRemoveAddress(){
+        $('.btn-remover').unbind('click');
+        $('.btn-remover').click(function(){
+            $(this).parent().parent().parent().fadeOut(400,function() {
+                $(this).remove();
+            });
+        });
     }
 
     initEvents()
     {
         let _self = this;
+
+        _self.initEventRemoveAddress();
+
+        _self.btnAddAddress.click(function(){
+            $.get("/admin/endereco/cadastrar",function(data){
+                $("#addresses-container").append(data);
+                $('body,html').animate({
+                    scrollTop: $(".address-container").last().offset().top
+                }, 800,'swing',function(){
+
+                    $(".address-container").last().find('#cep').focus();
+                    _self.initEventRemoveAddress()
+                });
+            });
+        })
 
         _self.formEl.submit(function() {
             let validateResponse = _self.validate();
@@ -67,7 +111,7 @@ class UserForm
 
                         }).then((result) => {
                             if (result.value) 
-                                document.location = "/admin/usuario";
+                                document.location = data.urlDestino;
                         });
                     } else
                         alertError({ text:data.msg });

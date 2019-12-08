@@ -18,29 +18,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="/libs/sweetAlert2/sweetalert2.min.css" >
         <link rel="stylesheet" href="/css/estilos.css">
-        <style>
-            .nav-breadcrumb a:link,
-            .nav-breadcrumb a:visited,
-            .nav-breadcrumb a:hover,
-            .nav-breadcrumb a:active{
-                color:#bbb;
-            }
-            .nav-breadcrumb{
-                font-size: 80%;
-                font-weight: 400;
-                padding:0px;
-                margin:0px;
-            }
-            .nav-breadcrumb li{
-                display:inline;
-            }
-            .nav-breadcrumb li:after{
-                content: ">";
-            }
-            .nav-breadcrumb li:last-child:after{
-                content: "";
-            }
-        </style>
+        <link rel="stylesheet" href="/css/admin.css">
     </head>
     <body>
-        <?php require_once './views/partials/nav-admin.php' ?>
+        <?php require_once './views/partials/nav.php' ?>

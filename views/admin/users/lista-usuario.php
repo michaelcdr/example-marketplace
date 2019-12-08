@@ -43,14 +43,10 @@
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <?php include './views/admin/users/lista-usuarios-table.php' ?>
-                </div>
+            <div id="list-container">
+                <?php include './views/admin/users/lista-usuarios-table.php' ?>
             </div>
-            <div class="row">
-                <?php require_once './views/partials/pagination-admin-controlls.php' ?>
-            </div>
+            
             <p class="mt-3">
                 <a class="btn btn-dark btn-sm" href="/admin/usuario/cadastrar">
                 <i class="fa fa-plus"></i> Cadastrar usuário

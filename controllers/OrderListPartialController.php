@@ -7,7 +7,7 @@
     use models\JsonError;
     use models\User;
 
-    class UserPurchaseController implements IBaseController
+    class OrderListPartialController implements IBaseController
     {
         private $_repoOrder;
 
@@ -22,7 +22,7 @@
             if (isset($_GET["p"]))
                 $page = intval($_GET["p"]);
             
-            $paginatedResults = $this->_repoOrder->getAll($page, null, 5);
+            $paginatedResults = $this->_repoOrder->getAll($page, null, 5,$_SESSION["userId"]);
             $compras = $paginatedResults->results;
             
             require "views/admin/users/lista-compras.php";
