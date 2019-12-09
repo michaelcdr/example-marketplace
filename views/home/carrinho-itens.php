@@ -3,7 +3,7 @@
     <div class="col-lg-8">
         <h4>Meu Carrinho</h4>
         
-        <table class="table table-condensed cols-centered">
+        <table class="table table-condensed cols-centered table-cart">
             <thead>
                 <tr>
                     <th width="10px"></th>
@@ -23,13 +23,12 @@
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
-                        <td class="center">
+                        <td class="center img ">
                             <a href="/detalhes-produto?id=<?php echo $productArray->getProductId(); ?>">
-                            <img src="<?php echo $productArray->getImage(); ?>" 
-                                width="70px" 
+                            <img src="<?php echo $productArray->getImage(); ?>"  
                                 alt="<?php echo $productArray->getImage(); ?>" /></a>
                         </td>
-                        <td class="center">
+                        <td class="center title">
                             <?php echo $productArray->getTitle(); ?>
                         </td>
                         <td>
@@ -39,7 +38,7 @@
                         </td>
                         <td class="text-center product-price" 
                             data-product-id="<?php echo $productArray->getProductId(); ?>">
-                            R$ <?php echo  $productArray->getSubTotal(); ?>
+                            <?php echo  $productArray->getSubTotalFormatted(); ?>
                         </td>
                     </tr>
                 <?php endforeach ?>   
@@ -51,14 +50,14 @@
 
     <!--RESUMO DO PEDIDO-->
     <div class="col-lg-4">
-        <div class="card h-100 bg-light p-2">
+        <div class="card h-100 bg-light p-2 resumo-carrinho">
             <h4>Resumo do pedido</h4>
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-7">
                     Subtotal (<?php echo $cartViewModel->getQtdProducts();?> produtos)
                 </div>
-                <div id="cart-sub-total" class="col-lg-4 text-right" >
-                    R$ <?php echo $cartViewModel->getSubTotal(); ?>
+                <div id="cart-sub-total" class="col-lg-5 text-right" >
+                    <?php echo $cartViewModel->getSubTotalFormatted(); ?>
                 </div>
             </div>
             <div class="row">
@@ -66,7 +65,7 @@
                     Frete
                 </div>
                 <div class="col-lg-6 text-right">
-                    R$ <?php echo $cartViewModel->getFreteValor(); ?>
+                    <?php echo $cartViewModel->getFreteValor(); ?>
                 </div>
             </div>
             <hr/>    
@@ -75,7 +74,7 @@
                     Total
                 </div>
                 <div class="col-lg-6 text-right">
-                    R$ <?php echo $cartViewModel->getTotalFinal(); ?>
+                    <?php echo $cartViewModel->getTotalFormatted(); ?>
                 </div>
             </div>
             <div class="row">

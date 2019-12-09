@@ -8,6 +8,7 @@
     use models\Checkout;
     use models\CheckoutResult;
     use models\OrderItem;
+    use models\Address;
 
     class CartService 
     {
@@ -15,6 +16,7 @@
         private $_repoProd;
         private $_repoStates;
         private $_repoOrder;
+        private $_repoAddress;
 
         public function __construct($factory)
         {
@@ -22,6 +24,7 @@
             $this->_repoProd = $factory->getProductRepository();
             $this->_repoStates = $factory->getStateRepository();
             $this->_repoOrder = $factory->getOrderRepository();
+            $this->_repoAddress = $factory->getAddressRepository();
         }
 
         public function updateQtdProduct($productId,$qtd)
@@ -42,8 +45,8 @@
                         "Estoque atualizado com sucesso.",
                         $stock - $qtd,
                         $cartViewModel->getQtdFromProduct($productId),
-                        $cartViewModel->getProductTotalValue($productId),
-                        $cartViewModel->getSubTotal()
+                        $cartViewModel->getProductTotalValueFormatted($productId),
+                        $cartViewModel->getSubTotalFormatted()
                     );
                 } else {
                     //xi deu ruim, não tem estoque...
@@ -52,8 +55,8 @@
                         "Ops desculpe, o estoque atual é de ".$stock.", e não é suificiente para a quantidade solicitada.",
                         $stock,
                         $cartViewModel->getQtdFromProduct($productId),
-                        $cartViewModel->getProductTotalValue($productId),
-                        $cartViewModel->getSubTotal()
+                        $cartViewModel->getProductTotalValueFormatted($productId),
+                        $cartViewModel->getSubTotalFormatted()
                     );
                 }
             }
@@ -159,8 +162,12 @@
         {            
             $carrinho = $_SESSION["cart"];
             $states = $this->_repoStates->getAll();
-            
-            return new Checkout($carrinho,$states);
+            $address = $this->_repoAddress->getFirstByUserId(intval($_SESSION["userId"]));
+            //caso nom exista passamos a objeto vazia para podermos usar os methodos getWhatever...
+            if (is_null($address))
+                $address = new Address(null,null,null,null,null,null,null,null);
+
+            return new Checkout($carrinho,$states,$address);
         }
 
         public function checkoutVerifyAuth()
@@ -204,7 +211,7 @@
                     $_POST["cvv"],
                     $_POST["cep"],
                     $_POST["cpf"],
-                    $_POST["address"],
+                    $_POST["street"],
                     $_POST["neighborhood"],
                     $_POST["city"],
                     $_POST["stateId"],
@@ -221,6 +228,7 @@
                 }
 
                 //baixar estoque...
+                $this->_repoProd->decreaseStockByOrderItens($orderItens);
 
                 //limpando o carrinho...
                 $_SESSION["cart"] = null;

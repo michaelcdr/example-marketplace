@@ -20,7 +20,7 @@
                 header("Location: /carrinho");
                 
             $model = $this->cartService->getCheckoutViewModel();
-
+            
             require "views/home/carrinho-checkout.php";
         }
     }

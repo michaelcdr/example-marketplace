@@ -70,6 +70,8 @@
             $stmt->bindValue(':userId', $category->getUserId());
             $stmt->bindValue(':addressId', $category->getAddressId());
             $stmt->execute();
+            
+            return $this->conn->lastInsertId();
         }
 
         public function getAllByUserId($userId)
@@ -99,26 +101,30 @@
             return $addressesArray;
         }
 
-        // public function getById($id)
-        // {
-        //     $stmt = $this->conn->prepare(
-        //         "SELECT categoryId, title, image from Categories
-        //          WHERE categoryId = :categoryId LIMIT 1"
-        //     );
-        //     $stmt->bindValue(':categoryId', intval($id));
-        //     $stmt->execute();
-        //     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        public function getFirstByUserId($userId)
+        {
+            $stmt = $this->conn->prepare(
+                "SELECT * from addresses where userId = :userId LIMIT 1"
+            );
+            $stmt->bindValue(':userId', $userId);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        //     $category = null;
-        //     if ($row) 
-        //         $category = new Category(
-        //             $row['categoryId'], 
-        //             $row['title'], 
-        //             $row['image']
-        //         );
+            $address = null;
+            if ($row) 
+                $address = new Address(
+                    $row["AddressId"], 
+                    $row["UserId"],
+                    $row["Street"], 
+                    $row["CEP"],
+                    $row["Neighborhood"],
+                    $row["City"],
+                    $row["StateId"],
+                    $row["Complement"]
+                );
             
-        //     return $category;
-        // }
+            return $address;
+        }
 
         // public function total($search)
         // {

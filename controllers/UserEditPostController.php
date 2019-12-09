@@ -20,6 +20,7 @@
             $retorno->urlDestino = "/admin/usuario";
             if ($_SESSION["role"] == "vendedor" || $_SESSION["role"] == "comum")
                 $retorno->urlDestino = "/admin/usuario/minhas-compras";
+                
             echo json_encode($retorno);
         }
     }

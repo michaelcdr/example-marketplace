@@ -13,16 +13,31 @@
         implements ISellerRepository 
     {
 
-        public function addSimplifiedSeller($userId,$lastName)
+        public function add($seller)
         {
             $stmt = $this->conn->prepare(
-                "INSERT INTO Sellers (userId, lastName) 
+                "INSERT INTO Sellers 
+                    (UserId,Age,CPF,Email,DateOfBirth,WebSite,Company,CNPJ,BranchOfActivity,FantasyName) 
                 values 
-                (:userId, :lastName)"
+                    (:UserId,:Age,:CPF,:Email,:DateOfBirth,:WebSite,:Company,:CNPJ,:BranchOfActivity,:FantasyName)"
             );
-            $stmt->bindValue(':userId', $userId);
-            $stmt->bindValue(':lastName', $lastName);
-            $stmt->execute();
+            $stmt->bindValue(':UserId', $seller->getUserId());
+            $stmt->bindValue(':Age', $seller->getAge());
+            $stmt->bindValue(':CPF', $seller->getCpf());
+            $stmt->bindValue(':Email',$seller->getEmail());
+            $stmt->bindValue(':DateOfBirth',$seller->getDateOfBirth());
+            $stmt->bindValue(':WebSite', $seller->getWebSite());
+            $stmt->bindValue(':Company',$seller->getCompany());
+            $stmt->bindValue(':CNPJ', $seller->getCnpj());
+            $stmt->bindValue(':BranchOfActivity',  $seller->getBranchOfActivity());
+            $stmt->bindValue(':FantasyName', $seller->getFantasyName());
+            if(!$stmt->execute()){
+                print_r($stmt->errorInfo());
+                exit();
+            }
+
+            //echo '<pre>'; var_dump($seller);echo '</pre>';exit();
+
         }
 
         public function total($search)
@@ -81,8 +96,8 @@
             {
                 $stmt = $this->conn->prepare(
                     "SELECT 
-                    s.SellerId, u.Name, s.LastName, s.Company, 
-                    s.FantasyName, s.City ,u.Login
+                        s.SellerId, u.Name as Name, u.LastName as LastName, s.Company as Company, 
+                        s.FantasyName as FantasyName,  u.Login as Login, u.userId as userId
                     from Users u
                     inner join Sellers s on u.userid = s.userid
                     where u.role = 'vendedor'
@@ -97,8 +112,8 @@
             {
                 $stmt = $this->conn->prepare( 
                     "SELECT 
-                        s.SellerId, u.Name, s.LastName, s.Company, 
-                        s.FantasyName, s.City, u.Login 
+                        s.SellerId, u.Name as Name, u.LastName as LastName, s.Company as Company, 
+                        s.FantasyName as FantasyName,  u.Login as Login, u.userId as userId
                     from Users u
                     inner join Sellers s on u.userid = s.userid
                     where 
@@ -106,8 +121,7 @@
                         (
                             u.login like :search or 
                             u.name like :search or 
-                            s.LastName like :search or 
-                            s.City like :search or 
+                            u.LastName like :search or                             
                             s.Company like :search or 
                             s.FantasyName like :search 
                         ) 
@@ -138,13 +152,11 @@
                     $row["Name"],
                     $row["LastName"],
                     $row["Company"],
-                    $row["FantasyName"],
-                    $row["City"],
+                    $row["FantasyName"], 
                     $row["Login"],
-                    $seller["userId"]
+                    $row["userId"]
                 );
             }
-
 
             $paginatedResults = new PaginatedResults(
                 $sellers, 
@@ -158,5 +170,94 @@
             );
 
             return $paginatedResults;
+        }
+
+        public function getById($sellerId)
+        {
+            $stmt = $this->conn->prepare(
+                "SELECT 
+                    s.SellerId as SellerId, u.Name as Name, u.LastName as LastName, s.Company as Company, 
+                    s.FantasyName as FantasyName, u.Login as Login, u.userId as userId
+                from Users u
+                inner join Sellers s on u.userid = s.userid
+                where  s.sellerId = :sellerId limit 1 " 
+            );
+            $stmt->bindValue(":sellerId", $sellerId);
+            $stmt->execute();
+            $sellerResult = $stmt->fetch();
+
+            $seller = null;
+            if (isset($sellerResult)){
+                $seller = new Seller(
+                    $sellerResult["SellerId"],
+                    $sellerResult["Name"],
+                    $sellerResult["LastName"],
+                    $sellerResult["Company"],
+                    $sellerResult["FantasyName"], 
+                    $sellerResult["Login"],
+                    $sellerResult["userId"]
+                );
+            }
+            return $seller;
+        }
+
+        public function addSimplifiedSeller($seller)
+        {
+            $stmt = $this->conn->prepare(
+                "INSERT INTO Sellers (userId) 
+                values 
+                (:userId)"
+            );
+            $stmt->bindValue(':userId', $userId);
+            $stmt->execute();
+        }
+
+        public function remove($sellerId)
+        {
+            $seller = $this->getById($sellerId);
+            
+            if (isset($seller)) {
+                $userId = $seller->getUserId();
+                $stmt = $this->conn->prepare(
+                    "delete from sellers where sellerId = :sellerId"
+                );
+                $stmt->bindValue(":sellerId", $sellerId);
+                $stmt->execute();
+                
+                //removendo o endereço
+                $stmt = $this->conn->prepare(
+                    "delete from address where userId = :userId"
+                );
+                $stmt->bindValue(":userId", $userId);
+                $stmt->execute();
+
+                //removendo itens de pedido
+                $stmt = $this->conn->prepare(
+                    "delete from orderitens where productid in (select productid from products where userid = :userId);"
+                );
+                $stmt->bindValue(":userId", $userId);
+                $stmt->execute();
+
+                //removendo pedidos
+                $stmt = $this->conn->prepare(
+                    "delete from orders where userid = :userId);"
+                );
+                $stmt->bindValue(":userId", $userId);
+                $stmt->execute();
+
+                //removendo produtos
+                $stmt = $this->conn->prepare(
+                    "delete from products where userid = :userId;"
+                );
+                $stmt->bindValue(":userId", $userId);
+                $stmt->execute();
+
+                //removendo usuario
+                $stmt = $this->conn->prepare(
+                    "delete from users where userid = :userId;"
+                );
+                $stmt->bindValue(":userId", $userId);
+                $stmt->execute();
+            }
         }
     }

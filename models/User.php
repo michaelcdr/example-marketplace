@@ -3,7 +3,7 @@
 
     class User 
     {
-        public function __construct($userId,$login,$password,$name,$role,$cpf)
+        public function __construct($userId,$login,$password,$name,$role,$cpf,$lastName)
         {
             $this->userId = $userId;
             $this->login = $login;
@@ -11,6 +11,7 @@
             $this->name = $name;
             $this->role=$role;
             $this->cpf =$cpf;
+            $this->lastName =$lastName;
         }
 
         private $errors = array();
@@ -20,6 +21,7 @@
         private $name;
         private $role;
         private $cpf;
+        private $lastName;
 
         public function getUserId(){
             return $this->userId;
@@ -28,7 +30,9 @@
         public function getLogin(){
             return $this->login;
         }
-
+        public function getLastName(){
+            return $this->lastName;
+        }
         public function getPassword(){
             return $this->password;
         }

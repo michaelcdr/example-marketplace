@@ -403,5 +403,28 @@ div.dropdown-menu.show .dropdown-item:focus {
     padding-top:20px;
     padding-bottom:20px;
     margin-bottom:0px;
-    
+}
+.resumo-carrinho{
+    font-size: 14px;
+}
+.container-gray{
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.table-cart .img{
+
+    text-align: center ;
+}
+.table-cart img{
+    max-height: 70px;
+    max-width: 70px;
+}
+.table-cart .title{
+    font-size: 12px;
 }

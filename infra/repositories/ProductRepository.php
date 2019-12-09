@@ -281,5 +281,30 @@
             }
             return $product;
         }
+
+        public function decreaseStockByOrderItens($orderItens)
+        {
+            if (isset($orderItens))
+            {
+                foreach ($orderItens as $item)
+                {
+                    $currentQtd = $this->getCurrentStock($item->getProductId());
+                    $newQtd = $currentQtd - $item->getQtd();
+                    $stmt = $this->conn->prepare(
+                        "UPDATE products
+                            set Stock = :newQtd
+                        WHERE productId = :productId; "
+                    );
+                    
+                    $stmt->bindValue(":newQtd",$newQtd);
+                    $stmt->bindValue(":productId",$item->getProductId());
+
+                    if (!$stmt->execute()){
+                        return null;
+                    }
+
+                }
+            }
+        }
     }
 ?>

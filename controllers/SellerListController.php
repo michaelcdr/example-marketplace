@@ -19,8 +19,6 @@
         
         public function proccessRequest() : void
         {
-            
-
             $paginatedResults = $this->_sellerService->getAllPaginated();
             $sellers = $paginatedResults->results;
             require "views/admin/sellers/lista.php";

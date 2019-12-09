@@ -22,9 +22,11 @@
             $login = filter_input(INPUT_POST,'login',FILTER_SANITIZE_STRING);
             $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING);
             $name = filter_input(INPUT_POST,'name',FILTER_SANITIZE_STRING);
-            $role = filter_input(INPUT_POST,'role',FILTER_SANITIZE_STRING);
             $cpf = filter_input(INPUT_POST,'cpf',FILTER_SANITIZE_STRING);
-            $user = new User(null,$login,trim($password),$name,$role,$cpf);
+            $lastName = filter_input(INPUT_POST,'lastName',FILTER_SANITIZE_STRING);
+            $user = new User(null,$login,trim($password),$name,$role,$cpf,$lastName);
+            
+            $role = filter_input(INPUT_POST,'role',FILTER_SANITIZE_STRING);
             
             //validando modelo se valido retornamos um JSON.
             if ($user->isValid())

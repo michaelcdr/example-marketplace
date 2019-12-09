@@ -42,12 +42,33 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label for="">SobreNome:</label>
+                            <input type="text" data-required="true" class="form-control" 
+                                name="lastName" id="lastName" value="<?php echo $user->getLastName(); ?>"
+                                aria-describedby="lastNameHelp" placeholder="">
+                            <small id="lastNameHelp" class="form-text text-muted">
+                                Seu sobrenome.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Cpf:</label>
+                            <input type="text" data-required="true" class="form-control" 
+                                name="cpf" id="cpf" value="<?php echo $user->getCpf(); ?>"
+                                aria-describedby="cpfId" placeholder="">
+                            <small id="cpfId" class="form-text text-muted">
+                                Seu cpf.
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <?php if ($_SESSION["role"] == "admin"): ?>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label for="role">Tipo:</label>
-                            <select name="role" id="role" 
-                                data-required="true" 
-                                class="form-control" 
-                                aria-describedby="help-role" 
-                            >
+                            <select name="role" id="role" data-required="true"  class="form-control" 
+                                aria-describedby="help-role">
                                 <option value="">Selecione o tipo...</option>
                                 <option value="comum" <?php echo $user->getRole()  == "comum" ? "selected=selected":""; ?>>
                                     Comum
@@ -62,17 +83,9 @@
                             <small id="help-role" class="text-muted">Tipo de usuário</small>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="">Cpf:</label>
-                            <input type="text" data-required="true" class="form-control" 
-                                name="cpf" id="cpf" value="<?php echo $user->getCpf(); ?>"
-                                aria-describedby="cpfId" placeholder="">
-                            <small id="cpfId" class="form-text text-muted">
-                                Seu cpf.
-                            </small>
-                        </div>
-                    </div>
+                    <?php endif; ?>
+
+                    
                 </div>
                 
             </div>
@@ -89,22 +102,20 @@
                     </div>
                 </div>
                 <div id="addresses-container">
-                <?php foreach ($userAddresses as $address): ?>
-                    
-                    <?php require './views/admin/users/address.php' ?>
-                        
-                <?php endforeach; ?>
+                    <?php foreach ($userAddresses as $address): ?>
+                        <?php require './views/admin/users/address.php' ?>
+                    <?php endforeach; ?>
                 </div>
                 <div class="row">
                     <div class="col-md-12 mt-3">
                         <a class="btn btn-warning btn-sm " href="/admin/usuario">
                             <i class="fa fa-chevron-left"></i>
                         </a>
+                        <button type="button" class="btn btn-sm btn-dark" id="btn-add-address" data-toggle="button" aria-pressed="false" autocomplete="off">
+                            <i class="fa fa-plus"></i> Adicionar no endereço
+                        </button>
                         <button type="submit" name="btn-salvar" id="btn-salvar" 
                             class="btn btn-dark btn-sm "><i class="fa fa-save"></i> Salvar usuário
-                        </button>
-                        <button type="button" class="btn btn-sm btn-dark" id="btn-add-address" data-toggle="button" aria-pressed="false" autocomplete="off">
-                           <i class="fa fa-plus"></i> Adicionar no endereço
                         </button>
                     </div>
                 </div>
@@ -114,5 +125,6 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
+<script src="/libs/jquery.mask/jquery.mask.min.js"></script>
 <script src="/js/models/UserForm.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>

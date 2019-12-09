@@ -43,9 +43,7 @@
                     <?php include './views/admin/users/lista-compras-table.php' ?>
                 </div>
             </div>
-            <div class="row">
-                <?php require_once './views/partials/pagination-admin-controlls.php' ?>
-            </div>
+           
            
         </div>
     </div>

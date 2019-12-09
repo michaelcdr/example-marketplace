@@ -7,14 +7,13 @@
                     <th>Login</th>
                     <th>Nome</th>
                     <th>Sobrenome</th>
-                    <th>Nome fantasia</th>
-                    <th>Cidade</th>
+                    <th>Nome fantasia</th> 
                 </tr>
             </thead>
             <tbody>
                 <?php  if (count($sellers) == 0) : ?>
                     <tr>
-                        <td colspan="6">Nenhum registro cadastrado.</td>
+                        <td colspan="5">Nenhum registro cadastrado.</td>
                     </tr>
                 <?php else  :?>
                     <?php foreach ($sellers as $seller): ?>
@@ -29,13 +28,16 @@
                                         href="/admin/vendedor/editar?id=<?php echo $seller->getSellerId(); ?>">
                                         <i class="fa fa-edit" ></i>
                                     </a>
+                                    <a class='btn btn-sm btn-outline-dark' 
+                                        href="/admin/vendedor/detalhes?id=<?php echo $seller->getSellerId(); ?>">
+                                        <i class="fa fa-list" ></i>
+                                    </a>
                                 </div>
                             </td>
                             <td><?php echo $seller->getLogin(); ?></td>
                             <td><?php echo $seller->getName(); ?></td>
                             <td><?php echo $seller->getLastName(); ?></td>
                             <td><?php echo $seller->getFantasyName(); ?></td>
-                            <td><?php echo  $seller->getCity(); ?></td>
                         </tr>
                     <?php endforeach?>
                 <?php endif ?>

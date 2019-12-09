@@ -11,9 +11,20 @@ class CartCheckout
     initEvents()
     {
         this.initSubmitEvent();
-        this.seedForm();
+        this.mascararCep();
+        this.mascararCpf();
+        this.mascararDataNascimento();
+        //this.seedForm();
     }
-
+    mascararCep(){
+        $('#cep').mask('00000-000');
+    }
+    mascararCpf(){
+        $('#cpf').mask('000.000.000-00', {reverse: true});
+    }
+    mascararDataNascimento(){
+        $('#dataNascimento').mask('00/00/0000');
+    }
     seedForm(){
         $("#card-number").val("4556965669773172");
         $("#card-name").val("Michael C. Reis");
@@ -31,19 +42,20 @@ class CartCheckout
 
     getModel(){
         return {
+            name: $("#name").val(),
+            dateOfBirth: $("#dateOfBirth").val(),
+            lastName: $("#lastName").val(),
+            cpf: $("#cpf").val(),
             cardNumber : $("#card-number").val(),
             cardName:$("#card-name").val(),
             cardExpiration:$("#card-expiration").val(),
-            name: $("#name").val(),
-            cep: $("#cep").val(),
-            cpf: $("#cpf").val(),
             cvv:$("#cvv").val(),
-            address:$("#address").val(),
+            street:$("#street").val(),
+            cep: $("#cep").val(),
             neighborhood:$("#neighborhood").val(),
+            stateId:$("#stateId").val(),
             city:$("#city").val(),
-            stateId:$("#uf").val(),
             complement:$("#complement").val()
-
         };
     }
 

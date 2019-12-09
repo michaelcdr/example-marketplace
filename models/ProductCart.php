@@ -70,12 +70,13 @@
             return $this->helper->getPathImgProduct() . $this->Image;
         }
 
-        /**
-         * Get the value of subTotal
-         */ 
         public function getSubTotal()
         {
             return $this->subTotal * $this->Qtd;
+        }
+        public function getSubTotalFormatted()
+        {
+            return "R$ ".  number_format($this->getSubTotal(),2,",",".");
         }
     }
 ?>

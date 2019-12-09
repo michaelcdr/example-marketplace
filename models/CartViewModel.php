@@ -25,6 +25,11 @@
             return $product->calcValue();
         }
 
+        public function getProductTotalValueFormatted($productId)
+        {
+            
+            return "R$ ".  number_format($this->getProductTotalValue($productId),2,",",".");
+        }
         public function getProduct($productId)
         {
             $product = null;
@@ -60,11 +65,17 @@
             return $valor;
         }
 
+        public function getSubTotalFormatted(){
+            return "R$ ".  number_format($this->getSubTotal(),2,",",".");
+        }
+
         public function getSubTotalComCondicoes()
         {
             $valor = 0;
-            if (!is_null($this->getProducts())){
-                foreach($this->getProducts() as $productItem){
+            if (!is_null($this->getProducts()))
+            {
+                foreach($this->getProducts() as $productItem)
+                {
                     $valor += $productItem->getQtd() * $productItem->getPrice();
                 }
             }

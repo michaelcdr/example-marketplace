@@ -37,19 +37,20 @@
     use controllers\ProductDeleteController;
     use controllers\ProductImageUploadController;
 
+    use controllers\CartCheckoutController;
+    use controllers\CartCheckoutPostController;
+
     use controllers\SellerSimpleCreateController;
     use controllers\SellerRegisterController;
     use controllers\SellerRegisterPostController;
     use controllers\SellerAuthController;
-
-
-
-    
-    use controllers\CartCheckoutController;
-    use controllers\CartCheckoutPostController;
-    
     use controllers\SellerListController;
     use controllers\SellerPartialListController;
+    use controllers\SellerEditController;
+    use controllers\SellerEditPostController;
+    use controllers\SellerCreateController;
+    use controllers\SellerCreatePostController;
+    use controllers\SellerDeleteController;
 
     use controllers\CategoryEditController;
     use controllers\CategoryEditPostController;
@@ -59,6 +60,7 @@
     use controllers\CategoryListController;
     use controllers\CategoryListPartialController;
     use controllers\CategoryImageUploadController;
+
     use controllers\AddressCreateController;
 
     //rota X [controller , roles]
@@ -115,7 +117,12 @@
         
         "/admin/vendedor" => [SellerListController::class,"admin"],
         "/admin/vendedor/lista-table" => [SellerPartialListController::class,"admin"],
-        
+        "/admin/vendedor/editar" => [SellerEditController::class, "admin"],
+        "/admin/vendedor/editar-post" => [SellerEditPostController::class, "admin"],
+        "/admin/vendedor/cadastrar" => [SellerCreateController::class,"admin"],
+        "/admin/vendedor/cadastrar-post" => [SellerCreatePostController::class,"admin"],
+        "/admin/vendedor/deletar" => [SellerDeleteController::class,"admin"],
+
         "/admin/endereco/cadastrar" => [AddressCreateController::class,""],
 
         "/admin/usuario/minhas-compras" => [OrderListController::class,"admin,vendedor,comum"],

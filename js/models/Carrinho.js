@@ -97,7 +97,7 @@ class Carrinho
             else 
             {
                 $('#cart-sub-total').html(data.subTotal);
-                $(`.product-price[data-product-id="${productId}"]`).html(`R$ ${data.finalValue}`);
+                $(`.product-price[data-product-id="${productId}"]`).html(`${data.finalValue}`);
                 _self.updateQtdNavOnlyDOM();
                 alertSuccess({ text:data.msg });
             }

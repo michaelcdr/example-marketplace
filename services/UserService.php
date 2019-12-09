@@ -31,8 +31,10 @@
                         trim($request->getPassword()),
                         $request->getName(),
                         'comum',
+                        '',
                         ''
                     );
+                    
                     $userId = $this->_repoUser->add($user);
 
                     //efetuando login
@@ -50,7 +52,20 @@
 
         public function update()
         {
-            $user = new UserEdit($_POST["userId"],$_POST["name"], $_POST["login"], $_POST["role"],$_POST["cpf"]);
+            
+            $role = $_SESSION["role"];
+
+            if (isset($_POST["role"]) && $_SESSION["role"] == "admin")
+                $role = $_POST["role"];
+
+            $user = new UserEdit(
+                $_POST["userId"],
+                $_POST["name"],
+                $_POST["login"], 
+                $role,
+                $_POST["cpf"],
+                $_POST["lastName"]
+            );
             $retorno =  null;
 
             if ($user->isValid())

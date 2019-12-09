@@ -60,4 +60,9 @@
         {
             return $this->_complement;
         }
+
+        public function setUserId($userId)
+        {
+            $this->_userId = $userId;
+        }
     }

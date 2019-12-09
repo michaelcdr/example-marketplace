@@ -11,14 +11,16 @@
         private $role;
         private $_addresses;
         private $_cpf;
+        private $_lastName;
 
-        public function __construct($userId,$name,$login,$role,$cpf)
+        public function __construct($userId,$name,$login,$role,$cpf,$lastName)
         {
             $this->userId = $userId;
             $this->login = $login;
             $this->name = $name;
             $this->role = $role;
             $this->_cpf = $cpf;
+            $this->_lastName = $lastName;
             $this->_addresses = array();
         }
 
@@ -36,7 +38,10 @@
         {
             return $this->name;
         }
-
+        public function getLastName()
+        {
+            return $this->_lastName;
+        }
         public function getRole()
         {
             return $this->role;

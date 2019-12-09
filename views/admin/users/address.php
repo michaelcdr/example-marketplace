@@ -4,7 +4,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="">CEP:</label>
-                <input type="text" data-required="true" class="form-control" 
+                <input type="text" data-required="true" class="form-control cep" 
                     name="cep" id="cep"  value="<?php echo $address->getCep();?>"  aria-describedby="cepId" placeholder="">
                 <small id="cepId" class="form-text text-muted">
                     Seu cep.
@@ -37,7 +37,9 @@
                     name="stateId" id="stateId" aria-describedby="stateIdhelp" placeholder="">
                     <option value="">Selecione</option>
                     <?php foreach($states as $state):?>
-                        <option value="<?php echo $state->getId(); ?>"><?php echo $state->getName(); ?></option>
+                        <option value="<?php echo $state->getId(); ?>" <?php echo ($address->getStateId() == $state->getId() ? "selected=selected" : ""); ?>>
+                        <?php echo $state->getName(); ?>
+                        </option>
                     <?php endforeach;?>
                 </select>
                 <small id="stateIdhelp" class="form-text text-muted">

@@ -70,5 +70,6 @@
 </div>
 
 <?php require_once './views/partials/scripts-admin.php' ?>
+<script src="/libs/jquery.mask/jquery.mask.min.js"></script>
 <script src="/js/models/UserForm.js"></script>
 <?php require_once './views/partials/footer-admin.php' ?>

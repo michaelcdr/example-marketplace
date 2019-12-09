@@ -37,6 +37,7 @@ class UserForm
             name:_self.formEl.find('#name').val(),
             role:_self.formEl.find('#role').val(),
             cpf:_self.formEl.find('#cpf').val(),
+            lastName:_self.formEl.find('#lastName').val(),
             addresses:_self.getAddresses()
         };
     }
@@ -70,7 +71,10 @@ class UserForm
     initEvents()
     {
         let _self = this;
-
+        $('#cpf').mask('000.000.000-00', {reverse: true});
+        
+        $('.cep').mask('00000-000', {reverse: true });
+        
         _self.initEventRemoveAddress();
 
         _self.btnAddAddress.click(function(){
@@ -82,6 +86,7 @@ class UserForm
 
                     $(".address-container").last().find('#cep').focus();
                     _self.initEventRemoveAddress()
+                    $('.cep').mask('00000-000', {reverse: true });
                 });
             });
         })

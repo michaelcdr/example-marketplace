@@ -15,17 +15,21 @@
         public function add($user)
         {
             $stmt = $this->conn->prepare(
-                "INSERT INTO Users (Login, Password, Name,Role) 
+                "INSERT INTO Users (Login, Password, Name, Role, cpf,lastName) 
                 values 
-                (:loginParam,:passwordParam, :nameParam,:role)"
+                (:loginParam,:passwordParam, :nameParam,:role,:cpf,:lastName)"
             );
             $stmt->bindValue(':loginParam', $user->getLogin());
             $stmt->bindValue(':passwordParam', password_hash($user->getPassword(), PASSWORD_ARGON2I));
             $stmt->bindValue(':nameParam',$user->getName());
             $stmt->bindValue(':role',$user->getRole());
+            $stmt->bindValue(':lastName',$user->getLastName());
             $stmt->bindValue(':cpf',$user->getCpf());
-            $stmt->execute();
             
+            if (!$stmt->execute()){
+                //print_r($stmt->errorInfo());
+                return null;
+            }
             return $this->conn->lastInsertId();
         }
 
@@ -58,13 +62,15 @@
                         login = :loginParam, 
                         name = :nameParam,
                         role = :role,
-                        cpf = :cpf
+                        cpf = :cpf,
+                        lastName = :lastName
                  where UserId = :userId");
             
             $stmt->bindValue(':userId', $user->getUserId());
             $stmt->bindValue(':loginParam', $user->getLogin());
             $stmt->bindValue(':nameParam', $user->getName());
             $stmt->bindValue(':cpf', $user->getCpf());
+            $stmt->bindValue(':lastName', $user->getLastName());
             $stmt->bindValue(':role', $user->getRole());
             $stmt->execute(); 
         }
@@ -72,7 +78,7 @@
         public function getById($id)
         {
             $stmt = $this->conn->prepare(
-                "SELECT UserId, Login, Name, Password, Role, Cpf FROM Users 
+                "SELECT UserId, Login, Name, Password, Role, Cpf, LastName FROM Users 
                  WHERE UserId = :UserId LIMIT 1"
             );
             $stmt->bindValue(':UserId', $id);
@@ -85,7 +91,8 @@
                     $row['Password'], 
                     $row['Name'],
                     $row['Role'],
-                    $row['Cpf']
+                    $row['Cpf'],
+                    $row['LastName']
                 );
           
             return $usuario;
@@ -95,7 +102,7 @@
         {
             $usuario = null;
             $stmt = $this->conn->prepare(
-                "SELECT UserId, Login, Name, Password, Role, Cpf FROM Users 
+                "SELECT UserId, Login, Name, Password, Role, Cpf, LastName FROM Users 
                  WHERE login = :login LIMIT 1"
             );
             $stmt->bindValue(':login', $login);
@@ -108,7 +115,8 @@
                     $row['Password'], 
                     $row['Name'], 
                     $row['Role'],
-                    $row['Cpf']
+                    $row['Cpf'],
+                    $row['LastName']
                 );
           
             return $usuario;
@@ -117,8 +125,8 @@
         public function getSellers()
         {
             $stmt = $this->conn->prepare(
-                "SELECT s.sellerId as sellerId, u.userId as userId, u.name as name, s.lastName as lastName, 
-                        s.company as company, s.fantasyName as fantasyName, s.city as city, u.login as login
+                "SELECT s.sellerId as sellerId, u.userId as userId, u.name as name, u.lastName as lastName, 
+                        s.company as company, s.fantasyName as fantasyName,  u.login as login
                  FROM Users as u 
                  inner join Sellers s on u.userId = s.userId
                  where u.role = 'vendedor' "
@@ -134,8 +142,7 @@
                     $seller["name"],
                     $seller["lastName"],
                     $seller["company"],
-                    $seller["fantasyName"],
-                    $seller["city"],
+                    $seller["fantasyName"], 
                     $seller["login"],
                     $seller["userId"]
                 );

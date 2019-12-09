@@ -16,7 +16,7 @@
                             <span class="logo-strong">L</span>oja<span class="logo-strong">W</span>hatever
                         </a>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <form id="form-pesquisa" action="/pesquisa" method="GET">
                             <div class="row">
                                 <div class="col-md-10">
@@ -49,7 +49,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <span class="login-nav text-light">
                             <?php  if (isset($_SESSION["userId"])): ?>
                                 <i class="fa fa-user"></i> Olá, 
@@ -87,12 +87,14 @@
                     <li class="">
                         <a class="" href="/Produtos">Produtos</a>
                     </li>
+
+                    <?php if (is_null($_SESSION["role"])): ?>
                     <li class="">
                         <a class="" href="/vender">Vender</a>
                     </li>
-                    
+                    <?php endif; ?>
+
                     <?php 
-                        
                         if (isset($_SESSION["userId"]))
                         {
                             if ($_SESSION["role"] == "comum") 

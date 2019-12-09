@@ -129,12 +129,12 @@
         public function seedUsersAndSellers()
         {
             $_repoUser = new UserRepository($this->conn);
-            $_repoUser->add(new User(null,"michael","123456","michael","admin",""));
-            $userId = $_repoUser->add(new User(null,"multisom","123456","Multisom","vendedor",""));
+            $_repoUser->add(new User(null,"michael","123456","michael","admin","",""));
+            $userId = $_repoUser->add(new User(null,"multisom","123456","Multisom","vendedor","",""));
             echo "vendedorId: " . $userId . "<br>";
 
             $_repoSeller = new SellerRepository($this->conn);
-            $_repoSeller->addSimplifiedSeller($userId, "Multisom LTDA");
+            $_repoSeller->addSimplifiedSeller($userId);
         }
 
         public function seedCarousel()
@@ -228,7 +228,8 @@
                 Password varchar(255) not null,
                 Name varchar(255) not null,
                 Role varchar(45) not null,
-                Cpf  varchar(10)
+                Cpf  varchar(14),
+                LastName  varchar(100)
             );";
             $this->conn->exec($query);
         }
@@ -323,7 +324,6 @@
             $this->conn->exec(
                 "CREATE TABLE Sellers (
                     SellerId int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                    LastName varchar(255),
                     Age int,    
                     CPF varchar(14),
                     Email varchar(100),
