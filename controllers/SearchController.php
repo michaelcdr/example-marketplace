@@ -14,17 +14,9 @@
         
         public function proccessRequest() : void
         {
-            $pagina = 0;
-            if (isset($_GET["pagina"]))
-                $pagina = $_GET["pagina"];
-
-            $resultPaginated =  $this->_productService->getAllPaginatedAdmin(
-                $pagina,
-                $_GET["pesquisa"],
-                6
-            );
-
-            $products = $resultPaginated->results;
+            $paginatedResults  =  $this->_productService->getAllPaginated();
+            $products = $paginatedResults ->results;
+            
             require "views/home/pesquisa.php";
         }
     }

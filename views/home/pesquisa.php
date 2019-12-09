@@ -22,7 +22,7 @@
             <div class="col-lg-12 col-md-12">
                 <div class="">
                     Não encontramos resultados para <strong>
-                    <?php echo $_GET["pesquisa"]; ?></strong>.
+                    <?php echo $_GET["s"]; ?></strong>.
 
                     <h3>O que eu faço?</h3>
                     <ul>
@@ -38,21 +38,28 @@
                     <?php require_once './views/produto/card-list.php' ?>
                 </section>
                 
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                                <i class="fa fa-chevron-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">
-                                <i class="fa fa-chevron-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                
             </div>
+            <div class="col-md-6 mt-3">
+               
+                    <?php
+                        echo "Mostrando " . $paginatedResults->qtdTotalFiltered . " de " .
+                        $paginatedResults->qtdTotal . " registros.";
+                    ?>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item <?php echo $paginatedResults->attrDisablePrev; ?>">
+                                <a class="page-link " 
+                                    href="<?php echo $paginatedResults->urlPrevPage; ?>" >Anterior</a>
+                            </li>
+                            <li class="page-item <?php echo $paginatedResults->attrDisableNext; ?>">
+                                <a class="page-link" href="<?php echo $paginatedResults->urlNextPage; ?>" >Próxima</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             <?php endif; ?>
         </div>
     </div>

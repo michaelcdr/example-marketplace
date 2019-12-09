@@ -42,7 +42,7 @@
 
         }
 
-        public function getAllPaginatedAdmin()
+        public function getAllPaginated()
         {
             $pagina = 1;
             if (isset($_GET["p"]))

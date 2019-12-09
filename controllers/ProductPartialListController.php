@@ -15,7 +15,7 @@
 
         public function proccessRequest() : void
         {   
-            $paginatedResults = $this->_productService->getAllPaginatedAdmin();
+            $paginatedResults = $this->_productService->getAllPaginated();
             $products = $paginatedResults ->results;
             require $_SERVER['DOCUMENT_ROOT'] . '\\views\\admin\\product\\lista-table.php';
         }

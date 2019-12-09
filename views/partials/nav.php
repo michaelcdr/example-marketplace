@@ -21,7 +21,7 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <div class="input-group mr-3">
-                                        <input type="text" class="form-control" id="pesquisa" name="pesquisa"
+                                        <input type="text" class="form-control" id="s" name="s"
                                             placeholder="Pesquisar produto" 
                                             aria-label="Pesquisar produto" aria-describedby="button-addon2">
                                         <div class="input-group-append">

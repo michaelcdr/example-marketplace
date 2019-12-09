@@ -6,6 +6,7 @@
     use models\Address;
     use models\JsonError;
     use models\JsonSuccess;
+    use infra\Logger;
 
     class SellerService 
     {
@@ -13,7 +14,7 @@
         private $_repoSeller;
         private $_repoState;
         private $_repoAddress;
-        
+
         public function __construct($factory)
         {
             $this->_repoUser = $factory->getUserRepository();
@@ -29,8 +30,10 @@
                 //ja existe o usuario...
                 return new RegisterSellerResponse(false, "O Login informado está indisponível.");
             } 
-            else {
-                try{
+            else 
+            {
+                try
+                {
                     //criando usuário do tipo vendedor...
                     $user = new User(
                         null,
@@ -42,19 +45,18 @@
                         ""
                     );
                     $userId = $this->_repoUser->add($user);
-
+                    echo($userId);
                     //adicionando dados de vendedor...
-                    $this->_repoSeller->addSimplifiedSeller(
-                        $userId
-                    );
-
+                    $this->_repoSeller->addSimplifiedSeller($userId);
                     //efetuando login
                     $_SESSION["userId"] = $userId; 
                     $_SESSION["userName"] = stripslashes($request->getName());                     
                     $_SESSION["role"] = stripslashes($user->getRole());    
 
                     return new RegisterSellerResponse(true, "Você foi registrado com sucesso.");
-                }catch(Exception $e){
+                }
+                catch(Exception $e)
+                {
                     echo 'Exceção capturada: ',  $e->getMessage(), "\n";
                     //exit();
                 }

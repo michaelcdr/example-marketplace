@@ -26,7 +26,8 @@
             $stmt->bindValue(':lastName',$user->getLastName());
             $stmt->bindValue(':cpf',$user->getCpf());
             
-            if (!$stmt->execute()){
+            if (!$stmt->execute())
+            {
                 //print_r($stmt->errorInfo());
                 return null;
             }

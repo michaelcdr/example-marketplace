@@ -8,11 +8,8 @@
     use models\PaginatedResults;
     use PDO;
 
-    class SellerRepository 
-        extends MySqlRepository 
-        implements ISellerRepository 
+    class SellerRepository extends MySqlRepository implements ISellerRepository 
     {
-
         public function add($seller)
         {
             $stmt = $this->conn->prepare(
@@ -31,13 +28,10 @@
             $stmt->bindValue(':CNPJ', $seller->getCnpj());
             $stmt->bindValue(':BranchOfActivity',  $seller->getBranchOfActivity());
             $stmt->bindValue(':FantasyName', $seller->getFantasyName());
-            if(!$stmt->execute()){
-                print_r($stmt->errorInfo());
-                exit();
+            if (!$stmt->execute())
+            {
+                Logger::write("SellerRepository: " . $stmt->errorInfo());
             }
-
-            //echo '<pre>'; var_dump($seller);echo '</pre>';exit();
-
         }
 
         public function total($search)
@@ -201,7 +195,7 @@
             return $seller;
         }
 
-        public function addSimplifiedSeller($seller)
+        public function addSimplifiedSeller($userId)
         {
             $stmt = $this->conn->prepare(
                 "INSERT INTO Sellers (userId) 
@@ -209,7 +203,11 @@
                 (:userId)"
             );
             $stmt->bindValue(':userId', $userId);
-            $stmt->execute();
+            
+            if (!$stmt->execute())
+            {
+                Logger::write("SellerRepository->addSimplifiedSeller: " . $stmt->errorInfo());
+            }
         }
 
         public function remove($sellerId)
