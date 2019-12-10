@@ -7,7 +7,7 @@
             <h6 class="mb-0 text-white lh-100">Lista de categorias</h6>
             <ul class="nav-breadcrumb">
                 <li>
-                    <a href="/admin/categoria">Lista de categorias</a>
+                    <a href="/admin/categoria">Categorias</a>
                 </li>
                 <li>
                     <a href="javascript:void(0);">Lista de categorias</a>

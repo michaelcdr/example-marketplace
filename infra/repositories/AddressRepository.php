@@ -62,13 +62,13 @@
             );
             
             $stmt->bindValue(':street', $address->getStreet());
-            $stmt->bindValue(':cep', $category->getCep());
-            $stmt->bindValue(':neighborhood', $category->getNeighborhood());
-            $stmt->bindValue(':city', $category->getCity());
-            $stmt->bindValue(':stateid', $category->getStateId());
-            $stmt->bindValue(':complement', $category->getComplement());
-            $stmt->bindValue(':userId', $category->getUserId());
-            $stmt->bindValue(':addressId', $category->getAddressId());
+            $stmt->bindValue(':cep', $address->getCep());
+            $stmt->bindValue(':neighborhood', $address->getNeighborhood());
+            $stmt->bindValue(':city', $address->getCity());
+            $stmt->bindValue(':stateid', $address->getStateId());
+            $stmt->bindValue(':complement', $address->getComplement());
+            $stmt->bindValue(':userId', $address->getUserId());
+            $stmt->bindValue(':addressId', $address->getAddressId());
             $stmt->execute();
             
             return $this->conn->lastInsertId();

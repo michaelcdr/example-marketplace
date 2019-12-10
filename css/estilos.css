@@ -168,6 +168,9 @@ a.a-primary:active{
 .login-nav{
     text-align: left;
     font-size: 0.7rem;
+    display: inline-block;
+    max-width: 140px;
+    float: right;
 }
 main{
     min-height: 768px;

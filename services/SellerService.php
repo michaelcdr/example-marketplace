@@ -7,6 +7,7 @@
     use models\JsonError;
     use models\JsonSuccess;
     use infra\Logger;
+    use models\SellerEditViewModel;
 
     class SellerService 
     {
@@ -112,5 +113,41 @@
             return new SellerCreateViewModel(
                 $this->_repoState->getAll()
             );
+        }
+
+        public function getEditViewModel(){
+            $sellerId = intval($_GET["id"]);
+            $seller = $this->_repoSeller->getById($sellerId);
+            $address = $this->_repoAddress->getFirstByUserId($seller->getUserId());
+            return new SellerEditViewModel(
+                $seller,
+                $this->_repoState->getAll(),
+                $address
+            );
+        }
+
+        public function update(){
+            $sellerId = intval($_GET["id"]);
+            $seller = $this->_repoSeller->getById($sellerId);
+            
+            if (is_null($seller)){
+                Logger::write("Não encontrou vendedor ao tentar editar");
+            } else {
+                $seller->setWebsite($_POST["website"]);
+                $seller->setEmail($_POST["email"]);
+                if (!isset($_POST["cnpj"]) || is_null($_POST["cnpj"])){
+                    //pessoa fisica
+                    $seller->setCpf($_POST["cpf"]);
+                    $seller->setAge($_POST["age"]);
+                    $seller->setDateOfBirth($_POST["dataNascimento"]);
+                } else {
+                    //pessoa juridica
+                    $seller->setCompany($_POST["company"]);
+                    $seller->setCnpj($_POST["cnpj"]);
+                    $seller->setFantasy($_POST["fantasyName"]);
+                    $seller->setBranchOfActivity($_POST["branchOfActivity"]);
+                }
+                $this->_repoSeller->update($seller);
+            }
         }
     }

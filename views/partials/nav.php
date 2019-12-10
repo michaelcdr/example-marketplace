@@ -16,7 +16,7 @@
                             <span class="logo-strong">L</span>oja<span class="logo-strong">W</span>hatever
                         </a>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <form id="form-pesquisa" action="/pesquisa" method="GET">
                             <div class="row">
                                 <div class="col-md-10">
@@ -49,7 +49,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <span class="login-nav text-light">
                             <?php  if (isset($_SESSION["userId"])): ?>
                                 <i class="fa fa-user"></i> Olá, 

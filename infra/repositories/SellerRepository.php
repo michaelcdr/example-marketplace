@@ -7,7 +7,8 @@
     use models\Seller;
     use models\PaginatedResults;
     use PDO;
-
+    use infra\Logger;
+    
     class SellerRepository extends MySqlRepository implements ISellerRepository 
     {
         public function add($seller)
@@ -34,6 +35,38 @@
             }
         }
 
+        public function update($seller)
+        {
+            $stmt = $this->conn->prepare(
+                "update Sellers 
+                    set Age = :age, 
+                    cpf = :cpf, 
+                    email = :email, 
+                    dateOfBirth = :dateOfBirth,
+                    webSite = :webSite,
+                    company = :company,
+                    cnpj = :cnpj, 
+                    branchOfActivity = :branchOfActivity,
+                    fantasyName = :fantasyName 
+                    where sellerId = :sellerId
+                "
+            );
+            $stmt->bindValue(':sellerId', $seller->getSellerId());
+            $stmt->bindValue(':age', $seller->getAge());
+            $stmt->bindValue(':cpf', $seller->getCpf());
+            $stmt->bindValue(':email',$seller->getEmail());
+            $stmt->bindValue(':dateOfBirth',$seller->getDateOfBirth());
+            $stmt->bindValue(':webSite', $seller->getWebSite());
+            $stmt->bindValue(':company',$seller->getCompany());
+            $stmt->bindValue(':cnpj', $seller->getCnpj());
+            $stmt->bindValue(':branchOfActivity',  $seller->getBranchOfActivity());
+            $stmt->bindValue(':fantasyName', $seller->getFantasyName());
+            if (!$stmt->execute())
+            {
+                Logger::write("SellerRepository update: " . $stmt->errorInfo());
+            }
+        }
+
         public function total($search)
         {
             if (is_null($search) || $search === "")
@@ -41,7 +74,7 @@
                 $stmt = $this->conn->prepare(
                     "SELECT count(SellerId) as total FROM Sellers "
                 );
-                $stmt->execute();
+
                 $total = $stmt->fetch();
                 return intval($total["total"]);
             }
@@ -171,7 +204,8 @@
             $stmt = $this->conn->prepare(
                 "SELECT 
                     s.SellerId as SellerId, u.Name as Name, u.LastName as LastName, s.Company as Company, 
-                    s.FantasyName as FantasyName, u.Login as Login, u.userId as userId
+                    s.FantasyName as FantasyName, u.Login as Login, u.userId as userId, s.Email as Email,
+                    s.Website as Website, s.Cnpj as Cnpj, s.BranchOfActivity as BranchOfActivity
                 from Users u
                 inner join Sellers s on u.userid = s.userid
                 where  s.sellerId = :sellerId limit 1 " 
@@ -189,8 +223,12 @@
                     $sellerResult["Company"],
                     $sellerResult["FantasyName"], 
                     $sellerResult["Login"],
-                    $sellerResult["userId"]
+                    $sellerResult["userId"] 
                 );
+                $seller->setEmail($sellerResult["Email"]);
+                $seller->setWebsite($sellerResult["Website"]);
+                $seller->setCnpj($sellerResult["Cnpj"]);
+                $seller->setBranchOfActivity($sellerResult["BranchOfActivity"]);
             }
             return $seller;
         }

@@ -1,29 +1,20 @@
 <?php
     namespace controllers;
-    
-    use controllers;
-    use infra;
-    use models;
-    use infra\repositories;
+    use services\SellerService;
 
-    class CategoryEditController implements IBaseController
+    class SellerEditController implements IBaseController
     {
-        private $_repoCategory;
+        private $_sellerService;
 
         public function __construct($factory)
         {
-            $this->_repoCategory = $factory->getCategoryRepository();
+            $this->_sellerService = new SellerService($factory);
         }
         
         public function proccessRequest() : void
         {
-            $id = $_GET["id"];
-            
-            $category = $this->_repoCategory->getById($id);
-
-            
-            
-            require "views/admin/categories/editar.php";
+            $model = $this->_sellerService->getEditViewModel();
+            require "views/admin/sellers/editar.php";
         }
     }
 ?>
