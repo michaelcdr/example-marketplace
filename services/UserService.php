@@ -6,14 +6,20 @@
     use models\JsonError;
     use models\UserEdit;
     use models\Address;
+    use Exception;
+    use Infra\Logger;
+
     class UserService 
     {
         private $_repoUser;
         private $_repoAddresses;
+        private $_repoSeller;
+
         public function __construct($factory)
         {
             $this->_repoUser = $factory->getUserRepository();
             $this->_repoAddresses = $factory->getAddressRepository();
+            $this->_repoSeller = $factory->getSellerRepository();
         }
 
         public function register($request)
@@ -40,7 +46,13 @@
                     //efetuando login
                     $_SESSION["userId"] = $userId; 
                     $_SESSION["userName"] = stripslashes($request->getName());                     
-                    $_SESSION["role"] = stripslashes($user->getRole());    
+                    $_SESSION["role"] = stripslashes($user->getRole());  
+                    $_SESSION["sellerId"] =null;
+                    if ($_SESSION["role"] == "vendedor")  {
+                        Logger::write('registrou o vendedor');
+                        $seller = $this->_repoSeller->getByUserId($userId);
+                        $_SESSION["sellerId"] = $seller->getSellerId();
+                    }
                     return new RegisterUserResponse(true, "Você foi registrado com sucesso.");
 
                 } catch(Exception $e){

@@ -8,7 +8,7 @@
                     <a href="/admin/usuario/minhas-compras">Minhas compras</a>
                 </li>
                 <li>
-                    <a href="/admin/pedido/detalhes?id=<?php echo $_GET["id"]; ?>">Cadastrar</a>
+                    <a href="/admin/pedido/detalhes?id=<?php echo $_GET["id"]; ?>">Detalhe do pedido</a>
                 </li>
             </ul>
         </div>
@@ -17,6 +17,7 @@
     <div class="card mt-3">
         <div class="card-body">
             <h5>Veja abaixo detalhes do pedido <strong><?php echo $order->getOrderId(); ?></strong>.</h5>
+            <small>Pedido criado em: <?php echo $order->getCreateAtFormatted(); ?></small>
             <div class="row">
                 <div class="col-md-5 order-md-2 mb-4">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">

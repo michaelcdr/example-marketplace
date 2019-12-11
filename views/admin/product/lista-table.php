@@ -27,9 +27,9 @@
                                     <a class="btn btn-sm btn-outline-dark" href="/admin/produto/editar?id=<?php echo $product->getId(); ?>">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-outline-dark" href="/admin/produto/detalhes?id=<?php echo $product->getId(); ?>">
+                                    <!-- <a class="btn btn-sm btn-outline-dark" href="/admin/produto/detalhes?id=<?php echo $product->getId(); ?>">
                                         <i class="fa fa-list"></i>
-                                    </a>
+                                    </a> -->
                                 </div>
                             </td>
                             <td align="center" >

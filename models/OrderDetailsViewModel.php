@@ -108,6 +108,10 @@
         public function getComplement(){
             return $this->_complement;
         }
+        public function getCreateAtFormatted() {
+            
+            return date("d-m-Y H:i:s", strtotime( $this->_createAt ) );
+        }
     }
 
 ?>

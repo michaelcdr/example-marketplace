@@ -24,7 +24,6 @@
                 $_POST["login"],
                 $_POST["password"]
             );
-           
             
             //validando modelo se valido retornamos um JSON...
             $retornoJson = new JsonError("Não foi possivel cadastrar o usuário");                

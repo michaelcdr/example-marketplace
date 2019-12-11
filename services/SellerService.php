@@ -9,6 +9,7 @@
     use infra\Logger;
     use models\SellerEditViewModel;
     use models\SellerDetailsViewModel;
+    use Exception;
     
     class SellerService 
     {
@@ -68,12 +69,15 @@
                     $userId = $this->_repoUser->add($user);
                     
                     //adicionando dados de vendedor...
-                    $sellerId = $this->_repoSeller->addSimplifiedSeller($userId);
+                    $this->_repoSeller->addSimplifiedSeller($userId);
                     //efetuando login
                     $_SESSION["userId"] = $userId; 
                     $_SESSION["userName"] = stripslashes($request->getName());                     
-                    $_SESSION["role"] = stripslashes($user->getRole());    
-                    $_SESSION["sellerId"] = $sellerId;
+                    $_SESSION["role"] = stripslashes($user->getRole()); 
+                    
+                    $seller = $this->_repoSeller->getByUserId($userId);
+                    
+                    $_SESSION["sellerId"] = $seller->getSellerId();
                     return new RegisterSellerResponse(true, "Você foi registrado com sucesso.");
                 }
                 catch(Exception $e)

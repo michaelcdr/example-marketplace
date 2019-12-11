@@ -46,4 +46,5 @@
         public function getNeighborhood(){ return $this->getAddress()->getNeighborhood();}
         public function getStateId(){ return $this->getAddress()->getStateId();}
         public function getCity(){ return $this->getAddress()->getCity();}
+        public function getComplement(){ return $this->getAddress()->getComplement();}
     }

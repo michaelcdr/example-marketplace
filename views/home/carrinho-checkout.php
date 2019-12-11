@@ -190,7 +190,7 @@
                                                     <label for="">Complemento:</label>
                                                     <textarea type="text" data-required="true" class="form-control" 
                                                             id="complement" name="complement" 
-                                                            aria-describedby="complement" ><?php echo $model->getCity(); ?></textarea>
+                                                            aria-describedby="complement" ><?php echo $model->getComplement(); ?></textarea>
             
                                                     <small id="complementId" class="form-text text-muted">
                                                         Complemento
