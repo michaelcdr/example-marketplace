@@ -12,5 +12,6 @@
         public function addImages($productId, $imagesNames);
         public function update($product);
         public function decreaseStockByOrderItens($orderItens);
+        public function getAllByUserIdSeller($userId);
     }
 ?>

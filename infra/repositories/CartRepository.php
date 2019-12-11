@@ -97,7 +97,6 @@
                     $product["SubTotal"]
                 );
             }
-            //var_dump($products);
             return $products;
         }
      

@@ -205,7 +205,7 @@
             catch(Exception $ex)
             {
                 echo "Ocorreu um erro ao tentar destruir o banco de dados.";
-                var_dump($ex);
+              
             }
         }
 
@@ -325,7 +325,6 @@
                 "CREATE TABLE Sellers (
                     SellerId int NOT NULL PRIMARY KEY AUTO_INCREMENT,
                     Age int,    
-                    CPF varchar(14),
                     Email varchar(100),
                     DateOfBirth datetime,
                     WebSite varchar(255),

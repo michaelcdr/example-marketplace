@@ -51,6 +51,7 @@
     use controllers\SellerCreateController;
     use controllers\SellerCreatePostController;
     use controllers\SellerDeleteController;
+    use controllers\SellerDetailsController;
 
     use controllers\CategoryEditController;
     use controllers\CategoryEditPostController;
@@ -117,11 +118,12 @@
         
         "/admin/vendedor" => [SellerListController::class,"admin"],
         "/admin/vendedor/lista-table" => [SellerPartialListController::class,"admin"],
-        "/admin/vendedor/editar" => [SellerEditController::class, "admin"],
-        "/admin/vendedor/editar-post" => [SellerEditPostController::class, "admin"],
+        "/admin/vendedor/editar" => [SellerEditController::class, "admin,vendedor"],
+        "/admin/vendedor/editar-post" => [SellerEditPostController::class, "admin,vendedor"],
         "/admin/vendedor/cadastrar" => [SellerCreateController::class,"admin"],
         "/admin/vendedor/cadastrar-post" => [SellerCreatePostController::class,"admin"],
         "/admin/vendedor/deletar" => [SellerDeleteController::class,"admin"],
+        "/admin/vendedor/detalhes" => [SellerDetailsController::class,"admin"],
 
         "/admin/endereco/cadastrar" => [AddressCreateController::class,""],
 

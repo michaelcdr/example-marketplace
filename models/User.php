@@ -22,7 +22,10 @@
         private $role;
         private $cpf;
         private $lastName;
-
+        
+        public function setLastName($lastName){ $this->lastName = $lastName; }
+        public function setName($name){ $this->name = $name; }
+        public function setCpf($cpf){ $this->cpf = $cpf; }
         public function getUserId(){
             return $this->userId;
         }

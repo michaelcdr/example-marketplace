@@ -51,6 +51,7 @@
                     where sellerId = :sellerId
                 "
             );
+
             $stmt->bindValue(':sellerId', $seller->getSellerId());
             $stmt->bindValue(':age', $seller->getAge());
             $stmt->bindValue(':cpf', $seller->getCpf());
@@ -61,10 +62,13 @@
             $stmt->bindValue(':cnpj', $seller->getCnpj());
             $stmt->bindValue(':branchOfActivity',  $seller->getBranchOfActivity());
             $stmt->bindValue(':fantasyName', $seller->getFantasyName());
+           
             if (!$stmt->execute())
             {
                 Logger::write("SellerRepository update: " . $stmt->errorInfo());
-            }
+                return false;
+            }            
+            return true;
         }
 
         public function total($search)
@@ -205,7 +209,9 @@
                 "SELECT 
                     s.SellerId as SellerId, u.Name as Name, u.LastName as LastName, s.Company as Company, 
                     s.FantasyName as FantasyName, u.Login as Login, u.userId as userId, s.Email as Email,
-                    s.Website as Website, s.Cnpj as Cnpj, s.BranchOfActivity as BranchOfActivity
+                    s.Website as Website, s.Cnpj as Cnpj, s.BranchOfActivity as BranchOfActivity,
+                    u.Cpf as Cpf, s.age as Age,
+                    s.DateOfBirth as DateOfBirth
                 from Users u
                 inner join Sellers s on u.userid = s.userid
                 where  s.sellerId = :sellerId limit 1 " 
@@ -229,6 +235,48 @@
                 $seller->setWebsite($sellerResult["Website"]);
                 $seller->setCnpj($sellerResult["Cnpj"]);
                 $seller->setBranchOfActivity($sellerResult["BranchOfActivity"]);
+                $seller->setCpf($sellerResult["Cpf"]);
+                $seller->setAge($sellerResult["Age"]);
+                $seller->setDateOfBirth($sellerResult["DateOfBirth"]);
+            }
+            return $seller;
+        }
+
+        public function getByUserId($userId)
+        {
+            $stmt = $this->conn->prepare(
+                "SELECT 
+                    s.SellerId as SellerId, u.Name as Name, u.LastName as LastName, s.Company as Company, 
+                    s.FantasyName as FantasyName, u.Login as Login, u.userId as userId, s.Email as Email,
+                    s.Website as Website, s.Cnpj as Cnpj, s.BranchOfActivity as BranchOfActivity, 
+                    u.Cpf as Cpf, s.age as Age,
+                    s.DateOfBirth as DateOfBirth
+                from Users u
+                inner join Sellers s on u.userid = s.userid
+                where  s.userId = :userId limit 1 " 
+            );
+            $stmt->bindValue(":userId", $userId);
+            $stmt->execute();
+            $sellerResult = $stmt->fetch();
+
+            $seller = null;
+            if (isset($sellerResult)){
+                $seller = new Seller(
+                    $sellerResult["SellerId"],
+                    $sellerResult["Name"],
+                    $sellerResult["LastName"],
+                    $sellerResult["Company"],
+                    $sellerResult["FantasyName"], 
+                    $sellerResult["Login"],
+                    $sellerResult["userId"] 
+                );
+                $seller->setEmail($sellerResult["Email"]);
+                $seller->setWebsite($sellerResult["Website"]);
+                $seller->setCnpj($sellerResult["Cnpj"]);
+                $seller->setBranchOfActivity($sellerResult["BranchOfActivity"]);
+                $seller->setCpf($sellerResult["Cpf"]);
+                $seller->setAge($sellerResult["Age"]);
+                $seller->setDateOfBirth($sellerResult["DateOfBirth"]);
             }
             return $seller;
         }

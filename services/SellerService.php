@@ -8,13 +8,15 @@
     use models\JsonSuccess;
     use infra\Logger;
     use models\SellerEditViewModel;
-
+    use models\SellerDetailsViewModel;
+    
     class SellerService 
     {
         private $_repoUser;
         private $_repoSeller;
         private $_repoState;
         private $_repoAddress;
+        private $_repoProducts;
 
         public function __construct($factory)
         {
@@ -22,6 +24,24 @@
             $this->_repoSeller = $factory->getSellerRepository();
             $this->_repoState = $factory->getStateRepository();
             $this->_repoAddress = $factory->getAddressRepository();
+            $this->_repoProducts = $factory->getProductRepository();
+        }
+
+        public function getDetailsViewModel()
+        {
+            if (!isset($_GET["id"]))
+                return null;
+            else
+            {
+                $seller = $this->_repoSeller->getById(intval($_GET["id"]));
+                if (is_null($seller))
+                    return null;
+                else
+                {
+                    $products = $this->_repoProducts->getAllByUserIdSeller($seller->getUserId());
+                    return new SellerDetailsViewModel($seller,$products);
+                }
+            }
         }
 
         public function register($request)
@@ -46,14 +66,14 @@
                         ""
                     );
                     $userId = $this->_repoUser->add($user);
-                    echo($userId);
+                    
                     //adicionando dados de vendedor...
-                    $this->_repoSeller->addSimplifiedSeller($userId);
+                    $sellerId = $this->_repoSeller->addSimplifiedSeller($userId);
                     //efetuando login
                     $_SESSION["userId"] = $userId; 
                     $_SESSION["userName"] = stripslashes($request->getName());                     
                     $_SESSION["role"] = stripslashes($user->getRole());    
-
+                    $_SESSION["sellerId"] = $sellerId;
                     return new RegisterSellerResponse(true, "Você foi registrado com sucesso.");
                 }
                 catch(Exception $e)
@@ -88,7 +108,6 @@
             if ($seller->isValid() && $user->isValid())
             {
                 //cadastrando usuario...
-                //var_dump($user);
                 if ($this->_repoUser->getByLogin($user->getLogin()) != null)
                     return new JsonError("Login indisponível.");
 
@@ -115,39 +134,91 @@
             );
         }
 
-        public function getEditViewModel(){
+        public function getEditViewModel()
+        {
             $sellerId = intval($_GET["id"]);
             $seller = $this->_repoSeller->getById($sellerId);
             $address = $this->_repoAddress->getFirstByUserId($seller->getUserId());
+            $user = $this->_repoUser->getById($seller->getUserId());
+            
             return new SellerEditViewModel(
                 $seller,
                 $this->_repoState->getAll(),
-                $address
+                $address,
+                $user
             );
         }
 
-        public function update(){
-            $sellerId = intval($_GET["id"]);
-            $seller = $this->_repoSeller->getById($sellerId);
-            
+        public function update()
+        {
+            //obtendo dados da requisição e preparando a model
+            $seller = $this->_repoSeller->getById(intval($_POST["sellerId"]));
             if (is_null($seller)){
                 Logger::write("Não encontrou vendedor ao tentar editar");
+                return new JsonError("Não encontrou vendedor ao tentar editar");
             } else {
                 $seller->setWebsite($_POST["website"]);
                 $seller->setEmail($_POST["email"]);
-                if (!isset($_POST["cnpj"]) || is_null($_POST["cnpj"])){
-                    //pessoa fisica
-                    $seller->setCpf($_POST["cpf"]);
-                    $seller->setAge($_POST["age"]);
-                    $seller->setDateOfBirth($_POST["dataNascimento"]);
-                } else {
-                    //pessoa juridica
+                if (isset($_POST["cnpj"]) && !is_null($_POST["cnpj"])){
+                    Logger::write("atualizando pessoa juridica");
                     $seller->setCompany($_POST["company"]);
                     $seller->setCnpj($_POST["cnpj"]);
-                    $seller->setFantasy($_POST["fantasyName"]);
                     $seller->setBranchOfActivity($_POST["branchOfActivity"]);
+                    $seller->setAge(null);
+                    $seller->setFantasyName($_POST["fantasyName"]);
+                    $seller->setDateOfBirth(null);
+                } else{
+                    Logger::write("atualizando pessoa física");
+                    $seller->setAge($_POST["age"]);
+                    $seller->setDateOfBirth($_POST["dateOfBirth"]);
+                    
+                    $seller->setFantasyName(null);
+                    $seller->setCompany(null);
+                    $seller->setCnpj(null);
+                    $seller->setBranchOfActivity(null);
                 }
-                $this->_repoSeller->update($seller);
+                $updateOK =  $this->_repoSeller->update($seller);
+                if ($updateOK){
+                    //montando model de endereço...
+                    $address = $this->_repoAddress->getFirstByUserId($seller->getUserId());
+                    if(!is_null($address)){
+                        Logger::write("atualizando endereço do vendedor");
+                        $address->setStreet($_POST["street"]);
+                        $address->setCep($_POST["cep"]);
+                        $address->setNeighborhood($_POST["neighborhood"]);
+                        $address->setCity($_POST["city"]);
+                        $address->setStateId($_POST["stateId"]);
+                        $address->setComplement($_POST["complement"]);
+                        $this->_repoAddress->update($address);
+                    } else{
+                        Logger::write("adicionando endereço do vendedor");
+                        $address = new Address(
+                            null,
+                            $seller->getUserId(),
+                            $_POST["street"],
+                            $_POST["cep"],
+                            $_POST["neighborhood"],
+                            $_POST["city"],
+                            $_POST["stateId"],
+                            $_POST["complement"]
+                        );
+                        $retornoAddress = $this->_repoAddress->add($address);
+                    }
+
+                    //atualizando dados de usuário...
+                    $user = $this->_repoUser->getById($seller->getUserId());
+                    $user->setName($_POST["name"]);
+                    $user->setLastName($_POST["lastName"]);
+                    $user->setCpf($_POST["cpf"]);
+                    $this->_repoUser->altera($user);
+                }
+                $retorno = new JsonSuccess("Vendedor atualizado com sucesso.");
+                if ($_SESSION["role"] == "vendedor")
+                    $retorno->urlDestino = "/admin/produto";
+                else
+                    $retorno->urlDestino = "/admin/vendedor";
+
+                return $retorno;
             }
         }
     }

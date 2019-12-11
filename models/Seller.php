@@ -70,7 +70,7 @@
         public function getWebsite(){ return $this->_webSite; }
         public function getCompany(){ return $this->_company; }
         public function getBranchOfActivity(){ return $this->_branchOfActivity; }
-        public function getCnpj(){ return $this->_userId; }
+        public function getCnpj(){ return $this->_cnpj; }
         public function getEmail(){ return $this->_email; }
 
         public function setCpf($cpf){ $this->_cpf = $cpf;}
@@ -82,6 +82,7 @@
         public function setBranchOfActivity($branchOfActivity){ $this->_branchOfActivity = $branchOfActivity;}
         public function setCnpj($cnpj){ $this->_cnpj = $cnpj;}
         public function setUserId($userId){ $this->_userId = $userId;}
+        public function setFantasyName($fantasyName){ $this->_fantasyName = $fantasyName;}
 
 
         public function isValid() : bool

@@ -106,10 +106,9 @@ class SellerEdit
 
                         }).then((result) => {
                             if (result.value) 
-                                document.location = "/admin/vendedor";
+                                document.location = data.urlDestino;
                         });
                     } else {
-                        console.log(data)
                         alertError({ title : data.msg });
                     }
                 }).fail(() => {

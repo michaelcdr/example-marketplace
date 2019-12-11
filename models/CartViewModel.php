@@ -154,7 +154,6 @@
                 {
                     $itens = $this->getProducts();
                     array_splice($itens, $posicao, 1);
-                    //var_dump($itens);
                     $this->products = $itens;
                 }
             }

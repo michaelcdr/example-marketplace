@@ -21,7 +21,6 @@
         {
             $paginatedResults = $this->_sellerService->getAllPaginated();
             $sellers = $paginatedResults->results;
-            //var_dump(count($sellers));
             require "views/admin/sellers/lista-table.php";
         }
     }

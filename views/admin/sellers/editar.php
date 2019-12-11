@@ -9,7 +9,7 @@
                     <a href="/admin/vendedor">Vendedores</a>
                 </li>
                 <li>
-                    <a href="/admin/vendedor/cadastrar">Cadastrar</a>
+                    <a href="/admin/vendedor/editar?id=<?php echo $model->getSellerId(); ?>">Editar</a>
                 </li>
             </ul>
         </div>
@@ -74,21 +74,34 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="cpf">CPF:</label>
-                                        <input type="text" name="cpf" id="cpf" class="form-control" data-required="true"  placeholder="" aria-describedby="help-cpf" maxlength="14">
+                                        <input type="text" name="cpf" id="cpf" class="form-control" data-required="true" 
+                                            value="<?php echo $model->getCpf(); ?>" 
+                                             placeholder="" aria-describedby="help-cpf" maxlength="14">
                                         <small id="help-cpf" class="text-muted">Seu cpf</small>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="age">Idade:</label>
-                                        <input type="number" name="age" id="age" class="form-control" data-required="true"  placeholder="" aria-describedby="help-age">
+                                        <input type="number" name="age" id="age" class="form-control" data-required="true" 
+                                        value="<?php echo $model->getAge(); ?>" 
+                                         placeholder="" aria-describedby="help-age">
                                         <small id="help-age" class="text-muted">Sua idade</small>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
+
+                                        <?php  
+                                            $dateStr = null;
+                                            if (!is_null($model->getDateOfBirth()))
+                                            {
+                                                $dateStr = str_replace(" 00:00:00","", $model->getDateOfBirth());  
+                                            }
+                                        ?>
                                         <label for="dataNascimento">Data de nascimento:</label>
-                                        <input type="date" name="dataNascimento" id="dataNascimento" class="form-control" data-required="true"  placeholder="" aria-describedby="help-dataNascimento">
+                                        <input type="date" name="dataNascimento" id="dataNascimento" class="form-control" 
+                                        value="<?php echo $dateStr;  ?>" data-required="true"  placeholder="" aria-describedby="help-dataNascimento">
                                         <small id="help-dataNascimento" class="text-muted">Sua data de nascimento</small>
                                     </div>
                                 </div>

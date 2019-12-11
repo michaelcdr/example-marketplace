@@ -19,6 +19,7 @@
                 $_SESSION["userId"] = null;
                 $_SESSION["role"] = null;
                 $_SESSION["userName"] = null;
+                $_SESSION["sellerId"] = null;
                 header("location: /");
                 exit;
             } 

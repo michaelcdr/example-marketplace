@@ -1,0 +1,68 @@
+atualizando pessoa juridica
+rows afetadas1
+atualizando pessoa juridica
+rows afetadas0
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa juridica
+atualizando endereço do vendedor
+atualizando pessoa física
+atualizando endereço do vendedor
+atualizando pessoa física
+atualizando endereço do vendedor
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+atualizando endereço do vendedor
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+atualizando endereço do vendedor
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+atualizando endereço do vendedor
+atualizando pessoa física
+atualizando endereço do vendedor
+atualizando pessoa física
+SellerRepository update: Array
+atualizando pessoa física
+atualizando endereço do vendedor
+atualizando pessoa física
+atualizando endereço do vendedor

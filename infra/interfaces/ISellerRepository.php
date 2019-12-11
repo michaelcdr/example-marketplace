@@ -10,6 +10,7 @@
         public function getAll($page, $search, $pageSize);
         public function total($search);
         public function remove($sellerId);
+        public function getByUserId($userId);
         public function getById($sellerId);
     }
 

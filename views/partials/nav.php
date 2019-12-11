@@ -37,12 +37,12 @@
                                         <i class="fa fa-cart-plus"></i>  
                                         <span class="badge badge-light">
                                         <?php 
-                                                if (isset($_SESSION["cart"])){
-                                                    echo $_SESSION["cart"]->getTotalProdutos();
-                                                } else {
-                                                    echo "0";
-                                                } 
-                                            ?>
+                                            if (isset($_SESSION["cart"])){
+                                                echo $_SESSION["cart"]->getTotalProdutos();
+                                            } else {
+                                                echo "0";
+                                            } 
+                                        ?>
                                         </span>
                                     </a>
                                 </div>
@@ -52,8 +52,15 @@
                     <div class="col-md-2">
                         <span class="login-nav text-light">
                             <?php  if (isset($_SESSION["userId"])): ?>
+                                <?php  
+                                    if ($_SESSION["role"] == "vendedor"){ 
+                                        $urlPerfil = "/admin/vendedor/editar?id=" . $_SESSION["sellerId"]; 
+                                    } else{
+                                        $urlPerfil = "/admin/usuario/editar?id=" . $_SESSION["userId"]; 
+                                    } 
+                                ?>
                                 <i class="fa fa-user"></i> Olá, 
-                                <a href="/admin/usuario/editar?id=<?php echo $_SESSION["userId"]?>" class="a-primary" >
+                                <a href="<?php echo $urlPerfil; ?>" class="a-primary" >
                                     <?php echo $_SESSION["userName"] ?>
                                 </a> clique em 
                                 <a href="/logout" class="a-primary" title="Sair no sistema" 

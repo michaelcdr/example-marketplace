@@ -30,3 +30,7 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
+
+.custom-labels label{
+    font-weight: bold;
+}

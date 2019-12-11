@@ -65,4 +65,11 @@
         {
             $this->_userId = $userId;
         }
+
+        public function setStreet($street){ $this->_street = $street; }
+        public function setCep($cep){ $this->_cep = $cep; }
+        public function setNeighborhood($neighborhood){ $this->_neighborhood = $neighborhood; }
+        public function setCity($city){ $this->_city = $city; }
+        public function setStateId($stateId){ $this->_stateId = $stateId; }
+        public function setComplement($complement){ $this->_complement = $complement; }
     }

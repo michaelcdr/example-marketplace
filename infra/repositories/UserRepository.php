@@ -85,6 +85,7 @@
             $stmt->bindValue(':UserId', $id);
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $usuario = null;
             if ($row) 
                 $usuario = new User(
                     $row['UserId'], 
