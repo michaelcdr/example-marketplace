@@ -14,7 +14,7 @@
         
         public function proccessRequest() : void
         {
-            $paginatedResults  =  $this->_productService->getAllPaginated();
+            $paginatedResults  =  $this->_productService->getAllForSearchPaginated();
             $products = $paginatedResults ->results;
             
             require "views/home/pesquisa.php";

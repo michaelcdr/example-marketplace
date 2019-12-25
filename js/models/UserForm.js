@@ -58,7 +58,6 @@ class UserForm
         return addressesArray;
     }
 
-
     initEventRemoveAddress(){
         $('.btn-remover').unbind('click');
         $('.btn-remover').click(function(){

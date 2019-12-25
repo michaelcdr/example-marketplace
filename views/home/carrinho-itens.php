@@ -73,7 +73,7 @@
                 <div class="col-lg-6">
                     Total
                 </div>
-                <div class="col-lg-6 text-right">
+                <div class="col-lg-6 text-right" id="cart-total">
                     <?php echo $cartViewModel->getTotalFormatted(); ?>
                 </div>
             </div>

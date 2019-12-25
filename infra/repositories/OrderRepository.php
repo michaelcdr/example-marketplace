@@ -176,13 +176,14 @@
             return $usuario;
         }
 
-        public function total($search)
+        public function total($search,$userId)
         {
             if (is_null($search) ||  $search === "")
             {
                 $stmt = $this->conn->prepare(
-                    "SELECT count(OrderId) as total FROM Orders "
+                    "SELECT count(OrderId) as total FROM Orders where userId = :userId "
                 );
+                $stmt->bindValue(':userId', intval($userId), PDO::PARAM_INT);
                 $stmt->execute();
                 $total = $stmt->fetch();
                 return intval($total["total"]);
@@ -192,12 +193,14 @@
                 $stmt = $this->conn->prepare( 
                     "SELECT count(OrderId) as total FROM Orders 
                      WHERE 
+                        userId = :userId and (
                         CardOwnerName like :search or 
                         Name like :search or 
                         Address like :search or 
-                        Complement like :search 
+                        Complement like :search )
                         "
                 );
+                $stmt->bindValue(':userId', intval($userId), PDO::PARAM_INT);
                 $stmt->bindValue(":search", '%' . $search . '%');
                 $total = $stmt->fetch();
                 return intval($total["total"]);
@@ -217,7 +220,7 @@
             if (!is_null($page) && $page > 0)
                 $skipNumber = $pageSize * ($page - 1);
             
-            $total = $this->total($search);
+            $total = $this->total($search,$userId);
             //echo "page: " . $page . "<br/> skipNumber: " . $skipNumber . "<br/>";
 
             //obtendo lista de usuarios...

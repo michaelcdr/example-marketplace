@@ -46,7 +46,7 @@
             return intval($total["total"]);
         }
 
-        public function getAll($page, $search, $userId, $pageSize)
+        public function getAll($page, $search, $userId, $pageSize,$site)
         {
             if (!isset($pageSize))
                 $pageSize = 5;
@@ -125,7 +125,10 @@
             $hasNextPage = false;
             if ($numberOfPages > intval($page))
                 $hasNextPage = true;
-            
+            if (!isset($site)){
+                $site =false;
+            }
+
             return new PaginatedResults(
                 $produtosResult, 
                 $total, 
@@ -134,7 +137,7 @@
                 $hasNextPage,
                 $page,
                 $numberOfPages,
-                "/admin/produto?p="
+                $site ? "/pesquisa?p=" : "/admin/produto?p="
             );
         }
 

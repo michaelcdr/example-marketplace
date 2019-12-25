@@ -3,7 +3,8 @@
     use models\JsonSuccess;
     use models\JsonError;
     use services\CartService;
-    
+    use Exception;
+
     class CartAtualizarQtdProdutoController implements IBaseController
     {
         private $_cartService;
@@ -30,6 +31,7 @@
                 $retorno->stock = $response->getStock();
                 $retorno->finalValue = $response->getFinalValue();
                 $retorno->subTotal = $response->getSubTotal();
+                $retorno->total = $_SESSION["cart"]->getTotalFormatted(); // gambiarra alert
             }  
             catch (Exception $e) 
             {

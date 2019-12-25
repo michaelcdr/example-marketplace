@@ -30,7 +30,7 @@
                     </h4>
                     <ul class="list-group mb-3">
                         <?php foreach($order->getProducts() as $product):?>
-                        <li class="list-group-item d-flex justify-content-between">
+                        <li class="list-group-item ">
                             <div class="row">
                                 <div class="col-md-8">
                                     <h6 class="my-0"><small><?php echo $product->getTitle(); ?></small></h6>
@@ -43,9 +43,13 @@
                             </div>
                         </li>
                         <?php endforeach; ?>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Total (R$)</span>
-                            <strong><?php echo $order->getTotalFormatted(); ?></strong>
+                        <li class="list-group-item ">
+                            <div class="row">
+                                <div class="col-md-8">Total (R$)</div>
+                                <div class="col-md-4 text-right">
+                                <strong><?php echo $order->getTotalFormatted(); ?></strong>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>

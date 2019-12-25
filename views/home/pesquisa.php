@@ -34,7 +34,7 @@
             <?php else:  ?>
             <div class="col-lg-12 col-md-12">
                 <section id="produtos-pesquisa-ct">
-                    <p>Sua busca retornou <strong><?php echo count($products); ?></strong> produtos.</p>
+                    <p>Sua busca retornou <strong><?php echo $paginatedResults->qtdTotal; ?></strong> produtos.</p>
                     <?php require_once './views/produto/card-list.php' ?>
                 </section>
                 

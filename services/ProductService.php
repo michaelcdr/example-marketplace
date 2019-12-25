@@ -42,6 +42,23 @@
 
         }
 
+        public function getAllForSearchPaginated()
+        {
+            $pagina = 1;
+            if (isset($_GET["p"]))
+                $pagina = intval($_GET["p"]);
+            
+            $search = null;
+            if (isset($_GET["s"]))
+                $search = $_GET["s"];
+
+            $userId = null;
+   
+                
+            $paginatedResults = $this->_repoProduct->getAll($pagina, $search, null,5,true);
+            $paginatedResults->results = $this->stmtToProduct($paginatedResults->results);
+            return $paginatedResults;
+        }
         public function getAllPaginated()
         {
             $pagina = 1;
@@ -57,7 +74,7 @@
             if ($_SESSION["role"] === "vendedor")
                 $userId = $_SESSION["userId"];   
                 
-            $paginatedResults = $this->_repoProduct->getAll($pagina, $search, $userId,5);
+            $paginatedResults = $this->_repoProduct->getAll($pagina, $search, $userId,5,false);
             $paginatedResults->results = $this->stmtToProduct($paginatedResults->results);
             return $paginatedResults;
         }

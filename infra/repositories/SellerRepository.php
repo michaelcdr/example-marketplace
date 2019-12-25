@@ -15,13 +15,15 @@
         {
             $stmt = $this->conn->prepare(
                 "INSERT INTO Sellers 
-                    (UserId,Age,CPF,Email,DateOfBirth,WebSite,Company,CNPJ,BranchOfActivity,FantasyName) 
+                    (UserId,Age,Email,DateOfBirth,WebSite,Company,CNPJ,BranchOfActivity,FantasyName) 
                 values 
-                    (:UserId,:Age,:CPF,:Email,:DateOfBirth,:WebSite,:Company,:CNPJ,:BranchOfActivity,:FantasyName)"
+                    (:UserId,:Age,:Email,:DateOfBirth,:WebSite,:Company,:CNPJ,:BranchOfActivity,:FantasyName)"
             );
+            // var_dump($seller->getUserId());
+            // var_dump($seller->getAge());
+            // var_dump($seller->getCpf());
             $stmt->bindValue(':UserId', $seller->getUserId());
             $stmt->bindValue(':Age', $seller->getAge());
-            $stmt->bindValue(':CPF', $seller->getCpf());
             $stmt->bindValue(':Email',$seller->getEmail());
             $stmt->bindValue(':DateOfBirth',$seller->getDateOfBirth());
             $stmt->bindValue(':WebSite', $seller->getWebSite());
@@ -31,6 +33,7 @@
             $stmt->bindValue(':FantasyName', $seller->getFantasyName());
             if (!$stmt->execute())
             {
+                Logger::write("errosql");
                 Logger::write("SellerRepository: " . $stmt->errorInfo());
             }
         }
@@ -79,6 +82,8 @@
                     "SELECT count(SellerId) as total FROM Sellers "
                 );
 
+                
+                $stmt->execute();
                 $total = $stmt->fetch();
                 return intval($total["total"]);
             }
@@ -100,6 +105,7 @@
                         )" 
                 );
                 $stmt->bindValue(":search", '%' . $search . '%');
+                $stmt->execute();
                 $total = $stmt->fetch();
                 return intval($total["total"]);
             }  
@@ -108,17 +114,18 @@
         public function getAll($page, $search, $pageSize)
         {
             //configurando variaveis para paginação
-            if (!isset($page))
-                $page = 0;
+            // if (!isset($page))
+            //     $page = 0;
             
-            if (!isset($pageSize))
-                $pageSize = 5;  
+            // if (!isset($pageSize))
+            //     $pageSize = 5;  
             
             $skipNumber = 0;
             if (!is_null($page) && $page > 0)
                 $skipNumber = $pageSize * ($page - 1);
             
             $total = $this->total($search);
+            
             //echo "page: " . $page . "<br/> skipNumber: " . $skipNumber . "<br/>";
 
             //obtendo lista de usuarios...

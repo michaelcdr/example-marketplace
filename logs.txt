@@ -1,68 +1,21 @@
-atualizando pessoa juridica
-rows afetadas1
-atualizando pessoa juridica
-rows afetadas0
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa juridica
-atualizando endereço do vendedor
-atualizando pessoa física
-atualizando endereço do vendedor
-atualizando pessoa física
-atualizando endereço do vendedor
+21 - 13
+22 - 14
+errosql
+SellerRepository: Array
+23 - 15
+errosql
+SellerRepository: Array
+24 - 16
+errosql
+SellerRepository: Array
+25 - 17
+errosql
+SellerRepository: Array
+26 - 18
 atualizando pessoa física
 SellerRepository update: Array
 atualizando pessoa física
 SellerRepository update: Array
 atualizando pessoa física
 SellerRepository update: Array
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-atualizando endereço do vendedor
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-atualizando endereço do vendedor
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-atualizando endereço do vendedor
-atualizando pessoa física
-atualizando endereço do vendedor
-atualizando pessoa física
-SellerRepository update: Array
-atualizando pessoa física
-atualizando endereço do vendedor
-atualizando pessoa física
-atualizando endereço do vendedor
+28 - 22

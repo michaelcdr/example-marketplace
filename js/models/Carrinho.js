@@ -79,32 +79,49 @@ class Carrinho
     updateQtd(productId, qtd, el)
     {
         let _self = this;
-        let request = { productId :productId, qtd:qtd };
-        el.prop('disabled', true);
-        $.post(_self._routeUpdateQtd, request, function(data){
-            if (!data.success)
-            {
-                //deixando a quantida maxima suportada...
-                alertError({
-                    text:data.msg,
-                    toast: true,
-                    position: 'top-start',
-                    showConfirmButton: false,                 
-                    timer: 6000
-                });
-                el.val(data.currentQtd);
-            } 
-            else 
-            {
-                $('#cart-sub-total').html(data.subTotal);
-                $(`.product-price[data-product-id="${productId}"]`).html(`${data.finalValue}`);
-                _self.updateQtdNavOnlyDOM();
-                alertSuccess({ text:data.msg });
-            }
-            el.prop('disabled', false);
-        }).fail(function(){
-            alertServerError();
-        });
+        if(qtd == 0){
+            let params = { productId :productId };
+            $.post(_self._routeDelete, params, function(data){
+                
+                if (data.success){
+                    _self.toList().then(() => {
+                        _self.updateQtdNavOnlyDOM();
+                        alertSuccess({ text:data.msg });
+                    });
+                } else {
+                    alertError({ text: data.text , msg: data.msg });
+                }
+            });
+        } else{
+            
+            let request = { productId :productId, qtd:qtd };
+            el.prop('disabled', true);
+            $.post(_self._routeUpdateQtd, request, function(data){
+                if (!data.success)
+                {
+                    //deixando a quantida maxima suportada...
+                    alertError({
+                        text:data.msg,
+                        toast: true,
+                        position: 'top-start',
+                        showConfirmButton: false,                 
+                        timer: 6000
+                    });
+                    el.val(data.currentQtd);
+                } 
+                else 
+                {
+                    $('#cart-sub-total').html(data.subTotal);
+                    $('#cart-total').html(data.total);
+                    $(`.product-price[data-product-id="${productId}"]`).html(`${data.finalValue}`);
+                    _self.updateQtdNavOnlyDOM();
+                    alertSuccess({ text:data.msg });
+                }
+                el.prop('disabled', false);
+            }).fail(function(){
+                alertServerError();
+            });
+        }
     }
 }
 

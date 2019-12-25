@@ -91,9 +91,9 @@
                     <li class="">
                         <a class="" href="/carrinho">Carrinho</a>
                     </li>
-                    <li class="">
+                    <!-- <li class="">
                         <a class="" href="/Produtos">Produtos</a>
-                    </li>
+                    </li> -->
 
                     <?php if (is_null($_SESSION["role"])): ?>
                     <li class="">

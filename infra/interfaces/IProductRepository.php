@@ -5,7 +5,7 @@
     {
         // public function add($user);
         // public function remove($user);
-        public function getAll($page, $search, $userId, $pageSize);
+        public function getAll($page, $search, $userId, $pageSize,$site);
         public function totalOfProducts($search, $userId);
         public function add($product);
         public function getCurrentStock($productId);

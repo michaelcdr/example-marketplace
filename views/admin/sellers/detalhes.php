@@ -52,7 +52,7 @@
                                                 <p class="card-text text-center">
                                                     <?php echo $product->getTitle(); ?>
                                                 </p>
-                                                <a href="/admin/product/editar?id=<?php echo $product->getId(); ?>" 
+                                                <a href="/admin/produto/editar?id=<?php echo $product->getId(); ?>" 
                                                     class="btn btn-dark btn-block">
                                                     Editar
                                                 </a>

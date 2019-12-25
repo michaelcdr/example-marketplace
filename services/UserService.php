@@ -38,7 +38,7 @@
                         $request->getName(),
                         'comum',
                         '',
-                        ''
+                        $request->getLastName()
                     );
                     
                     $userId = $this->_repoUser->add($user);

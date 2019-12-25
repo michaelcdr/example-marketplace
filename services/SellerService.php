@@ -64,7 +64,7 @@
                         $request->getName(),
                         'vendedor',
                         "",
-                        ""
+                        $request->getLastName()
                     );
                     $userId = $this->_repoUser->add($user);
                     
@@ -95,8 +95,8 @@
                 $page = intval($_GET["p"]);
 
             $search = null;
-            if (isset($_POST["s"]))
-                $search = $_POST["s"];
+            if (isset($_GET["s"]))
+                $search = $_GET["s"];
 
             $paginatedResults = $this->_repoSeller->getAll($page, $search, 5);
             
@@ -123,6 +123,7 @@
                     $address->setUserId($userId);
                     $addressId = $this->_repoAddress->add($address);
                     $seller->setUserId($userId);
+                    Logger::write($userId . " - " . $addressId);
                     $this->_repoSeller->add($seller);
                     
                     $retorno = new JsonSuccess("Vendedor cadastrado com sucesso.");
