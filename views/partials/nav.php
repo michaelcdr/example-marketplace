@@ -95,7 +95,7 @@
                         <a class="" href="/Produtos">Produtos</a>
                     </li> -->
 
-                    <?php if (is_null($_SESSION["role"])): ?>
+                    <?php if (isset($_SESSION["role"]) && $_SESSION["role"] == "vendedor"): ?>
                     <li class="">
                         <a class="" href="/vender">Vender</a>
                     </li>
