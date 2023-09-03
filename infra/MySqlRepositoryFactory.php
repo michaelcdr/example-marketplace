@@ -1,7 +1,5 @@
 <?php 
-    
     namespace infra;
-    use infra\repositories;
     use infra\repositories\ProductOnOfferRepository;
     use infra\repositories\ProductRepository;
     use infra\repositories\CarouselRepository;
@@ -10,40 +8,38 @@
     use infra\repositories\CartRepository;
     use infra\repositories\CategoryRepository;
     use infra\repositories\SubCategoryRepository;
-    use infra\repositories\SellerRepository;
-    
+    use infra\repositories\SellerRepository;    
     use infra\repositories\StateRepository;
     use infra\repositories\OrderRepository;
     use infra\repositories\AddressRepository;
     use infra\RepositoryFactory;
 
     use PDO;
+    use PDOException;
 
     class MySqlRepositoryFactory extends RepositoryFactory 
     {
         private $host = "localhost";
-        private $db_name = "examplemarketplace";
+        private $db_name = "marketplace";
         private $port = "3306";
-        // private $username = "root";
-        // private $password = null;
         private $username = "michael";
-        private $password = "Teste@123";
+        private $password = "giacom";
+
         public $conn;
-    
-        //obtendo conexão
+        
         public function getConnection()
         {
             $this->conn = null;
+
             try
             {
                 $this->conn = new PDO(
                     "mysql:host=" . $this->host . 
                     ";port=" . $this->port . 
-                    ";dbname=" . $this->db_name, 
-                    $this->username, 
+                    ";dbname=" . $this->db_name,
+                    $this->username,
                     $this->password
                 );
-                //echo 'conexao feita com pdo';
             }
             catch (PDOException $exception)
             {
@@ -53,30 +49,28 @@
             return $this->conn;
         }
         
-        public function getOrderRepository() 
+        public function getOrderRepository()
         {
             return new OrderRepository($this->getConnection());
         }
 
-        public function getStateRepository() 
+        public function getStateRepository()
         {
             return new StateRepository($this->getConnection());
         }
 
-        public function getUserRepository() 
+        public function getUserRepository()
         {
             return new UserRepository($this->getConnection());
         }
 
-        public function getProductOnOfferRepository() 
+        public function getProductOnOfferRepository()
         {
-            //echo "chegou em getProductOnOfferRepository<br/>";
             return new ProductOnOfferRepository($this->getConnection());
         }
 
-        public function getProductRepository() 
+        public function getProductRepository()
         {
-            
             return new ProductRepository($this->getConnection());
         }
 
@@ -89,13 +83,14 @@
         {
             return new CategoryRepository($this->getConnection());
         }
+
         public function getSubCategoryRepository()
         {
             return new SubCategoryRepository($this->getConnection());
         }
+
         public function getSeedRepository()
         {
-            
             return new SeedRepository($this->getConnection());
         }
         
@@ -108,10 +103,10 @@
         {
             return new SellerRepository($this->getConnection());
         }
+
         public function getAddressRepository()
         {
             return new AddressRepository($this->getConnection());
         }
     }
-
 ?>

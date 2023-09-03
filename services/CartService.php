@@ -243,6 +243,4 @@
                 return new CheckoutResult(false,null);
             }
         }
-
-       
     }

@@ -27,7 +27,8 @@
 
     //fazendo um "de para" de rota para o Controller alvo...
     $controllerAlvo = $rotas[$caminho][0];
+
+    // echo "index > processar request<br/>";
     $controlador = new $controllerAlvo($factory);
     $controlador->proccessRequest();
-
 ?>

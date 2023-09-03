@@ -1,7 +1,6 @@
 <?php
     namespace services;
-
-
+    
     class AuthService 
     {
         public static function isAuthorized($item) : bool

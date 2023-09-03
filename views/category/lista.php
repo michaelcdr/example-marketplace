@@ -1,5 +1,5 @@
- 
-<section id="linhas" class="fade ">
+<?php if ( count($categories) > 0):?> 
+<section id="linhas" class="fade">
     <h3 class="text-center mt-2">Navegue pelas nossas linhas de produtos</h3>
     <div class="row">
         <div class="col-lg-12">
@@ -17,3 +17,4 @@
         </div>
     </div>
 </section>
+<?php endif ?> 

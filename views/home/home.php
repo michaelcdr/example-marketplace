@@ -9,6 +9,7 @@
     <div class="container">
         <!-- categorias -->
         <?php require_once './views/category/lista.php' ?>
+
         <!-- ofertas -->
         <section id="ofertas-container">
             <h3 class="text-center">Ofertas em destaque</h3>
@@ -37,11 +38,7 @@
                 <?php endforeach?>
             </div>
         </section>
-
-        
     </div>
 </main>
 
 <?php require_once './views/partials/footer.php' ?>
-        
-
